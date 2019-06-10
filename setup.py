@@ -13,4 +13,8 @@ setup(name='lookml-tools',
       long_description_content_type='text/markdown',
       license='Apache 2.0',
       packages=['lkmltools'],
-      zip_safe=False)
+      zip_safe=False,
+      project_urls={
+        'Documentation': 'https://ww-tech.github.io/lookml-tools/',
+        'Source': 'https://github.com/ww-tech/lookml-tools',
+    })
