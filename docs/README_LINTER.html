@@ -1,0 +1,349 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>LookML Linter &mdash; lookml-tools 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="LookML Grapher" href="README_GRAPHER.html" />
+    <link rel="prev" title="LookML Tools" href="README.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> lookml-tools
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="README.html">LookML Tools</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">LookML Linter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-it-works">How it works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running">Running</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-rules">The Rules</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="README_GRAPHER.html">LookML Grapher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README_UPDATER.html">LookML Updater</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README_DEVELOPER.html">Developer Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/linter/README.html">Linter Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/grapher/README.html">Grapher Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/updater/README.html">Updater Example</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">lookml-tools</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>LookML Linter</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/README_LINTER.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="lookml-linter">
+<h1>LookML Linter<a class="headerlink" href="#lookml-linter" title="Permalink to this headline">¶</a></h1>
+<p>As part of this tool suite, we include a LookML linter–a linter is a tool that checks that code conforms to some specified rules, such as formatting or naming conventions. While there are at least two other open source linters <a class="reference external" href="#">https://github.com/WarbyParker/lookmlint</a> and <a class="reference external" href="#">https://looker-open-source.github.io/look-at-me-sideways/rules.html</a>, they don’t include our particular list of coding standards so either we would have to code our checks into their framework or code our own. As it only amounts to 200 lines of code, and we can reuse code from the LookML updater, we went with the latter option.</p>
+<div class="section" id="how-it-works">
+<h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">config/linter/config_linter.json</span></code> specifies which set of files to apply the linter to, by specifying a file glob. For instance,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="s2">&quot;infile_globs&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;/Users/carl.anderson/code/core-analytics-looker/*.view.lkml&quot;</span>
+    <span class="p">],</span>
+</pre></div>
+</div>
+<p>specifies it to run on all view files in Carl’s <code class="docutils literal notranslate"><span class="pre">core-analytics-looker</span></code> folder.</p>
+<p>The config file also specifies a set of rules to be run. For instance, this</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;file_level_rules&quot;</span> <span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;DataSourceRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;OneViewPerFileRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;FilenameViewnameMatchRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;field_level_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;DescriptionRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;DrillDownRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;YesNoNameRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;CountNameRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;AllCapsRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">}</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;LexiconRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+</pre></div>
+</div>
+<p>specifies to run eight different rules. The rules are in two groups:</p>
+<ul class="simple">
+<li><p>file-level rules: a rule that is applied to the file once, e.g. does the file contain just one view</p></li>
+<li><p>field-level rules: a rule that is applied to each and every <code class="docutils literal notranslate"><span class="pre">dimension</span></code>, <code class="docutils literal notranslate"><span class="pre">dimension_group</span></code>, and <code class="docutils literal notranslate"><span class="pre">measure</span></code>. For instance, is the name of each field in ALL CAPS? If a rule is not relevant, e.g. a measure only rule is applied to a dimension, the rule is skipped and no output is added to the output files (see below).</p></li>
+</ul>
+<p>The tool makes use of Fabio’s LookML parser (https://github.com/fabio-looker/node-lookml-parser)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">node</span>   <span class="c1"># if on mac</span>
+<span class="n">npm</span> <span class="n">install</span> <span class="o">-</span><span class="n">g</span> <span class="n">lookml</span><span class="o">-</span><span class="n">parser</span>
+</pre></div>
+</div>
+<p>which converts LookML into a JSON object that can be interrogated easily with the set of rules.</p>
+<p>The results are, optionally, written to two CSVs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="s2">&quot;output&quot;</span><span class="p">:</span> 
+        <span class="s2">&quot;csv&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;file_output&quot;</span><span class="p">:</span> <span class="s2">&quot;linter_file_report.csv&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;field_output&quot;</span><span class="p">:</span> <span class="s2">&quot;linter_field_report.csv&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>The former consists of one result (one line of CSV) per file-level rule per input file. The latter consists of one result per applicable rule per <code class="docutils literal notranslate"><span class="pre">dimension</span></code>, <code class="docutils literal notranslate"><span class="pre">dimension_group</span></code>, or <code class="docutils literal notranslate"><span class="pre">measure</span></code>.</p>
+<p>They can also be written to BigQuery:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;csv&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;file_output&quot;</span><span class="p">:</span> <span class="s2">&quot;linter_file_report.csv&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;field_output&quot;</span><span class="p">:</span> <span class="s2">&quot;linter_field_report.csv&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;bigquery&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;target_bucket_name&quot;</span><span class="p">:</span> <span class="s2">&quot;your_bucket&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;bucket_folder&quot;</span><span class="p">:</span> <span class="s2">&quot;your_folder&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;project_id&quot;</span><span class="p">:</span> <span class="s2">&quot;your-project&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;dataset&quot;</span><span class="p">:</span> <span class="s2">&quot;your-dataset&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;file_destination_table&quot;</span><span class="p">:</span> <span class="s2">&quot;lookml_linter_file_report2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;field_destination_table&quot;</span><span class="p">:</span> <span class="s2">&quot;lookml_linter_field_report2&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>This code makes use of Fabio’s nade-based LookML parser (https://github.com/fabio-looker/node-lookml-parser)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">node</span>   <span class="c1"># if on mac</span>
+<span class="n">npm</span> <span class="n">install</span> <span class="o">-</span><span class="n">g</span> <span class="n">lookml</span><span class="o">-</span><span class="n">parser</span>
+</pre></div>
+</div>
+<p>You will need to set the path of the <code class="docutils literal notranslate"><span class="pre">lookml-parser</span></code> binary in the linter config file. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;parser&quot;</span><span class="p">:</span> <span class="s2">&quot;/usr/local/bin/lookml-parser&quot;</span><span class="p">,</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="running">
+<h2>Running<a class="headerlink" href="#running" title="Permalink to this headline">¶</a></h2>
+<p>To run,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">run_linter</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config</span> <span class="n">config</span><span class="o">/</span><span class="n">linter</span><span class="o">/</span><span class="n">config_linter</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<p>and this saves output files such as:</p>
+<p><code class="docutils literal notranslate"><span class="pre">linter_file_report.csv</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">time</span><span class="p">,</span><span class="n">file</span><span class="p">,</span><span class="n">rule</span><span class="p">,</span><span class="n">passed</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">09</span> <span class="mi">09</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">50</span><span class="p">,</span><span class="n">test_view_rewards</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span><span class="p">,</span><span class="n">DataSourceRule</span><span class="p">,</span><span class="mi">0</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">09</span> <span class="mi">09</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">50</span><span class="p">,</span><span class="n">test_view_rewards</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span><span class="p">,</span><span class="n">OneViewPerFileRule</span><span class="p">,</span><span class="mi">1</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">09</span> <span class="mi">09</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">50</span><span class="p">,</span><span class="n">test_view_rewards</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span><span class="p">,</span><span class="n">FilenameViewnameMatchRule</span><span class="p">,</span><span class="mi">1</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">09</span> <span class="mi">09</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">50</span><span class="p">,</span><span class="n">winsbyday_international</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span><span class="p">,</span><span class="n">DataSourceRule</span><span class="p">,</span><span class="mi">1</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">09</span> <span class="mi">09</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">50</span><span class="p">,</span><span class="n">winsbyday_international</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span><span class="p">,</span><span class="n">OneViewPerFileRule</span><span class="p">,</span><span class="mi">1</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>and</p>
+<p><code class="docutils literal notranslate"><span class="pre">linter_field_report.csv</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">time</span><span class="p">,</span><span class="n">file</span><span class="p">,</span><span class="n">rule</span><span class="p">,</span><span class="nb">type</span><span class="p">,</span><span class="n">fieldname</span><span class="p">,</span><span class="n">passed</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">09</span> <span class="mi">09</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">50</span><span class="p">,</span><span class="n">winsbyday_international</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span><span class="p">,</span><span class="n">DescriptionRule</span><span class="p">,</span><span class="n">dimension</span><span class="p">,</span><span class="n">activity</span><span class="p">,</span><span class="mi">0</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">09</span> <span class="mi">09</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">50</span><span class="p">,</span><span class="n">winsbyday_international</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span><span class="p">,</span><span class="n">DrillDownRule</span><span class="p">,</span><span class="n">dimension</span><span class="p">,</span><span class="n">activity</span><span class="p">,</span><span class="mi">0</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">09</span> <span class="mi">09</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">50</span><span class="p">,</span><span class="n">winsbyday_international</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span><span class="p">,</span><span class="n">AllCapsRule</span><span class="p">,</span><span class="n">dimension</span><span class="p">,</span><span class="n">activity</span><span class="p">,</span><span class="mi">1</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">09</span> <span class="mi">09</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">50</span><span class="p">,</span><span class="n">winsbyday_international</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span><span class="p">,</span><span class="n">DescriptionRule</span><span class="p">,</span><span class="n">dimension</span><span class="p">,</span><span class="n">country</span><span class="p">,</span><span class="mi">0</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">09</span> <span class="mi">09</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">50</span><span class="p">,</span><span class="n">winsbyday_international</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span><span class="p">,</span><span class="n">DrillDownRule</span><span class="p">,</span><span class="n">dimension</span><span class="p">,</span><span class="n">country</span><span class="p">,</span><span class="mi">0</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">09</span> <span class="mi">09</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">50</span><span class="p">,</span><span class="n">winsbyday_international</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span><span class="p">,</span><span class="n">AllCapsRule</span><span class="p">,</span><span class="n">dimension</span><span class="p">,</span><span class="n">country</span><span class="p">,</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-rules">
+<h2>The Rules<a class="headerlink" href="#the-rules" title="Permalink to this headline">¶</a></h2>
+<p>File-level rules:</p>
+<ul class="simple">
+<li><p><strong>DataSourceRule</strong>: does source contain a sql_table_name or derived_table?</p></li>
+<li><p><strong>OneViewPerFileRule</strong>: is there is one view only in this file?</p></li>
+<li><p><strong>FilenameViewnameMatchRule</strong>: does the name of the file match the name of the view?</p></li>
+</ul>
+<p>Field-level rules:</p>
+<ul class="simple">
+<li><p><strong>DescriptionRule</strong>: does the dimension, dimension_group, or measure have a description?</p></li>
+<li><p><strong>DrillDownRule</strong>: does measure have drill downs?</p></li>
+<li><p><strong>YesNoNameRule</strong>: if this is a yesno dimension, does name start with ‘is_’?</p></li>
+<li><p><strong>CountNameRule</strong>: if this is a measure of type count, does name end with ‘_count’?</p></li>
+<li><p><strong>AllCapsRule</strong>: is the name not ALL CAPS?</p></li>
+<li><p><strong>LexiconRule</strong>: does the name or description (if any) of dimension, dimension_group, or measures mention “subscriber”, “subscription”, or “studio”? If so, that’s a fail.</p></li>
+</ul>
+<p>Other rules:</p>
+<ul class="simple">
+<li><p><strong>NoOrphansRule</strong>: each view should be referenced by an explore. If not, the file is an orphan. This is a special rule in that assessment of whether a file has passed can only be ascertained after all files in the repo have been processed.</p></li>
+</ul>
+<p>To add a new rule, it needs to implement the very simple <code class="docutils literal notranslate"><span class="pre">lkmltools.linter.rule</span></code> interface (excepting any special rules).</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="README_GRAPHER.html" class="btn btn-neutral float-right" title="LookML Grapher" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="README.html" class="btn btn-neutral float-left" title="LookML Tools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, WW International, Inc
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

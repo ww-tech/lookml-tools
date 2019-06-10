@@ -1,0 +1,7 @@
+yesno\_name\_rule module
+========================
+
+.. automodule:: yesno_name_rule
+   :members:
+   :undoc-members:
+   :show-inheritance:

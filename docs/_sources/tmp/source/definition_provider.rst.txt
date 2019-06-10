@@ -1,0 +1,7 @@
+definition\_provider module
+===========================
+
+.. automodule:: definition_provider
+   :members:
+   :undoc-members:
+   :show-inheritance:

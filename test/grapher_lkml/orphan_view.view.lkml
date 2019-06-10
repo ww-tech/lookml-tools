@@ -1,0 +1,2 @@
+view: orphan_view {
+}

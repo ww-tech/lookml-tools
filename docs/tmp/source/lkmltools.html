@@ -1,0 +1,453 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>lkmltools package &mdash; lookml-tools 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> lookml-tools
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">LookML Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README_LINTER.html">LookML Linter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README_GRAPHER.html">LookML Grapher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README_UPDATER.html">LookML Updater</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README_DEVELOPER.html">Developer Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/linter/README.html">Linter Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/grapher/README.html">Grapher Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/updater/README.html">Updater Example</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">lookml-tools</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>lkmltools package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/tmp/source/lkmltools.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="lkmltools-package">
+<h1>lkmltools package<a class="headerlink" href="#lkmltools-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-lkmltools.bq_writer">
+<span id="lkmltools-bq-writer-module"></span><h2>lkmltools.bq_writer module<a class="headerlink" href="#module-lkmltools.bq_writer" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt>Authors:</dt><dd><p>Carl Anderson (<a class="reference external" href="mailto:carl&#46;anderson&#37;&#52;&#48;weightwatchers&#46;com">carl<span>&#46;</span>anderson<span>&#64;</span>weightwatchers<span>&#46;</span>com</a>)</p>
+</dd>
+</dl>
+<dl class="class">
+<dt id="lkmltools.bq_writer.BqWriter">
+<em class="property">class </em><code class="sig-prename descclassname">lkmltools.bq_writer.</code><code class="sig-name descname">BqWriter</code><a class="headerlink" href="#lkmltools.bq_writer.BqWriter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Write data to BigQuery via GCS.</p>
+<dl class="attribute">
+<dt id="lkmltools.bq_writer.BqWriter.FILENAME">
+<code class="sig-name descname">FILENAME</code><em class="property"> = 'tmp_upload.csv'</em><a class="headerlink" href="#lkmltools.bq_writer.BqWriter.FILENAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lkmltools.bq_writer.BqWriter.upload">
+<code class="sig-name descname">upload</code><span class="sig-paren">(</span><em class="sig-param">dataframe</em>, <em class="sig-param">config</em>, <em class="sig-param">destination_table_key</em><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.bq_writer.BqWriter.upload" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataframe</strong> (<em>pandas dataframe</em>) – dataframe to upload</p></li>
+<li><p><strong>config</strong> (<em>JSON</em>) – JSON configuration</p></li>
+<li><p><strong>destination_table_key</strong> (<em>str</em>) – table to write to</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>nothing. upload data to GCS</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="lkmltools.bq_writer.BqWriter.upload_to_bq">
+<code class="sig-name descname">upload_to_bq</code><span class="sig-paren">(</span><em class="sig-param">dataframe</em>, <em class="sig-param">gcs_project_id</em>, <em class="sig-param">project_id</em>, <em class="sig-param">dataset</em>, <em class="sig-param">tablename</em>, <em class="sig-param">target_bucket_name</em>, <em class="sig-param">bucket_folder</em>, <em class="sig-param">write_disposition='WRITE_APPEND'</em><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.bq_writer.BqWriter.upload_to_bq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write some dataframe to BigQuery via GCS storage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataframe</strong> (<em>pandas dataframe</em>) – data to be written</p></li>
+<li><p><strong>gcs_project_id</strong> (<em>str</em>) – GCS project ID</p></li>
+<li><p><strong>target_bucket_name</strong> (<em>str</em>) – GCS bucket_name</p></li>
+<li><p><strong>bucket_folder</strong> (<em>str</em>) – GCS bucket_folder</p></li>
+<li><p><strong>project_id</strong> (<em>str</em>) – BQ project ID</p></li>
+<li><p><strong>dataset</strong> (<em>str</em>) – BQ dataset</p></li>
+<li><p><strong>tablename</strong> (<em>str</em>) – BQ tablename</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>nothing but side effect is to write data to GCS and then to BigQuery</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-lkmltools.google_auth_helper">
+<span id="lkmltools-google-auth-helper-module"></span><h2>lkmltools.google_auth_helper module<a class="headerlink" href="#module-lkmltools.google_auth_helper" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt>Authors:</dt><dd><p>Carl Anderson (<a class="reference external" href="mailto:carl&#46;anderson&#37;&#52;&#48;weightwatchers&#46;com">carl<span>&#46;</span>anderson<span>&#64;</span>weightwatchers<span>&#46;</span>com</a>)</p>
+</dd>
+</dl>
+<dl class="class">
+<dt id="lkmltools.google_auth_helper.GoogleAuthHelper">
+<em class="property">class </em><code class="sig-prename descclassname">lkmltools.google_auth_helper.</code><code class="sig-name descname">GoogleAuthHelper</code><a class="headerlink" href="#lkmltools.google_auth_helper.GoogleAuthHelper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="lkmltools.google_auth_helper.GoogleAuthHelper.decode_service_account">
+<code class="sig-name descname">decode_service_account</code><span class="sig-paren">(</span><em class="sig-param">encoded_json</em><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.google_auth_helper.GoogleAuthHelper.decode_service_account" title="Permalink to this definition">¶</a></dt>
+<dd><p>decode base64 representation back to JSON</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>encoded_json</strong> (<em>bytes</em>) – output of encode_service_account, ie base64 encoded service account</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>service account JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="lkmltools.google_auth_helper.GoogleAuthHelper.encode_service_account">
+<code class="sig-name descname">encode_service_account</code><span class="sig-paren">(</span><em class="sig-param">raw_json</em><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.google_auth_helper.GoogleAuthHelper.encode_service_account" title="Permalink to this definition">¶</a></dt>
+<dd><p>encode JSON to base64 representation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>raw_json</strong> (<em>JSON</em>) – raw Google service account JSON</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Base64 encoded Google service account JSON</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="lkmltools.google_auth_helper.GoogleAuthHelper.write_decoded_sa_json_to_file">
+<code class="sig-name descname">write_decoded_sa_json_to_file</code><span class="sig-paren">(</span><em class="sig-param">encoded_json</em>, <em class="sig-param">filename='key.json'</em><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.google_auth_helper.GoogleAuthHelper.write_decoded_sa_json_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>write decoded service account JSON to file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>encoded_json</strong> (<em>bytes</em>) – base64 encoded service account JSON</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – filename to write to</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>nothing. Dumps service account to file</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-lkmltools.lookml">
+<span id="lkmltools-lookml-module"></span><h2>lkmltools.lookml module<a class="headerlink" href="#module-lkmltools.lookml" title="Permalink to this headline">¶</a></h2>
+<p>parse a LookML file from LookML to JSON</p>
+<dl class="simple">
+<dt>Authors:</dt><dd><p>Carl Anderson (<a class="reference external" href="mailto:carl&#46;anderson&#37;&#52;&#48;weightwatchers&#46;com">carl<span>&#46;</span>anderson<span>&#64;</span>weightwatchers<span>&#46;</span>com</a>)</p>
+</dd>
+</dl>
+<dl class="class">
+<dt id="lkmltools.lookml.LookML">
+<em class="property">class </em><code class="sig-prename descclassname">lkmltools.lookml.</code><code class="sig-name descname">LookML</code><span class="sig-paren">(</span><em class="sig-param">config</em><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.lookml.LookML" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="lkmltools.lookml.LookML.create_command">
+<code class="sig-name descname">create_command</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.lookml.LookML.create_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>create the command that will parse the LookML and convert to a JSON object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – filepath of input LookML file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of unix command strings</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="lkmltools.lookml.LookML.get_json_representation">
+<code class="sig-name descname">get_json_representation</code><span class="sig-paren">(</span><em class="sig-param">infilepath</em><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.lookml.LookML.get_json_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>parse the LookML infilepath, convert to JSON, and then read into JSON object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>infilepath</strong> (<em>str</em>) – path to input LookML file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>JSON object of LookML</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="lkmltools.lookml.LookML.parse_repo">
+<code class="sig-name descname">parse_repo</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.lookml.LookML.parse_repo" title="Permalink to this definition">¶</a></dt>
+<dd><p>parse the LookML and convert to a JSON object</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>this runs a parser on the command line. It is not Python code</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – filepath of input LookML file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>output from subprocess call
+error: error from subprocess call</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>output</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-lkmltools.simple_bq_writer">
+<span id="lkmltools-simple-bq-writer-module"></span><h2>lkmltools.simple_bq_writer module<a class="headerlink" href="#module-lkmltools.simple_bq_writer" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt>Authors:</dt><dd><p>Carl Anderson (<a class="reference external" href="mailto:carl&#46;anderson&#37;&#52;&#48;weightwatchers&#46;com">carl<span>&#46;</span>anderson<span>&#64;</span>weightwatchers<span>&#46;</span>com</a>)</p>
+</dd>
+</dl>
+<dl class="class">
+<dt id="lkmltools.simple_bq_writer.SimpleBqWriter">
+<em class="property">class </em><code class="sig-prename descclassname">lkmltools.simple_bq_writer.</code><code class="sig-name descname">SimpleBqWriter</code><a class="headerlink" href="#lkmltools.simple_bq_writer.SimpleBqWriter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class that writes dataframe to BigQuery directly (i.e. not via GCS).
+This is simple to configure, but it is slower than via GCS and it probably
+mean that you don’t have any backups</p>
+<dl class="method">
+<dt id="lkmltools.simple_bq_writer.SimpleBqWriter.upload">
+<code class="sig-name descname">upload</code><span class="sig-paren">(</span><em class="sig-param">df</em>, <em class="sig-param">config</em>, <em class="sig-param">destination_table</em>, <em class="sig-param">if_exists='append'</em><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.simple_bq_writer.SimpleBqWriter.upload" title="Permalink to this definition">¶</a></dt>
+<dd><p>upload a dataframe df to a biquery table directly</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pandas dataframe</em>) – dataframe</p></li>
+<li><p><strong>destination_table</strong> (<em>str</em>) – name of table to write to</p></li>
+<li><p><strong>if_exists</strong> (<em>str</em>) – what to do if table already exists?</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>nothing. uploads dasts to BigQuery</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-lkmltools.util">
+<span id="lkmltools-util-module"></span><h2>lkmltools.util module<a class="headerlink" href="#module-lkmltools.util" title="Permalink to this headline">¶</a></h2>
+<p>utility methods</p>
+<dl class="simple">
+<dt>Authors:</dt><dd><p>Carl Anderson (<a class="reference external" href="mailto:carl&#46;anderson&#37;&#52;&#48;weightwatchers&#46;com">carl<span>&#46;</span>anderson<span>&#64;</span>weightwatchers<span>&#46;</span>com</a>)</p>
+</dd>
+</dl>
+<dl class="class">
+<dt id="lkmltools.util.FieldCategory">
+<em class="property">class </em><code class="sig-prename descclassname">lkmltools.util.</code><code class="sig-name descname">FieldCategory</code><a class="headerlink" href="#lkmltools.util.FieldCategory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>type of LookML field</p>
+<dl class="attribute">
+<dt id="lkmltools.util.FieldCategory.DESCRIPTION">
+<code class="sig-name descname">DESCRIPTION</code><em class="property"> = 'description'</em><a class="headerlink" href="#lkmltools.util.FieldCategory.DESCRIPTION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="lkmltools.util.FieldCategory.DIMENSION">
+<code class="sig-name descname">DIMENSION</code><em class="property"> = 'dimension'</em><a class="headerlink" href="#lkmltools.util.FieldCategory.DIMENSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="lkmltools.util.FieldCategory.DIMENSION_GROUP">
+<code class="sig-name descname">DIMENSION_GROUP</code><em class="property"> = 'dimension_group'</em><a class="headerlink" href="#lkmltools.util.FieldCategory.DIMENSION_GROUP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="lkmltools.util.FieldCategory.MEASURE">
+<code class="sig-name descname">MEASURE</code><em class="property"> = 'measure'</em><a class="headerlink" href="#lkmltools.util.FieldCategory.MEASURE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-lkmltools">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-lkmltools" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, WW International, Inc
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

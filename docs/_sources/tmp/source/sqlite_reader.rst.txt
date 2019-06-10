@@ -1,0 +1,7 @@
+sqlite\_reader module
+=====================
+
+.. automodule:: sqlite_reader
+   :members:
+   :undoc-members:
+   :show-inheritance:

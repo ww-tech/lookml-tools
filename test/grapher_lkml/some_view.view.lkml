@@ -1,0 +1,2 @@
+view: some_view {
+}

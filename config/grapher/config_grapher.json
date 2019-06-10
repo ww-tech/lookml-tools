@@ -1,0 +1,19 @@
+{
+    "parser": "lookml-parser",
+
+    "infile_globs": [
+        "../somerepo/*.lkml"
+    ],
+
+    "tmp_file": "parsed_lookml.json",
+
+    "output": "graph.png",
+
+    "options": {
+        "node_size": 500,
+        "label_font_size": 18,
+        "text_angle": 30,
+        "image_width": 24,
+        "image_height" : 16
+    }
+}

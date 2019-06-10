@@ -1,0 +1,7 @@
+definitions\_provider\_factory module
+=====================================
+
+.. automodule:: definitions_provider_factory
+   :members:
+   :undoc-members:
+   :show-inheritance:

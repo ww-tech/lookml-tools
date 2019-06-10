@@ -1,0 +1,7 @@
+count\_name\_rule module
+========================
+
+.. automodule:: count_name_rule
+   :members:
+   :undoc-members:
+   :show-inheritance:

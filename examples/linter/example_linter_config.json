@@ -1,0 +1,30 @@
+{
+    "parser": "lookml-parser",
+
+    "git": {
+        "url": "https://github.com/exampleorg/examplerepo.git",
+        "folder": "gitrepo"
+    },
+
+    "infile_globs": [
+        "gitrepo/*.*.lkml"
+    ],
+
+    "tmp_file": "parsed_lookml.json",
+
+    "rules": {
+        "field_level_rules": [
+            {"name": "DescriptionRule", "run": true},
+            {"name": "DrillDownRule", "run": true},
+            {"name": "YesNoNameRule", "run": true},
+            {"name": "AllCapsRule", "run": true}
+        ]
+    },
+
+    "output": {
+        "csv": {
+            "file_output": "linter_file_report.csv",
+            "field_output": "linter_field_report.csv"
+        }
+    }
+}

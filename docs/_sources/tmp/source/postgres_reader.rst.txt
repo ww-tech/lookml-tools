@@ -1,0 +1,7 @@
+postgres\_reader module
+=======================
+
+.. automodule:: postgres_reader
+   :members:
+   :undoc-members:
+   :show-inheritance:

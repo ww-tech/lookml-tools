@@ -1,0 +1,8 @@
+file,type,name,definition
+basic.lkml,dimension,country,"This
+is
+the
+correct
+description"
+basic.lkml,dimension,tier,this is a new description
+someotherfile,dimension,xxx,yyy

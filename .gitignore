@@ -1,0 +1,14 @@
+.coverage
+htmlcov/
+lkmltools/__pycache__/
+lkmltools/grapher/__pycache__/
+lkmltools/linter/__pycache__/
+lkmltools/linter/rules/fieldrules/__pycache__/
+lkmltools/linter/rules/filerules/__pycache__/
+lkmltools/linter/rules/otherrules/__pycache__/
+lkmltools/updater/__pycache__/
+test/__pycache__/
+
+.DS_Store
+.cache/
+graph.png

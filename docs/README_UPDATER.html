@@ -1,0 +1,367 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>LookML Updater &mdash; lookml-tools 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Developer Notes" href="README_DEVELOPER.html" />
+    <link rel="prev" title="LookML Grapher" href="README_GRAPHER.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> lookml-tools
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="README.html">LookML Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README_LINTER.html">LookML Linter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README_GRAPHER.html">LookML Grapher</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">LookML Updater</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-it-works">How it works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#to-run">To run</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fully-automated-script">Fully automated script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#current-limitations-assumptions-and-todos">Current limitations, assumptions, and TODOs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="README_DEVELOPER.html">Developer Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/linter/README.html">Linter Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/grapher/README.html">Grapher Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/updater/README.html">Updater Example</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">lookml-tools</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>LookML Updater</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/README_UPDATER.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="lookml-updater">
+<h1>LookML Updater<a class="headerlink" href="#lookml-updater" title="Permalink to this headline">¶</a></h1>
+<p>Data is higher quality if it is <em>defined</em>. Moreover, definitions should be consistent wherever the data are
+in our systems—we should never get out of sync as this causes confusion. Thus, our goal is to have a single source of truth of definitions and have those definitions propagate into other systems. This is one part of the propagation system: propagate from master source to LookML.</p>
+<p>This code provides the ability to examine the dimensions, dimension_groups, and measures of LookML, examine whether they contain correct descriptions, compared to some master source.</p>
+<p>If they are missing or are incorrect or otherwise out of sync, this code will update or inject the correct description into the LookML. This can then be committed and pushed to a branch for review in a pull request. This code just does the LookML updating.</p>
+<p>Here is a possible, example workflow:</p>
+<p><img alt="_images/workflow.png" src="_images/workflow.png" /></p>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>This code makes use of Fabio’s node-based LookML parser (https://github.com/fabio-looker/node-lookml-parser)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">node</span>   <span class="c1"># if on mac</span>
+<span class="n">npm</span> <span class="n">install</span> <span class="o">-</span><span class="n">g</span> <span class="n">lookml</span><span class="o">-</span><span class="n">parser</span>
+</pre></div>
+</div>
+<p>You will need to set the path of the <code class="docutils literal notranslate"><span class="pre">lookml-parser</span></code> binary in the updater config file. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;parser&quot;</span><span class="p">:</span> <span class="s2">&quot;/usr/local/bin/lookml-parser&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tmp_file&quot;</span><span class="p">:</span> <span class="s2">&quot;parsed_lookml.json&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;definitions&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CsvDefinitionsProvider&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filename&quot;</span><span class="p">:</span> <span class="s2">&quot;definitions.csv&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;parser&quot;</span><span class="p">:</span> <span class="s2">&quot;/usr/local/bin/lookml-parser&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tmp_file&quot;</span><span class="p">:</span> <span class="s2">&quot;parsed_lookml.json&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;definitions&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;MySQLReader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="s2">&quot;select * from test&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;myusername&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;mysecret&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;port&quot;</span><span class="p">:</span> <span class="mi">3306</span><span class="p">,</span>
+        <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;database&quot;</span><span class="p">:</span> <span class="s2">&quot;mydb&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="how-it-works">
+<h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>The code parses a LookML file into a JSON object using <code class="docutils literal notranslate"><span class="pre">lookml-parser</span></code>.</p></li>
+<li><p>This format allows easy interrogation of dimensions and measures to see whether they contain a description.</p></li>
+<li><p>We use a master source of dimension and measure definitions. Currently, can come from a local CSV (using <code class="docutils literal notranslate"><span class="pre">CsvDefinitionsProvider</span></code>) or relational databases (<code class="docutils literal notranslate"><span class="pre">MySQLReader</span></code>, <code class="docutils literal notranslate"><span class="pre">PostgreReader</span></code>, and <code class="docutils literal notranslate"><span class="pre">SqliteReader</span></code>) including a BiqQuery table (using <code class="docutils literal notranslate"><span class="pre">BqDefinitionsProvider</span></code>) which, for instsnce, could be a sync from a data catalog tool.</p></li>
+<li><p>If a dimension doesn’t contain the description, it is injected in the LookML file. If a description exists but it does not match the master definition, it is updated</p></li>
+<li><p>the updated LookML file is written out. The goal is not to modify other lines of the file (e.g., by changing whitespace or formatting) so that a <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">diff</span></code> highlights just the description line modifications, thus making a pull request as easy as possible.</p></li>
+</ul>
+</div>
+<div class="section" id="to-run">
+<h2>To run<a class="headerlink" href="#to-run" title="Permalink to this headline">¶</a></h2>
+<p>To run,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">run_updater</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config</span> <span class="n">config</span><span class="o">/</span><span class="n">config</span><span class="o">.</span><span class="n">json</span> <span class="o">--</span><span class="n">infile</span> <span class="n">my_amazing_view</span><span class="o">.</span><span class="n">lkml</span> <span class="o">--</span><span class="n">outfile</span> <span class="n">modified</span><span class="o">.</span><span class="n">lkml</span>
+</pre></div>
+</div>
+<p>(You can set <code class="docutils literal notranslate"><span class="pre">outfile</span></code> to be same as <code class="docutils literal notranslate"><span class="pre">infile</span></code> so that it modifies the existing file.)</p>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>Given an input <code class="docutils literal notranslate"><span class="pre">example.lkml</span></code> LookML file</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>view: dim_geography {
+ sql_table_name: `BQDW.DimGeography` ;;
+
+  dimension: city_code {
+    type: string
+    description: &quot;this
+    is
+    an
+    exsiting
+    multiline
+    description&quot;
+    sql: ${TABLE}.CityCode ;;
+  }
+
+  measure: count {
+    type: count
+    drill_fields: [detail*]
+  }
+}`
+</pre></div>
+</div>
+<p>and set of required definitions:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">file</span><span class="p">,</span><span class="nb">type</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">definition</span>
+<span class="n">example</span><span class="o">.</span><span class="n">lkml</span><span class="p">,</span><span class="n">dimension</span><span class="p">,</span><span class="n">city_code</span><span class="p">,</span><span class="s2">&quot;This</span>
+<span class="ow">is</span>
+<span class="n">the</span>
+<span class="n">correct</span>
+<span class="n">description</span><span class="s2">&quot;</span>
+<span class="n">example</span><span class="o">.</span><span class="n">lkml</span><span class="p">,</span><span class="n">measure</span><span class="p">,</span><span class="n">count</span><span class="p">,</span><span class="n">this</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">count</span> <span class="n">description</span>
+</pre></div>
+</div>
+<p>Running</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">run</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config</span> <span class="n">example_config</span><span class="o">.</span><span class="n">json</span> <span class="o">--</span><span class="n">infile</span> <span class="n">example</span><span class="o">.</span><span class="n">lkml</span> <span class="o">--</span><span class="n">outfile</span> <span class="n">example_outfile</span><span class="o">.</span><span class="n">lkml</span>
+</pre></div>
+</div>
+<p>(where <code class="docutils literal notranslate"><span class="pre">example_config.json</span></code> points to that CSV above)
+results in <code class="docutils literal notranslate"><span class="pre">example_outfile.lkml</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>view: dim_geography {
+ sql_table_name: `BQDW.DimGeography` ;;
+
+  dimension: city_code {
+    type: string
+    description: &quot;This
+is
+the
+correct
+description&quot;	# programmatically added by LookML modifier
+    sql: ${TABLE}.CityCode ;;
+  }
+
+  measure: count {
+    description: &quot;this is the count description&quot;	# programmatically added by LookML modifier
+    type: count
+    drill_fields: [detail*]
+  }
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="fully-automated-script">
+<h2>Fully automated script<a class="headerlink" href="#fully-automated-script" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">full_auto_updater.sh</span></code> is a bash script that creates a full automation:</p>
+<ul class="simple">
+<li><p>Checks out LookML code</p></li>
+<li><p>Runs updater</p></li>
+<li><p>if and only if any changes made:</p>
+<ul>
+<li><p>commits</p></li>
+<li><p>pushes to remote</p></li>
+<li><p>creates a pull request.</p></li>
+</ul>
+</li>
+</ul>
+<p>As the comments in the script show, to run this script, you will need to set a few variables:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ACCESS_TOKEN</span></code> for github (or <code class="docutils literal notranslate"><span class="pre">GITHUB_USER</span></code> and <code class="docutils literal notranslate"><span class="pre">GITHUB_PASSWORD</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">REMOTE</span></code> URL for gitrepo to update</p></li>
+<li><p>parser binary (if not <code class="docutils literal notranslate"><span class="pre">lookml-parser</span></code>)</p></li>
+<li><p>definitions source</p></li>
+</ul>
+</div>
+<div class="section" id="current-limitations-assumptions-and-todos">
+<h2>Current limitations, assumptions, and TODOs<a class="headerlink" href="#current-limitations-assumptions-and-todos" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>we are only processing a single file at a time. The lookml-parser can take a blob <code class="docutils literal notranslate"><span class="pre">'lookml-parser</span> <span class="pre">--input=&quot;*.lkml&quot;</span> <span class="pre">--whitespace=2</span></code> which would create a single JSON for all files</p></li>
+<li><p>code assumes that the opening curly brace for a dimension or measure is on the same line, ie. <code class="docutils literal notranslate"><span class="pre">dimension:</span> <span class="pre">myname</span> <span class="pre">{</span></code> not <code class="docutils literal notranslate"><span class="pre">dimension:</span> <span class="pre">myname</span> <span class="pre">\n\n\n{</span></code></p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="README_DEVELOPER.html" class="btn btn-neutral float-right" title="Developer Notes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="README_GRAPHER.html" class="btn btn-neutral float-left" title="LookML Grapher" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, WW International, Inc
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

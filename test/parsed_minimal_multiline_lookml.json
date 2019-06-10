@@ -1,0 +1,129 @@
+{
+  "files": [
+    {
+      "view": {
+        "dim_geography": {
+          "sql_table_name": "`BQDW.DimGeography` ",
+          "dimension": {
+            "city_code": {
+              "type": "string",
+              "description": "this\n    is\n    an\n    exsiting\n    multiline\n    description",
+              "sql": "${TABLE}.CityCode ",
+              "_dimension": "city_code",
+              "_type": "dimension",
+              "_n": 0,
+              "_view": "dim_geography"
+            },
+            "_view": "dim_geography"
+          },
+          "dimensions": [
+            {
+              "type": "string",
+              "description": "this\n    is\n    an\n    exsiting\n    multiline\n    description",
+              "sql": "${TABLE}.CityCode ",
+              "_dimension": "city_code",
+              "_type": "dimension",
+              "_n": 0,
+              "_view": "dim_geography"
+            }
+          ],
+          "measure": {
+            "count": {
+              "type": "count",
+              "drill_fields": [
+                "detail*"
+              ],
+              "_measure": "count",
+              "_type": "measure",
+              "_n": 0,
+              "_view": "dim_geography"
+            },
+            "_view": "dim_geography"
+          },
+          "measures": [
+            {
+              "type": "count",
+              "drill_fields": [
+                "detail*"
+              ],
+              "_measure": "count",
+              "_type": "measure",
+              "_n": 0,
+              "_view": "dim_geography"
+            }
+          ],
+          "_view": "dim_geography",
+          "_type": "view",
+          "_n": 0
+        }
+      },
+      "views": [
+        {
+          "sql_table_name": "`BQDW.DimGeography` ",
+          "dimension": {
+            "city_code": {
+              "type": "string",
+              "description": "this\n    is\n    an\n    exsiting\n    multiline\n    description",
+              "sql": "${TABLE}.CityCode ",
+              "_dimension": "city_code",
+              "_type": "dimension",
+              "_n": 0,
+              "_view": "dim_geography"
+            },
+            "_view": "dim_geography"
+          },
+          "dimensions": [
+            {
+              "type": "string",
+              "description": "this\n    is\n    an\n    exsiting\n    multiline\n    description",
+              "sql": "${TABLE}.CityCode ",
+              "_dimension": "city_code",
+              "_type": "dimension",
+              "_n": 0,
+              "_view": "dim_geography"
+            }
+          ],
+          "measure": {
+            "count": {
+              "type": "count",
+              "drill_fields": [
+                "detail*"
+              ],
+              "_measure": "count",
+              "_type": "measure",
+              "_n": 0,
+              "_view": "dim_geography"
+            },
+            "_view": "dim_geography"
+          },
+          "measures": [
+            {
+              "type": "count",
+              "drill_fields": [
+                "detail*"
+              ],
+              "_measure": "count",
+              "_type": "measure",
+              "_n": 0,
+              "_view": "dim_geography"
+            }
+          ],
+          "_view": "dim_geography",
+          "_type": "view",
+          "_n": 0
+        }
+      ],
+      "_file_path": "test/minimal_multiline.lkml",
+      "_file_rel": "test/minimal_multiline.lkml",
+      "_file_name": "",
+      "_file_type": "minimal_multiline"
+    }
+  ],
+  "file": {
+    "model": {},
+    "view": {},
+    "explore": {}
+  },
+  "models": [],
+  "model": {}
+}

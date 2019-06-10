@@ -1,0 +1,7 @@
+file,type,name,definition
+example.lkml,dimension,city_code,"This
+is
+the
+correct
+description"
+example.lkml,measure,count,this is the count description

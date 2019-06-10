@@ -1,0 +1,265 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Grapher Example &mdash; lookml-tools 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Updater Example" href="../updater/README.html" />
+    <link rel="prev" title="Linter Example" href="../linter/README.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> lookml-tools
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">LookML Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README_LINTER.html">LookML Linter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README_GRAPHER.html">LookML Grapher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README_UPDATER.html">LookML Updater</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README_DEVELOPER.html">Developer Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linter/README.html">Linter Example</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Grapher Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#input-repo">Input Repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#config-file">Config File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running">Running</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../updater/README.html">Updater Example</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">lookml-tools</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Grapher Example</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/examples/grapher/README.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="grapher-example">
+<h1>Grapher Example<a class="headerlink" href="#grapher-example" title="Permalink to this headline">¶</a></h1>
+<p>The grapher tools parses a set of LookML files, typically a whole repo, and produces a digram of the relationships (the graph) among models, explores, and views.</p>
+<div class="section" id="input-repo">
+<h2>Input Repo<a class="headerlink" href="#input-repo" title="Permalink to this headline">¶</a></h2>
+<p>The example <code class="docutils literal notranslate"><span class="pre">myrepo</span></code> contains a set of trivial files to illustrate the tool’s functionality. It contains 2 models (<code class="docutils literal notranslate"><span class="pre">model1</span></code> and <code class="docutils literal notranslate"><span class="pre">model2</span></code>), three views (<code class="docutils literal notranslate"><span class="pre">view1</span></code>, <code class="docutils literal notranslate"><span class="pre">view2</span></code>, and <code class="docutils literal notranslate"><span class="pre">view3</span></code>) as well one additional orphaned view (<code class="docutils literal notranslate"><span class="pre">orphan</span></code>), not referenced by any explores.</p>
+</div>
+<div class="section" id="config-file">
+<h2>Config File<a class="headerlink" href="#config-file" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">example_grapher_config.json</span></code> is simple:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;parser&quot;</span><span class="p">:</span> <span class="s2">&quot;lookml-parser&quot;</span><span class="p">,</span>
+
+    <span class="s2">&quot;infile_globs&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;myrepo/*.*.lkml&quot;</span>
+    <span class="p">],</span>
+
+    <span class="s2">&quot;tmp_file&quot;</span><span class="p">:</span> <span class="s2">&quot;parsed_lookml.json&quot;</span><span class="p">,</span>
+
+    <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="s2">&quot;graph.png&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>specifiying the parser binary (<code class="docutils literal notranslate"><span class="pre">lookml-parser</span></code>), the files to process (<code class="docutils literal notranslate"><span class="pre">myrepo/*.*.lkml</span></code>), the temporary file that the LookML files are parsed to (<code class="docutils literal notranslate"><span class="pre">parsed_lookml.json</span></code>), and the output filename (<code class="docutils literal notranslate"><span class="pre">graph.png</span></code>).</p>
+</div>
+<div class="section" id="running">
+<h2>Running<a class="headerlink" href="#running" title="Permalink to this headline">¶</a></h2>
+<p>To run,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">examples</span><span class="o">/</span><span class="n">grapher</span><span class="o">/</span>
+
+<span class="n">python</span> <span class="o">../../</span><span class="n">run_grapher</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config</span> <span class="n">example_grapher_config</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<p>You should see something like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">../../</span><span class="n">run_grapher</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config</span> <span class="n">example_grapher_config</span><span class="o">.</span><span class="n">json</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span> <span class="mi">20</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">47</span><span class="p">,</span><span class="mi">360</span> <span class="n">INFO</span> <span class="n">lookml_grapher</span><span class="o">.</span><span class="n">py</span> <span class="n">process_file</span><span class="p">:</span> <span class="n">Processing</span> <span class="n">myrepo</span><span class="o">/</span><span class="n">orphan</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span> <span class="mi">20</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">47</span><span class="p">,</span><span class="mi">361</span> <span class="n">INFO</span> <span class="n">lookml</span><span class="o">.</span><span class="n">py</span> <span class="n">parse_repo</span><span class="p">:</span> <span class="n">running</span> <span class="n">lookml</span><span class="o">-</span><span class="n">parser</span> <span class="o">--</span><span class="nb">input</span><span class="o">=</span><span class="s1">&#39;myrepo/orphan.view.lkml&#39;</span> <span class="o">--</span><span class="n">whitespace</span><span class="o">=</span><span class="mi">2</span> <span class="o">&gt;</span> <span class="n">parsed_lookml</span><span class="o">.</span><span class="n">json</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span> <span class="mi">20</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">47</span><span class="p">,</span><span class="mi">763</span> <span class="n">INFO</span> <span class="n">lookml_grapher</span><span class="o">.</span><span class="n">py</span> <span class="n">process_file</span><span class="p">:</span> <span class="n">Processing</span> <span class="n">myrepo</span><span class="o">/</span><span class="n">view1</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span> <span class="mi">20</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">47</span><span class="p">,</span><span class="mi">763</span> <span class="n">INFO</span> <span class="n">lookml</span><span class="o">.</span><span class="n">py</span> <span class="n">parse_repo</span><span class="p">:</span> <span class="n">running</span> <span class="n">lookml</span><span class="o">-</span><span class="n">parser</span> <span class="o">--</span><span class="nb">input</span><span class="o">=</span><span class="s1">&#39;myrepo/view1.view.lkml&#39;</span> <span class="o">--</span><span class="n">whitespace</span><span class="o">=</span><span class="mi">2</span> <span class="o">&gt;</span> <span class="n">parsed_lookml</span><span class="o">.</span><span class="n">json</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span> <span class="mi">20</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">47</span><span class="p">,</span><span class="mi">963</span> <span class="n">INFO</span> <span class="n">lookml_grapher</span><span class="o">.</span><span class="n">py</span> <span class="n">process_file</span><span class="p">:</span> <span class="n">Processing</span> <span class="n">myrepo</span><span class="o">/</span><span class="n">model1</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">lkml</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span> <span class="mi">20</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">47</span><span class="p">,</span><span class="mi">963</span> <span class="n">INFO</span> <span class="n">lookml</span><span class="o">.</span><span class="n">py</span> <span class="n">parse_repo</span><span class="p">:</span> <span class="n">running</span> <span class="n">lookml</span><span class="o">-</span><span class="n">parser</span> <span class="o">--</span><span class="nb">input</span><span class="o">=</span><span class="s1">&#39;myrepo/model1.model.lkml&#39;</span> <span class="o">--</span><span class="n">whitespace</span><span class="o">=</span><span class="mi">2</span> <span class="o">&gt;</span> <span class="n">parsed_lookml</span><span class="o">.</span><span class="n">json</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span> <span class="mi">20</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">48</span><span class="p">,</span><span class="mi">156</span> <span class="n">INFO</span> <span class="n">lookml_grapher</span><span class="o">.</span><span class="n">py</span> <span class="n">process_file</span><span class="p">:</span> <span class="n">Processing</span> <span class="n">myrepo</span><span class="o">/</span><span class="n">view2</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span> <span class="mi">20</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">48</span><span class="p">,</span><span class="mi">157</span> <span class="n">INFO</span> <span class="n">lookml</span><span class="o">.</span><span class="n">py</span> <span class="n">parse_repo</span><span class="p">:</span> <span class="n">running</span> <span class="n">lookml</span><span class="o">-</span><span class="n">parser</span> <span class="o">--</span><span class="nb">input</span><span class="o">=</span><span class="s1">&#39;myrepo/view2.view.lkml&#39;</span> <span class="o">--</span><span class="n">whitespace</span><span class="o">=</span><span class="mi">2</span> <span class="o">&gt;</span> <span class="n">parsed_lookml</span><span class="o">.</span><span class="n">json</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span> <span class="mi">20</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">48</span><span class="p">,</span><span class="mi">349</span> <span class="n">INFO</span> <span class="n">lookml_grapher</span><span class="o">.</span><span class="n">py</span> <span class="n">process_file</span><span class="p">:</span> <span class="n">Processing</span> <span class="n">myrepo</span><span class="o">/</span><span class="n">model2</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">lkml</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span> <span class="mi">20</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">48</span><span class="p">,</span><span class="mi">350</span> <span class="n">INFO</span> <span class="n">lookml</span><span class="o">.</span><span class="n">py</span> <span class="n">parse_repo</span><span class="p">:</span> <span class="n">running</span> <span class="n">lookml</span><span class="o">-</span><span class="n">parser</span> <span class="o">--</span><span class="nb">input</span><span class="o">=</span><span class="s1">&#39;myrepo/model2.model.lkml&#39;</span> <span class="o">--</span><span class="n">whitespace</span><span class="o">=</span><span class="mi">2</span> <span class="o">&gt;</span> <span class="n">parsed_lookml</span><span class="o">.</span><span class="n">json</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span> <span class="mi">20</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">48</span><span class="p">,</span><span class="mi">544</span> <span class="n">INFO</span> <span class="n">lookml_grapher</span><span class="o">.</span><span class="n">py</span> <span class="n">process_file</span><span class="p">:</span> <span class="n">Processing</span> <span class="n">myrepo</span><span class="o">/</span><span class="n">view3</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span> <span class="mi">20</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">48</span><span class="p">,</span><span class="mi">545</span> <span class="n">INFO</span> <span class="n">lookml</span><span class="o">.</span><span class="n">py</span> <span class="n">parse_repo</span><span class="p">:</span> <span class="n">running</span> <span class="n">lookml</span><span class="o">-</span><span class="n">parser</span> <span class="o">--</span><span class="nb">input</span><span class="o">=</span><span class="s1">&#39;myrepo/view3.view.lkml&#39;</span> <span class="o">--</span><span class="n">whitespace</span><span class="o">=</span><span class="mi">2</span> <span class="o">&gt;</span> <span class="n">parsed_lookml</span><span class="o">.</span><span class="n">json</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span> <span class="mi">20</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">49</span><span class="p">,</span><span class="mi">324</span> <span class="n">INFO</span> <span class="n">lookml_grapher</span><span class="o">.</span><span class="n">py</span> <span class="n">plot_graph</span><span class="p">:</span> <span class="n">Graph</span> <span class="n">written</span> <span class="n">to</span> <span class="n">graph</span><span class="o">.</span><span class="n">png</span>
+</pre></div>
+</div>
+<p>The resulting <code class="docutils literal notranslate"><span class="pre">graph.png</span></code> shows the relationships among the models (blue), explores (green), and views (purple). It also shows that there is a single, orphaned view, shown in orange.</p>
+<p><img alt="../../_images/graph1.png" src="../../_images/graph1.png" /></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../updater/README.html" class="btn btn-neutral float-right" title="Updater Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../linter/README.html" class="btn btn-neutral float-left" title="Linter Example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, WW International, Inc
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

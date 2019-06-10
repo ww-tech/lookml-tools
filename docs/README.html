@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>LookML Tools &mdash; lookml-tools 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="LookML Linter" href="README_LINTER.html" />
+    <link rel="prev" title="Welcome to lookml-tools’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> lookml-tools
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">LookML Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#lookml-updater">LookML updater</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookml-linter">LookML linter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookml-grapher">LookML grapher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pip">pip</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#unit-tests">Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#developer-notes">Developer Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contribute">Contribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="README_LINTER.html">LookML Linter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README_GRAPHER.html">LookML Grapher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README_UPDATER.html">LookML Updater</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README_DEVELOPER.html">Developer Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/linter/README.html">Linter Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/grapher/README.html">Grapher Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/updater/README.html">Updater Example</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">lookml-tools</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>LookML Tools</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/README.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <p><img alt="_images/lookmltools.png" src="_images/lookmltools.png" /></p>
+<div class="section" id="lookml-tools">
+<h1>LookML Tools<a class="headerlink" href="#lookml-tools" title="Permalink to this headline">¶</a></h1>
+<p>This repository contains some tools to handle best practices of a set of developers working on LookML files.</p>
+<p>There are three tools:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">LookML</span> <span class="pre">updater</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LookML</span> <span class="pre">linter</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LookML</span> <span class="pre">grapher</span></code></p></li>
+</ul>
+<div class="section" id="lookml-updater">
+<h2>LookML updater<a class="headerlink" href="#lookml-updater" title="Permalink to this headline">¶</a></h2>
+<p>The first tool helps solve a problem of official definitions of <code class="docutils literal notranslate"><span class="pre">dimensions</span></code> and <code class="docutils literal notranslate"><span class="pre">measures</span></code>—such as in a business glossary—getting out of sync from some other system. The solution implemented here is to have a remote master list whose definitions are propagated to LookML. Thus, given some remote definition for a given LookML <code class="docutils literal notranslate"><span class="pre">dimension</span></code>, <code class="docutils literal notranslate"><span class="pre">dimension_group</span></code>, or <code class="docutils literal notranslate"><span class="pre">measure</span></code>, inject it in the LookML.</p>
+<p>Full documentation is <a class="reference internal" href="README_UPDATER.html"><span class="doc">here</span></a>.</p>
+</div>
+<div class="section" id="lookml-linter">
+<h2>LookML linter<a class="headerlink" href="#lookml-linter" title="Permalink to this headline">¶</a></h2>
+<p>The second tool helps us check that our LookML conforms to some given coding standards and LookML developer best practices. It runs a series of checks over our LookML files and reports which <code class="docutils literal notranslate"><span class="pre">files</span></code>, or which <code class="docutils literal notranslate"><span class="pre">dimensions</span></code>, <code class="docutils literal notranslate"><span class="pre">dimension_groups</span></code>, or <code class="docutils literal notranslate"><span class="pre">measures</span></code>, fail those checks.</p>
+<p>Full documentation is <a class="reference internal" href="README_LINTER.html"><span class="doc">here</span></a>.</p>
+</div>
+<div class="section" id="lookml-grapher">
+<h2>LookML grapher<a class="headerlink" href="#lookml-grapher" title="Permalink to this headline">¶</a></h2>
+<p>The third tool creates a “network diagram” of the <code class="docutils literal notranslate"><span class="pre">model</span> <span class="pre">-</span> <span class="pre">explore</span> <span class="pre">-</span> <span class="pre">view</span></code> relationships and writes to an <code class="docutils literal notranslate"><span class="pre">PNG</span></code> image file. The code will also identify any <code class="docutils literal notranslate"><span class="pre">orphans</span></code> i.e. views not referenced by any models or explores.</p>
+<p>Full documentation is <a class="reference internal" href="README_GRAPHER.html"><span class="doc">here</span></a>.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>All three tools above makes use of Fabio’s node-based LookML parser (https://github.com/fabio-looker/node-lookml-parser)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">node</span>   <span class="c1"># if on mac</span>
+<span class="n">npm</span> <span class="n">install</span> <span class="o">-</span><span class="n">g</span> <span class="n">lookml</span><span class="o">-</span><span class="n">parser</span>
+</pre></div>
+</div>
+<p>You will need to set the path of the <code class="docutils literal notranslate"><span class="pre">lookml-parser</span></code> binary in the config file. For example, for the updater config, your path might be:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;parser&quot;</span><span class="p">:</span> <span class="s2">&quot;/usr/local/bin/lookml-parser&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tmp_file&quot;</span><span class="p">:</span> <span class="s2">&quot;parsed_lookml.json&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;definitions&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CsvDefinitionsProvider&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filename&quot;</span><span class="p">:</span> <span class="s2">&quot;definitions.csv&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="pip">
+<h3>pip<a class="headerlink" href="#pip" title="Permalink to this headline">¶</a></h3>
+<p>You can install the Python codebase of <code class="docutils literal notranslate"><span class="pre">lookml-tools</span></code> via pip:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">pip</span> <span class="n">install</span> <span class="n">lookml</span><span class="o">-</span><span class="n">tools</span>
+</pre></div>
+</div>
+<p>You may need to install its dependencies:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="unit-tests">
+<h2>Unit tests<a class="headerlink" href="#unit-tests" title="Permalink to this headline">¶</a></h2>
+<p>There is a test suite with close to 100% code coverage</p>
+<p>Run with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pytest</span><span class="o">-</span><span class="n">cov</span>
+
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pytest</span> <span class="o">--</span><span class="n">cov</span><span class="o">=</span><span class="n">lkmltools</span><span class="o">/</span> <span class="n">test</span><span class="o">/*.</span><span class="n">py</span> <span class="p">;</span> <span class="n">coverage</span> <span class="n">html</span>
+</pre></div>
+</div>
+<p>Importantly, as this code relies on an external node utility (<code class="docutils literal notranslate"><span class="pre">lookml-parser</span></code>), one that might not be installed, and one that could be installed but whose behavior might change compared to today,</p>
+<ul class="simple">
+<li><p>the unit tests are set to check that it is installed (<code class="docutils literal notranslate"><span class="pre">test/test_prequisites.py</span></code>)</p></li>
+<li><p>the unit tests use a cached and checked in parsed lookml file (<code class="docutils literal notranslate"><span class="pre">test/parsed_minimal_multiline_lookml.json</span></code>) and check that parsing the same input file produces the same output as that cached version (see <code class="docutils literal notranslate"><span class="pre">test/test_lookml_modifier</span></code>.<code class="docutils literal notranslate"><span class="pre">test_get_json_representation</span></code>).</p></li>
+</ul>
+<p>This should provide confidence that this core-functionality parser is working as expected.</p>
+</div>
+<div class="section" id="developer-notes">
+<h2>Developer Notes<a class="headerlink" href="#developer-notes" title="Permalink to this headline">¶</a></h2>
+<p>There are some developer notes for the linter <a class="reference internal" href="README_DEVELOPER.html"><span class="doc">here</span></a>.</p>
+</div>
+<div class="section" id="contribute">
+<h2>Contribute<a class="headerlink" href="#contribute" title="Permalink to this headline">¶</a></h2>
+<p>We would love to have your feedback, suggestions, and especially contributions to the project. Create a pull request!</p>
+<p>You can reach me directly at carl.anderson&#64;weightwatchers.com as well as &#64;leapingllamas on Twitter.</p>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<p>Copyright 2019 WW International, Inc.</p>
+<p>Licensed under the Apache License, Version 2.0 (the “License”);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+<p>http://www.apache.org/licenses/LICENSE-2.0</p>
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an “AS IS” BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="README_LINTER.html" class="btn btn-neutral float-right" title="LookML Linter" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to lookml-tools’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, WW International, Inc
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

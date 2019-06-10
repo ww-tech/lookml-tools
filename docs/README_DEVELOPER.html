@@ -1,0 +1,270 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Developer Notes &mdash; lookml-tools 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Linter Example" href="examples/linter/README.html" />
+    <link rel="prev" title="LookML Updater" href="README_UPDATER.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> lookml-tools
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="README.html">LookML Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README_LINTER.html">LookML Linter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README_GRAPHER.html">LookML Grapher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README_UPDATER.html">LookML Updater</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Developer Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#linter">Linter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#rule-interface">Rule Interface</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples/linter/README.html">Linter Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/grapher/README.html">Grapher Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/updater/README.html">Updater Example</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">lookml-tools</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Developer Notes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/README_DEVELOPER.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="developer-notes">
+<h1>Developer Notes<a class="headerlink" href="#developer-notes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="linter">
+<h2>Linter<a class="headerlink" href="#linter" title="Permalink to this headline">¶</a></h2>
+<p>There are currently three types of rules:</p>
+<ul class="simple">
+<li><p><strong>Field-level rules</strong>: these are rules that apply to an individual <code class="docutils literal notranslate"><span class="pre">dimension</span></code>, <code class="docutils literal notranslate"><span class="pre">dimension_group</span></code>, or <code class="docutils literal notranslate"><span class="pre">measure</span></code>. An example is the <code class="docutils literal notranslate"><span class="pre">DescriptionRule</span></code> that specifies that these field should contain a description.</p></li>
+<li><p><strong>File-level rules</strong>: these are rules that apply to the file as a whole, such as there should only be one view per file (<code class="docutils literal notranslate"><span class="pre">OneViewPerFileRule</span></code>) or that files should specify a data source with <code class="docutils literal notranslate"><span class="pre">sql_table_name</span></code> or <code class="docutils literal notranslate"><span class="pre">derived_table</span></code> (<code class="docutils literal notranslate"><span class="pre">DataSourceRule</span></code>).</p></li>
+<li><p><strong>Other rules</strong>: the third category are other rules. The only, current example is the <code class="docutils literal notranslate"><span class="pre">NoOrphansRule</span></code> that says that each view should be referenced by at least one explore. While it sounds like a file-level rule, the code can only assess whether the rule is passed once it has parsed <em>all</em> of the files, and not from a single file. Thus, it has to be handled differently than the file-level rules.</p></li>
+</ul>
+<div class="section" id="rule-interface">
+<h3>Rule Interface<a class="headerlink" href="#rule-interface" title="Permalink to this headline">¶</a></h3>
+<p>The rule interface for field-level and file-level rules is simple. They must implement the single method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_data</span><span class="p">):</span>
+       <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">       run the rule</span>
+
+<span class="sd">       Returns:</span>
+<span class="sd">           whether rule was relevant: true/false</span>
+<span class="sd">           whether it passed: (True) or failed (False) the rule</span>
+<span class="sd">       &#39;&#39;&#39;</span>
+</pre></div>
+</div>
+<p>which is in <code class="docutils literal notranslate"><span class="pre">lkmltools.rules.rule</span></code> file.</p>
+<p>Rules must always return two Boolean flags:</p>
+<ul class="simple">
+<li><p><strong>Relevant</strong>: was the rule relevant for this fragment. So, if a rule that only applies to <code class="docutils literal notranslate"><span class="pre">measures</span></code> is fed JSON from a <code class="docutils literal notranslate"><span class="pre">dimension_group</span></code>, it should return <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>Passed</strong>: did the rule pass. If it was not relevant, it should return <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+</ul>
+<p>For file-level rules, the <code class="docutils literal notranslate"><span class="pre">json_data</span></code> is the parsed JSON of the whole file and for field-level rules, it is the JSON for an individual <code class="docutils literal notranslate"><span class="pre">dimension</span></code>, <code class="docutils literal notranslate"><span class="pre">dimension_group</span></code>, or <code class="docutils literal notranslate"><span class="pre">measure</span></code>.</p>
+<p>For instance, for the <code class="docutils literal notranslate"><span class="pre">DrillDownRule</span></code>, which only applies to measures, the implementation is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_data</span><span class="p">):</span>
+     
+        <span class="k">if</span> <span class="n">json_data</span><span class="p">[</span><span class="s1">&#39;_type&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;measure&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="s1">&#39;drill_fields&#39;</span> <span class="ow">in</span> <span class="n">json_data</span> <span class="ow">or</span> <span class="n">json_data</span><span class="p">[</span><span class="s1">&#39;drill_fields&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="p">[]:</span>
+            <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>which should be relatively easy to understand.</p>
+<p>You should examine the parsed JSON of some LookML files to see the structure. For instance,  dimension’s JSON for a dimension <code class="docutils literal notranslate"><span class="pre">city_code</span></code> is relatively intuitive:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;this is a description&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;sql&quot;</span><span class="p">:</span> <span class="s2">&quot;$</span><span class="si">{TABLE}</span><span class="s2">.CityCode &quot;</span><span class="p">,</span>
+      <span class="s2">&quot;_dimension&quot;</span><span class="p">:</span> <span class="s2">&quot;city_code&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;dimension&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;_n&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">&quot;_view&quot;</span><span class="p">:</span> <span class="s2">&quot;dim_geography&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>As well as implementing the rule, it will also needs to be added to added to the <code class="docutils literal notranslate"><span class="pre">lkmltools.linter.rule_factory</span></code>.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="examples/linter/README.html" class="btn btn-neutral float-right" title="Linter Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="README_UPDATER.html" class="btn btn-neutral float-left" title="LookML Updater" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, WW International, Inc
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

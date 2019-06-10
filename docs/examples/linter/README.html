@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Linter Example &mdash; lookml-tools 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Grapher Example" href="../grapher/README.html" />
+    <link rel="prev" title="Developer Notes" href="../../README_DEVELOPER.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> lookml-tools
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">LookML Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README_LINTER.html">LookML Linter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README_GRAPHER.html">LookML Grapher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README_UPDATER.html">LookML Updater</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README_DEVELOPER.html">Developer Notes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Linter Example</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#view1-view-lkml">view1.view.lkml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#view2-view-lkml">view2.view.lkml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#config-file">Config file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#runing">Runing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examining-the-output">Examining the Output</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../grapher/README.html">Grapher Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../updater/README.html">Updater Example</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">lookml-tools</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Linter Example</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/examples/linter/README.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="linter-example">
+<h1>Linter Example<a class="headerlink" href="#linter-example" title="Permalink to this headline">¶</a></h1>
+<p>In this example, we run the linter on a couple of view files.</p>
+<p>Imagine that you had <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code>d some LookML repo into the <code class="docutils literal notranslate"><span class="pre">gitrepo</span></code> folder. In this example, we have two files:</p>
+<div class="section" id="view1-view-lkml">
+<h2>view1.view.lkml<a class="headerlink" href="#view1-view-lkml" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">view</span><span class="p">:</span> <span class="n">view1</span> <span class="p">{</span>
+
+    <span class="n">dimension</span><span class="p">:</span> <span class="n">member_uuid</span> <span class="p">{</span>
+        <span class="nb">type</span><span class="p">:</span> <span class="n">string</span>
+    <span class="p">}</span>
+
+    <span class="n">dimension</span><span class="p">:</span> <span class="n">LOCATION</span> <span class="p">{</span>
+        <span class="nb">type</span><span class="p">:</span> <span class="n">string</span>
+    <span class="p">}</span>
+
+    <span class="n">dimension</span><span class="p">:</span> <span class="n">is_active</span> <span class="p">{</span>
+        <span class="nb">type</span><span class="p">:</span> <span class="n">yesno</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="view2-view-lkml">
+<h2>view2.view.lkml<a class="headerlink" href="#view2-view-lkml" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>view: view2 {
+
+    sql_table_name: `dw.members` ;;
+
+    measure: count {
+        type: count
+    }
+}
+</pre></div>
+</div>
+<p>Both are simple, valid LookML files.</p>
+</div>
+<div class="section" id="config-file">
+<h2>Config file<a class="headerlink" href="#config-file" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">example_linter_config.json</span></code> defines a few things:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;parser&quot;</span><span class="p">:</span> <span class="s2">&quot;lookml-parser&quot;</span><span class="p">,</span>
+
+    <span class="s2">&quot;git&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/exampleorg/examplerepo.git&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;folder&quot;</span><span class="p">:</span> <span class="s2">&quot;gitrepo&quot;</span>
+    <span class="p">},</span>
+
+    <span class="s2">&quot;infile_globs&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;gitrepo/*.*.lkml&quot;</span>
+    <span class="p">],</span>
+
+    <span class="s2">&quot;tmp_file&quot;</span><span class="p">:</span> <span class="s2">&quot;parsed_lookml.json&quot;</span><span class="p">,</span>
+
+    <span class="s2">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;field_level_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;DescriptionRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;DrillDownRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;YesNoNameRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;AllCapsRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+
+    <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;csv&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;file_output&quot;</span><span class="p">:</span> <span class="s2">&quot;linter_file_report.csv&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;field_output&quot;</span><span class="p">:</span> <span class="s2">&quot;linter_field_report.csv&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>It defines the parser binary (<code class="docutils literal notranslate"><span class="pre">lookml-parser</span></code>), which files we want to process (via the <code class="docutils literal notranslate"><span class="pre">infile_globs</span></code> list which, in this case, specifies all the <code class="docutils literal notranslate"><span class="pre">.lkml</span></code> files in <code class="docutils literal notranslate"><span class="pre">examplerepo</span></code>). It defines the temporary files that LookML will be parsed to as JSON files (<code class="docutils literal notranslate"><span class="pre">parsed_lookml.json</span></code>).</p>
+<p>The config specifies the set of rules to run. In this example, we run four field-level rules (field meaning that they apply at the individual <code class="docutils literal notranslate"><span class="pre">dimension</span></code>, <code class="docutils literal notranslate"><span class="pre">dimension_group</span></code>, and <code class="docutils literal notranslate"><span class="pre">measure</span></code> level, not at file or repo level):</p>
+<ul class="simple">
+<li><p><strong>DescriptionRule</strong>: specifies that <code class="docutils literal notranslate"><span class="pre">dimensions</span></code>, <code class="docutils literal notranslate"><span class="pre">dimension_groups</span></code>, and <code class="docutils literal notranslate"><span class="pre">measures</span></code> should have descriptions</p></li>
+<li><p><strong>DrillDownRule</strong>: specifies that measures should have drill downs</p></li>
+<li><p><strong>YesNoNameRule</strong>: specifies that <code class="docutils literal notranslate"><span class="pre">yesno</span></code> dimension names should start with <code class="docutils literal notranslate"><span class="pre">is_</span></code></p></li>
+<li><p><strong>AllCapsRule</strong>: specifies that  <code class="docutils literal notranslate"><span class="pre">dimensions</span></code>, <code class="docutils literal notranslate"><span class="pre">dimension_groups</span></code>, and <code class="docutils literal notranslate"><span class="pre">measures</span></code> should not have descriptions with names that are all caps, as rthey are too SHOUTY!</p></li>
+</ul>
+<p>There are more rules than this, and it is easy to create your own. For this example, however, we just run these four.</p>
+<p>Finally, the file specifies to write the report to CSV.</p>
+<p>(There are additional options that can be specified in the config file.)</p>
+</div>
+<div class="section" id="runing">
+<h2>Runing<a class="headerlink" href="#runing" title="Permalink to this headline">¶</a></h2>
+<p>Run the linter with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">examples</span><span class="o">/</span><span class="n">linter</span>
+
+<span class="n">python</span> <span class="o">../../</span><span class="n">run_linter</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config</span> <span class="n">example_linter_config</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<p>and you should see output similar to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">../../</span><span class="n">run_linter</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config</span> <span class="n">example_linter_config</span><span class="o">.</span><span class="n">json</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span> <span class="mi">18</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mi">28</span><span class="p">,</span><span class="mi">835</span> <span class="n">INFO</span> <span class="n">lookml_linter</span><span class="o">.</span><span class="n">py</span> <span class="n">create_rules</span><span class="p">:</span> <span class="n">Creating</span> <span class="n">Field</span><span class="o">-</span><span class="n">level</span> <span class="n">Rule</span> <span class="n">DescriptionRule</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span> <span class="mi">18</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mi">28</span><span class="p">,</span><span class="mi">835</span> <span class="n">INFO</span> <span class="n">lookml_linter</span><span class="o">.</span><span class="n">py</span> <span class="n">create_rules</span><span class="p">:</span> <span class="n">Creating</span> <span class="n">Field</span><span class="o">-</span><span class="n">level</span> <span class="n">Rule</span> <span class="n">DrillDownRule</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span> <span class="mi">18</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mi">28</span><span class="p">,</span><span class="mi">835</span> <span class="n">INFO</span> <span class="n">lookml_linter</span><span class="o">.</span><span class="n">py</span> <span class="n">create_rules</span><span class="p">:</span> <span class="n">Creating</span> <span class="n">Field</span><span class="o">-</span><span class="n">level</span> <span class="n">Rule</span> <span class="n">YesNoNameRule</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span> <span class="mi">18</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mi">28</span><span class="p">,</span><span class="mi">835</span> <span class="n">INFO</span> <span class="n">lookml_linter</span><span class="o">.</span><span class="n">py</span> <span class="n">create_rules</span><span class="p">:</span> <span class="n">Creating</span> <span class="n">Field</span><span class="o">-</span><span class="n">level</span> <span class="n">Rule</span> <span class="n">AllCapsRule</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span> <span class="mi">18</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mi">28</span><span class="p">,</span><span class="mi">835</span> <span class="n">INFO</span> <span class="n">lookml_linter</span><span class="o">.</span><span class="n">py</span> <span class="n">run</span><span class="p">:</span> <span class="n">Processing</span> <span class="n">gitrepo</span><span class="o">/</span><span class="n">view1</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span> <span class="mi">18</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mi">28</span><span class="p">,</span><span class="mi">836</span> <span class="n">INFO</span> <span class="n">lookml</span><span class="o">.</span><span class="n">py</span> <span class="n">parse_repo</span><span class="p">:</span> <span class="n">running</span> <span class="n">lookml</span><span class="o">-</span><span class="n">parser</span> <span class="o">--</span><span class="nb">input</span><span class="o">=</span><span class="s1">&#39;gitrepo/view1.view.lkml&#39;</span> <span class="o">--</span><span class="n">whitespace</span><span class="o">=</span><span class="mi">2</span> <span class="o">&gt;</span> <span class="n">parsed_lookml</span><span class="o">.</span><span class="n">json</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span> <span class="mi">18</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mi">29</span><span class="p">,</span><span class="mi">278</span> <span class="n">INFO</span> <span class="n">lookml_linter</span><span class="o">.</span><span class="n">py</span> <span class="n">run</span><span class="p">:</span> <span class="n">Processing</span> <span class="n">gitrepo</span><span class="o">/</span><span class="n">view2</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span> <span class="mi">18</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mi">29</span><span class="p">,</span><span class="mi">279</span> <span class="n">INFO</span> <span class="n">lookml</span><span class="o">.</span><span class="n">py</span> <span class="n">parse_repo</span><span class="p">:</span> <span class="n">running</span> <span class="n">lookml</span><span class="o">-</span><span class="n">parser</span> <span class="o">--</span><span class="nb">input</span><span class="o">=</span><span class="s1">&#39;gitrepo/view2.view.lkml&#39;</span> <span class="o">--</span><span class="n">whitespace</span><span class="o">=</span><span class="mi">2</span> <span class="o">&gt;</span> <span class="n">parsed_lookml</span><span class="o">.</span><span class="n">json</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span> <span class="mi">18</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mi">29</span><span class="p">,</span><span class="mi">499</span> <span class="n">INFO</span> <span class="n">lookml_linter</span><span class="o">.</span><span class="n">py</span> <span class="n">write_field_csv</span><span class="p">:</span> <span class="n">Field</span> <span class="n">output</span> <span class="n">written</span> <span class="n">to</span> <span class="n">linter_field_report</span><span class="o">.</span><span class="n">csv</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="examining-the-output">
+<h2>Examining the Output<a class="headerlink" href="#examining-the-output" title="Permalink to this headline">¶</a></h2>
+<p>If we open the <code class="docutils literal notranslate"><span class="pre">linter_field_report.csv</span></code>, we find the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">time</span><span class="p">,</span><span class="n">file</span><span class="p">,</span><span class="n">rule</span><span class="p">,</span><span class="nb">type</span><span class="p">,</span><span class="n">fieldname</span><span class="p">,</span><span class="n">passed</span><span class="p">,</span><span class="n">repo</span><span class="p">,</span><span class="n">glob</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span><span class="n">T18</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mf">28.835588</span><span class="p">,</span><span class="n">view1</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span><span class="p">,</span><span class="n">DescriptionRule</span><span class="p">,</span><span class="n">dimension</span><span class="p">,</span><span class="n">member_uuid</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">exampleorg</span><span class="o">/</span><span class="n">examplerepo</span><span class="o">.</span><span class="n">git</span><span class="p">,</span><span class="n">examplerepo</span><span class="o">/*.*.</span><span class="n">lkml</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span><span class="n">T18</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mf">28.835588</span><span class="p">,</span><span class="n">view1</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span><span class="p">,</span><span class="n">AllCapsRule</span><span class="p">,</span><span class="n">dimension</span><span class="p">,</span><span class="n">member_uuid</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">exampleorg</span><span class="o">/</span><span class="n">examplerepo</span><span class="o">.</span><span class="n">git</span><span class="p">,</span><span class="n">examplerepo</span><span class="o">/*.*.</span><span class="n">lkml</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span><span class="n">T18</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mf">28.835588</span><span class="p">,</span><span class="n">view1</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span><span class="p">,</span><span class="n">DescriptionRule</span><span class="p">,</span><span class="n">dimension</span><span class="p">,</span><span class="n">LOCATION</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">exampleorg</span><span class="o">/</span><span class="n">examplerepo</span><span class="o">.</span><span class="n">git</span><span class="p">,</span><span class="n">examplerepo</span><span class="o">/*.*.</span><span class="n">lkml</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span><span class="n">T18</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mf">28.835588</span><span class="p">,</span><span class="n">view1</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span><span class="p">,</span><span class="n">AllCapsRule</span><span class="p">,</span><span class="n">dimension</span><span class="p">,</span><span class="n">LOCATION</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">exampleorg</span><span class="o">/</span><span class="n">examplerepo</span><span class="o">.</span><span class="n">git</span><span class="p">,</span><span class="n">examplerepo</span><span class="o">/*.*.</span><span class="n">lkml</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span><span class="n">T18</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mf">28.835588</span><span class="p">,</span><span class="n">view1</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span><span class="p">,</span><span class="n">DescriptionRule</span><span class="p">,</span><span class="n">dimension</span><span class="p">,</span><span class="n">is_active</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">exampleorg</span><span class="o">/</span><span class="n">examplerepo</span><span class="o">.</span><span class="n">git</span><span class="p">,</span><span class="n">examplerepo</span><span class="o">/*.*.</span><span class="n">lkml</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span><span class="n">T18</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mf">28.835588</span><span class="p">,</span><span class="n">view1</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span><span class="p">,</span><span class="n">YesNoNameRule</span><span class="p">,</span><span class="n">dimension</span><span class="p">,</span><span class="n">is_active</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">exampleorg</span><span class="o">/</span><span class="n">examplerepo</span><span class="o">.</span><span class="n">git</span><span class="p">,</span><span class="n">examplerepo</span><span class="o">/*.*.</span><span class="n">lkml</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span><span class="n">T18</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mf">28.835588</span><span class="p">,</span><span class="n">view1</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span><span class="p">,</span><span class="n">AllCapsRule</span><span class="p">,</span><span class="n">dimension</span><span class="p">,</span><span class="n">is_active</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">exampleorg</span><span class="o">/</span><span class="n">examplerepo</span><span class="o">.</span><span class="n">git</span><span class="p">,</span><span class="n">examplerepo</span><span class="o">/*.*.</span><span class="n">lkml</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span><span class="n">T18</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mf">28.835588</span><span class="p">,</span><span class="n">view2</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span><span class="p">,</span><span class="n">DescriptionRule</span><span class="p">,</span><span class="n">measure</span><span class="p">,</span><span class="n">count</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">exampleorg</span><span class="o">/</span><span class="n">examplerepo</span><span class="o">.</span><span class="n">git</span><span class="p">,</span><span class="n">examplerepo</span><span class="o">/*.*.</span><span class="n">lkml</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span><span class="n">T18</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mf">28.835588</span><span class="p">,</span><span class="n">view2</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span><span class="p">,</span><span class="n">DrillDownRule</span><span class="p">,</span><span class="n">measure</span><span class="p">,</span><span class="n">count</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">exampleorg</span><span class="o">/</span><span class="n">examplerepo</span><span class="o">.</span><span class="n">git</span><span class="p">,</span><span class="n">examplerepo</span><span class="o">/*.*.</span><span class="n">lkml</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">05</span><span class="n">T18</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mf">28.835588</span><span class="p">,</span><span class="n">view2</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">lkml</span><span class="p">,</span><span class="n">AllCapsRule</span><span class="p">,</span><span class="n">measure</span><span class="p">,</span><span class="n">count</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">exampleorg</span><span class="o">/</span><span class="n">examplerepo</span><span class="o">.</span><span class="n">git</span><span class="p">,</span><span class="n">examplerepo</span><span class="o">/*.*.</span><span class="n">lkml</span>
+</pre></div>
+</div>
+<p>This is easier to interpret in a table:</p>
+<p><img alt="../../_images/linter_output.png" src="../../_images/linter_output.png" /></p>
+<p>We can see that in view1, all the dimensions failed the <code class="docutils literal notranslate"><span class="pre">DescriptionRule</span></code>. The <code class="docutils literal notranslate"><span class="pre">LOCATION</span></code> dimension failed the <code class="docutils literal notranslate"><span class="pre">AllCapsRule</span></code>, and the <code class="docutils literal notranslate"><span class="pre">is_active</span></code> dimension passed the <code class="docutils literal notranslate"><span class="pre">YesNoNameRule</span></code>.
+In <code class="docutils literal notranslate"><span class="pre">view2</span></code>, the single measure failed the <code class="docutils literal notranslate"><span class="pre">DescriptionRule</span></code> and <code class="docutils literal notranslate"><span class="pre">DrillDownRule</span></code> but passed the <code class="docutils literal notranslate"><span class="pre">AllCapsRule</span></code>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../grapher/README.html" class="btn btn-neutral float-right" title="Grapher Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../../README_DEVELOPER.html" class="btn btn-neutral float-left" title="Developer Notes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, WW International, Inc
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

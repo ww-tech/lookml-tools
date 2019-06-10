@@ -1,0 +1,7 @@
+data\_source\_rule module
+=========================
+
+.. automodule:: data_source_rule
+   :members:
+   :undoc-members:
+   :show-inheritance:
