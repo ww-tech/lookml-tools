@@ -14,6 +14,10 @@ setup(name='lookml-tools',
       license='Apache 2.0',
       packages=['lkmltools'],
       zip_safe=False,
+      classifiers=[
+        "Programming Language :: Python :: 3.6",
+        "Operating System :: OS Independent"
+      ],
       project_urls={
         'Documentation': 'https://ww-tech.github.io/lookml-tools/',
         'Source': 'https://github.com/ww-tech/lookml-tools',
