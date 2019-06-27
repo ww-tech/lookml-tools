@@ -32,9 +32,17 @@ Full documentation is [here](README_GRAPHER.md).
 
 All three tools above makes use of Fabio's node-based LookML parser (https://github.com/fabio-looker/node-lookml-parser)
 
+*Update*: 2019-06-27. `node-lookml-parser`'s recent upgrade to 5.0.0 introduced breaking changes. This borks `lookml-parser`. While I am currently working on fixes, please make sure to check out the 4.0.0 version of the parser not the current 5.0.0 version. 
+
 ```
 brew install node   # if on mac
-npm install -g lookml-parser
+
+npm install -g lookml-parser@4.0.0
+```
+
+You will also need to install grapviz:
+```
+brew install graphviz
 ```
 
 You will need to set the path of the `lookml-parser` binary in the config file. For example, for the updater config, your path might be:
@@ -51,16 +59,18 @@ You will need to set the path of the `lookml-parser` binary in the config file. 
 ```
 
 ### pip
+You will need to install dependencies:
+```
+  pip install -r requirements.txt
+```
+
 You can install the Python codebase of `lookml-tools` via pip:
 
 ```
   pip install lookml-tools
 ```
 
-You may need to install its dependencies:
-```
-  pip install -r requirements.txt
-```
+One user reported having to install a specific version of pandas (`pandas==0.24.0`) to make this all work. YMMV.
 
 ## Unit tests
 There is a test suite with close to 100% code coverage
