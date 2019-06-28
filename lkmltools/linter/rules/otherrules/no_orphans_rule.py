@@ -52,9 +52,9 @@ class NoOrphansRule(Rule):
         '''
         self.grapher.process_file(filepath=None, json_data=json_data)
         # we'll need the view_namme->filename mapping to output later
-        if 'views' in json_data: #['files'][0]:
-            view_name = json_data['views'][0]['name'] #['files'][0]['views'][0]['_view']
-            filepath = json_data['filename'] #['files'][0]['_file_path']
+        if 'views' in json_data:
+            view_name = json_data['views'][0]['name']
+            filepath = json_data['metadata']['filename']
             self.view_dict[view_name] = filepath
 
     def finish_up(self, file_out):

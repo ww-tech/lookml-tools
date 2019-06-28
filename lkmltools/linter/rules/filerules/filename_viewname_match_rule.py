@@ -28,5 +28,5 @@ class FilenameViewnameMatchRule(Rule):
         if not 'views' in json_data: #['files'][0]:
             return False, None
         view_name = json_data['views'][0]['name'] #['files'][0]['views'][0]['_view']
-        filename = json_data['base_filename'].replace(".view.lkml","") #files'][0]['_file_name']
+        filename = json_data['metadata']['base_filename'].replace(".view.lkml","") #files'][0]['_file_name']
         return True, view_name == filename

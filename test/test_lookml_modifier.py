@@ -16,13 +16,6 @@ def test_init(config):
     modifier = LookMlModifier(config)
     assert isinstance(modifier.definitions, DataFrame)
 
-def test_create_command(config):
-    modifier = LookMlModifier(config)
-    command = modifier.create_command("somefile.lkml")
-    assert isinstance(command, list)
-    assert "somefile.lkml" in command[1]
-    assert config['parser'] in command[0]
-
 def test_find_description(config):
     raw_lookml = """
 view: dim_geography {

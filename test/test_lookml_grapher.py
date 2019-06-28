@@ -75,7 +75,7 @@ def test_process_explores(config):
     pp = pprint.PrettyPrinter(indent=4)
     pp.pprint(json_data)
 
-    m = json_data['base_name'] #['files'][0]['models'][0]
+    m = json_data['metadata']['base_name']
     e = json_data['explores'][0]
 
     assert grapher.models_to_explores == []

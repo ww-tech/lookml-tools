@@ -190,28 +190,17 @@ class LookMlGrapher():
             logging.info("Processing %s", filepath)
             json_data = self.lookml.get_json_representation(filepath)
 
-
-        import pprint
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(json_data)
-
-        if 'views' in json_data: #['files'][0]:
-            for v in json_data['views']: #['files'][0]['views']:
-                #self.node_map[v['_view']] = NodeType.VIEW
+        if 'views' in json_data:
+            for v in json_data['views']:
                 self.node_map[v['name']] = NodeType.VIEW
-        elif json_data['filetype']=='model': # 'models' in json_data: #['files'][0]:
-            #for m in json_data['files'][0]['models']:
-            m = json_data['base_name']
+        elif json_data['metadata']['filetype']=='model':
+            m = json_data['metadata']['base_name']
             self.node_map[m] = NodeType.MODEL
-            #for m in json_data['models']:
-            #    self.node_map[m['base_name']] = NodeType.MODEL
             [self.process_explores(m, e) for e in json_data['explores']]
-        elif json_data['filetype']=='explore': #'explores' in json_data: #['files'][0]: 
-            #for e in json_data['files'][0]['explores']:
+        elif json_data['metadata']['filetype']=='explore':
             for e in json_data['explores']:
                 self.process_explores(None, e)
         else:
-            #logging.error("Issue with %s", filepath)
             raise Exception("No models, views, or explores? %s", filepath)
 
     def extract_graph_info(self, globstrings):
