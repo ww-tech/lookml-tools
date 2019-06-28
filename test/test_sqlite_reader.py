@@ -11,7 +11,7 @@ def test_get_definitions():
     conn = sqlite3.connect(db_filename)
     c = conn.cursor()
     c.execute("create table test(file text, type text, name text, definition text);")
-    c.execute("insert into test(file, type, name, definition) values('test/basic.lkml','dimension','tier','this is a new description');")
+    c.execute("insert into test(file, type, name, definition) values('test/basic.view.lkml','dimension','tier','this is a new description');")
     conn.commit()
     conn.close()
 
@@ -26,7 +26,7 @@ def test_get_definitions():
     reader = SQLiteReader(config)
     df = reader.get_definitions()
     results = list(df.T.to_dict().values())
-    assert results[0] == {'file': 'test/basic.lkml','type':'dimension','name':'tier','definition':'this is a new description'}
+    assert results[0] == {'file': 'test/basic.view.lkml','type':'dimension','name':'tier','definition':'this is a new description'}
    
     if os.path.exists(db_filename):
         os.remove(db_filename)

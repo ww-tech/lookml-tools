@@ -26,5 +26,6 @@ class CountNameRule(Rule):
 
         '''
         if json_data['_type'] == 'measure' and 'type' in json_data and json_data['type'] == 'count':
-            return True, json_data['_measure'].endswith("_count")
+#            return True, json_data['_measure'].endswith("_count")
+            return True, json_data['name'].endswith("_count")
         return False, None

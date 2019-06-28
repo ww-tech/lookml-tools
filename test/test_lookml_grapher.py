@@ -71,8 +71,12 @@ def test_process_explores(config):
     grapher = LookMlGrapher(config)
     json_data = grapher.lookml.get_json_representation("test/grapher_lkml/some_model.model.lkml")
 
-    m = json_data['files'][0]['models'][0]
-    e = m['explores'][0]
+    import pprint
+    pp = pprint.PrettyPrinter(indent=4)
+    pp.pprint(json_data)
+
+    m = json_data['base_name'] #['files'][0]['models'][0]
+    e = json_data['explores'][0]
 
     assert grapher.models_to_explores == []
     assert grapher.explores_to_views == []
@@ -122,7 +126,7 @@ def test_process_file4(config):
     grapher = LookMlGrapher(config)
     assert grapher.models_to_explores == []
     assert grapher.explores_to_views == []
-    grapher.process_file("test/grapher_lkml/some_explore.exlore.lkml")
+    grapher.process_file("test/grapher_lkml/some_explore.explore.lkml")
     assert grapher.models_to_explores == []
     assert grapher.explores_to_views == [('some_explore','some_view'), ('some_explore','some_other_view')]
     if os.path.exists(config['tmp_file']):

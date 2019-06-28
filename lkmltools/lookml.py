@@ -10,6 +10,7 @@ import os
 import json
 import shlex
 
+import lkml
 class LookML():
 
     def __init__(self, config):
@@ -28,6 +29,7 @@ class LookML():
         command = [self.config['parser']]
         command.append("--input=%s" % filename) #note: no single quotes around %s for shell=False
         command.append('--whitespace=2')
+        #command.append('--file-output=array')
         return command
 
     def parse_repo(self, filename):
@@ -65,11 +67,27 @@ class LookML():
         if not os.path.exists(infilepath):
             raise IOError("Filename does not exist: %s" % infilepath)
 
-        _, error = self.parse_repo(infilepath)
+        # _, error = self.parse_repo(infilepath)
 
-        if error:
-            raise Exception(str(error))
+        # if error:
+        #     raise Exception(str(error))
 
-        with open(self.config['tmp_file']) as json_file:
-            json_data = json.load(json_file)
+        # with open(self.config['tmp_file']) as json_file:
+        #     json_data = json.load(json_file)
+        #     return json_data
+
+        with open(infilepath, 'r') as file:
+            json_data = lkml.load(file)
+            json_data['base_filename'] = os.path.basename(infilepath)
+            json_data['base_name'] = json_data['base_filename'].replace(".model.lkml", "").replace(".explore.lkml", "").replace(".view.lkml", "")
+            json_data['filename'] = infilepath
+            json_data['filetype'] = ""
+            if infilepath.endswith(".model.lkml"):
+                json_data['filetype'] = 'model'
+            elif infilepath.endswith(".view.lkml"):
+                json_data['filetype'] = 'view'
+            elif infilepath.endswith(".explore.lkml"):
+                json_data['filetype'] = 'explore'
+            else:
+                raise Exception("Unsupported filename " + infilepath)
             return json_data

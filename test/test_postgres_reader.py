@@ -21,9 +21,9 @@ def test_get_definitions(monkeypatch):
     with patch(target='psycopg2.connect') as mock:
 
         def fake_df(query, con):
-            return pd.DataFrame({'file': ['test/basic.lkml'],'type':['dimension'],'name':['tier'],'definition':['this is a new description']})
+            return pd.DataFrame({'file': ['test/basic.view.lkml'],'type':['dimension'],'name':['tier'],'definition':['this is a new description']})
         monkeypatch.setattr(pd,'read_sql',fake_df)
 
         df = reader.get_definitions()
 
-        assert list(df.T.to_dict().values())[0] == {'file': 'test/basic.lkml','type':'dimension','name':'tier','definition':'this is a new description'}
+        assert list(df.T.to_dict().values())[0] == {'file': 'test/basic.view.lkml','type':'dimension','name':'tier','definition':'this is a new description'}

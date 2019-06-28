@@ -153,22 +153,25 @@ class LookMlGrapher():
             nothing. Side effect is to add to maps
 
         '''
-        explore_name = e['_explore']
+        explore_name = e['name'] #['_explore']
         self.node_map[explore_name] = NodeType.EXPLORE
-        if m and '_model' in m:
-            self.models_to_explores.append((m['_model'], explore_name))
+        #if m and '_model' in m:
+        #    self.models_to_explores.append((m['_model'], explore_name))
+        if m:
+            self.models_to_explores.append((m, explore_name))
         if 'from' in e:
             # this is the first view mentioned
             self.explores_to_views.append((explore_name, e['from']))
             #logging.info("Adding %s %s" % (explore_name, e['from']))
 
             # but there could be more mentioned in the list (if any) of joins
-            if 'join' in e:
-                for k in e['join']:
-                    if not k.startswith('_'):
-                        if 'from' in e['join'][k]:
+            if 'joins' in e:
+                for k in e['joins']:
+#                    if not k.startswith('_'):
+#                        if 'from' in e['join'][k]:
                             # this is an edge from explore to a view contained within joined views
-                            self.explores_to_views.append((explore_name, e['join'][k]['from']))
+#                            self.explores_to_views.append((explore_name, e['join'][k]['from']))
+                            self.explores_to_views.append((explore_name, k['from']))
 
     def process_file(self, filepath, json_data=None):
         '''given a filepath to a LookML file, extract the views, models, explores as the nodes
@@ -187,15 +190,25 @@ class LookMlGrapher():
             logging.info("Processing %s", filepath)
             json_data = self.lookml.get_json_representation(filepath)
 
-        if 'views' in json_data['files'][0]:
-            for v in json_data['files'][0]['views']:
-                self.node_map[v['_view']] = NodeType.VIEW
-        elif 'models' in json_data['files'][0]:
-            for m in json_data['files'][0]['models']:
-                self.node_map[m['_model']] = NodeType.MODEL
-                [self.process_explores(m, e) for e in m['explores']]
-        elif 'explores' in json_data['files'][0]: 
-            for e in json_data['files'][0]['explores']:
+
+        import pprint
+        pp = pprint.PrettyPrinter(indent=4)
+        pp.pprint(json_data)
+
+        if 'views' in json_data: #['files'][0]:
+            for v in json_data['views']: #['files'][0]['views']:
+                #self.node_map[v['_view']] = NodeType.VIEW
+                self.node_map[v['name']] = NodeType.VIEW
+        elif json_data['filetype']=='model': # 'models' in json_data: #['files'][0]:
+            #for m in json_data['files'][0]['models']:
+            m = json_data['base_name']
+            self.node_map[m] = NodeType.MODEL
+            #for m in json_data['models']:
+            #    self.node_map[m['base_name']] = NodeType.MODEL
+            [self.process_explores(m, e) for e in json_data['explores']]
+        elif json_data['filetype']=='explore': #'explores' in json_data: #['files'][0]: 
+            #for e in json_data['files'][0]['explores']:
+            for e in json_data['explores']:
                 self.process_explores(None, e)
         else:
             #logging.error("Issue with %s", filepath)

@@ -95,10 +95,11 @@ class LookMlLinter():
             return field_out
 
         for json_d in v[plural_key]:
+            json_d['_type'] = single_key
             for rule in self.field_rules:
                 relevant, passed = rule.run(json_d)
                 if relevant:
-                    d = {"file": simple_filepath, "rule": rule.name(), "passed": int(passed), "type": single_key, "fieldname": json_d['_' + single_key]}
+                    d = {"file": simple_filepath, "rule": rule.name(), "passed": int(passed), "type": single_key, "fieldname": json_d['name']} #['_' + single_key]}
                     field_out.append(d)
                     logging.debug(d)
         return field_out
@@ -173,8 +174,9 @@ class LookMlLinter():
 
                 file_out = self.run_file_rules(json_data, simple_filepath, file_out)
 
-                if 'views' in json_data['files'][0]:
-                    v = json_data['files'][0]['views'][0]
+                if 'views' in json_data: #['files'][0]:
+#                    v = json_data['files'][0]['views'][0]
+                    v = json_data['views'][0]
                     field_out = self.run_field_rules(v, 'dimension', 'dimensions', simple_filepath, field_out)
                     field_out = self.run_field_rules(v, 'dimension_group', 'dimension_groups', simple_filepath, field_out)
                     field_out = self.run_field_rules(v, 'measure', 'measures', simple_filepath, field_out)

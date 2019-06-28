@@ -48,7 +48,7 @@ def test_run_file_rules():
     linter = LookMlLinter(config)
 
     rule = DataSourceRule()
-    json_data = LookML(config).get_json_representation("test/minimal_multiline.lkml")
+    json_data = LookML(config).get_json_representation("test/minimal_multiline.view.lkml")
     out = linter.run_file_rules(json_data, "xxx", [])
     assert len(out) == 2
     assert out[0] == {'file': 'xxx', 'passed': 1, 'rule': 'DataSourceRule'}
@@ -68,8 +68,8 @@ def test_run_field_rules():
         },
     }
     linter = LookMlLinter(config)
-    json_data = LookML(config).get_json_representation("test/minimal_multiline.lkml")
-    v = json_data['files'][0]['views'][0]
+    json_data = LookML(config).get_json_representation("test/minimal_multiline.view.lkml")
+    v = json_data['views'][0] #['files'][0]['views'][0]
 
     out = linter.run_field_rules(v, 'dimension', 'dimensions', "xxx", [])
     assert out[0] == {'file': 'xxx', 'rule': 'DescriptionRule', 'passed': 1, 'type': 'dimension', 'fieldname': 'city_code'}
@@ -92,7 +92,7 @@ def test_run_field_rules2():
       }
     """
     json_data = get_json_from_lookml(raw_lookml)
-    v = json_data['files'][0]['views'][0]
+    v = json_data['views'][0]#['files'][0]['views'][0]
     out = linter.run_field_rules(v, 'dimension', 'dimensions', "xxx", [])
     assert out == []
 

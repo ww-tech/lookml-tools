@@ -30,7 +30,7 @@ def test_handle_addition():
     assert modifier.lines[4] == "    description: \"a description\"	# programmatically added by LookML modifier\n"
 
 def test_handle_subscription_substitution():
-    modifier = FileModifier("test/minimal_multiline.lkml")
+    modifier = FileModifier("test/minimal_multiline.view.lkml")
     assert len(modifier.lines) == 19
     modifier.handle_desription_substitution(6, "dimension", "city_code", "a description")
     assert len(modifier.lines) == 14
@@ -63,7 +63,7 @@ def test_modify1():
     assert modifier.lines[4] == "    description: \"a description\"	# programmatically added by LookML modifier\n"
 
 def test_modify2():
-    modifier = FileModifier("test/minimal_multiline.lkml")
+    modifier = FileModifier("test/minimal_multiline.view.lkml")
     assert len(modifier.lines) == 19
     modifier.modify(6, "dimension", "city_code", "a description", True)
     assert len(modifier.lines) == 14

@@ -26,5 +26,6 @@ class YesNoNameRule(Rule):
 
         '''
         if json_data['_type'] == 'dimension' and 'type' in json_data and  json_data['type'] == 'yesno':
-            return True, json_data['_dimension'].startswith("is_")
+#            return True, json_data['_dimension'].startswith("is_")
+            return True, json_data['name'].startswith("is_")
         return False, None

@@ -37,7 +37,7 @@ class LexiconRule(Rule):
             return False, None
 
         # check name
-        name = json_data['_' + json_data['_type']].lower()
+        name = json_data['name'] #['_' + json_data['_type']].lower()
         passed = not ('subscriber' in name or 'subscription' in name or 'studio' in name)
 
         # check description

@@ -26,5 +26,5 @@ class AllCapsRule(Rule):
         '''
         if not '_type' in json_data or not json_data['_type'] in ['dimension', 'dimension_group', 'measure']:
             return False, None
-        name = json_data['_' + json_data['_type']]
+        name = json_data['name'] #['_' + json_data['_type']]
         return True, name != name.upper()

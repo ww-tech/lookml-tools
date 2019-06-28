@@ -25,9 +25,9 @@ class OneViewPerFileRule(Rule):
                 passed (bool): did the rule pass?
 
         '''
-        if not 'views' in json_data['files'][0]:
+        if not 'views' in json_data:
             return False, None
-        n = len(json_data['files'][0]['views'])
+        n = len(json_data['views'])
         if n > 1:
             return True, False
         return True, True

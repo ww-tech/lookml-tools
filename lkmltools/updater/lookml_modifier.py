@@ -43,22 +43,35 @@ class LookMlModifier(LookML):
             boolean: whether it has one
 
         '''
-        if not 'views' in json_data['files'][0]:
+        if not 'views' in json_data: #['files'][0]:
             raise Exception("Only views are supported. Is this a LookML model?")
 
         # coding standards say that we should have one view per file
-        n = len(json_data['files'][0]['views'])
+#        n = len(json_data['files'][0]['views'])
+        n = len(json_data['views'])
         if n > 1:
             raise Exception("There should only 1 view. We found %d" % n) 
 
-        v = json_data['files'][0]['views'][0]
+#        v = json_data['files'][0]['views'][0]
+        v = json_data['views'][0]
 
         if header_type not in [FieldCategory.DIMENSION.value,  FieldCategory.DIMENSION_GROUP.value, FieldCategory.MEASURE.value]:
             raise Exception("Unrecognized header_type %s" % header_type)
 
-        if not header_name in v[header_type]:
+        plural_key = header_type + "s"
+        if not plural_key in v:
+#        if not header_name in v[header_type]:
             raise IOError("Did not find %s %s" % (header_type, header_name))
-        d = v[header_type][header_name]
+        #d = v[header_type][header_name]
+
+        found = False
+        for d in v[plural_key]:
+            if d['name'] == header_name:
+                found=True
+                break
+        if not found:
+            raise IOError("Did not find %s %s" % (header_type, header_name))
+
         if FieldCategory.DESCRIPTION.value in d:
             return d[FieldCategory.DESCRIPTION.value], True
         else:
