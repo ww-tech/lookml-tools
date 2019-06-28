@@ -12,18 +12,14 @@ The `example_grapher_config.json` is simple:
 
 ```
 {
-    "parser": "lookml-parser",
-
     "infile_globs": [
         "myrepo/*.*.lkml"
     ],
 
-    "tmp_file": "parsed_lookml.json",
-
     "output": "graph.png"
 }
 ```
-specifiying the parser binary (`lookml-parser`), the files to process (`myrepo/*.*.lkml`), the temporary file that the LookML files are parsed to (`parsed_lookml.json`), and the output filename (`graph.png`).
+specifiying the files to process (`myrepo/*.*.lkml`), and the output filename (`graph.png`).
 
 ## Running
 To run, 

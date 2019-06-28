@@ -13,19 +13,10 @@ Here is a possible, example workflow:
 
 ## Installation
 
-This code makes use of Fabio's node-based LookML parser (https://github.com/fabio-looker/node-lookml-parser)
-
-```
-brew install node   # if on mac
-npm install -g lookml-parser
-```
-
-You will need to set the path of the `lookml-parser` binary in the updater config file. For example:
+You will need to specify the source of the definitions:
 
 ```
 {
-    "parser": "/usr/local/bin/lookml-parser",
-    "tmp_file": "parsed_lookml.json",
     "definitions": {
         "type": "CsvDefinitionsProvider",
         "filename": "definitions.csv"
@@ -37,8 +28,6 @@ or
 
 ```
 {
-    "parser": "/usr/local/bin/lookml-parser",
-    "tmp_file": "parsed_lookml.json",
     "definitions": {
         "type": "MySQLReader",
         "query": "select * from test",
@@ -53,7 +42,7 @@ or
 
 ## How it works
 
- - The code parses a LookML file into a JSON object using `lookml-parser`.
+ - The code parses a LookML file into a JSON object using `lkml` parser.
  - This format allows easy interrogation of dimensions and measures to see whether they contain a description.
  - We use a master source of dimension and measure definitions. Currently, can come from a local CSV (using `CsvDefinitionsProvider`) or relational databases (`MySQLReader`, `PostgreReader`, and `SqliteReader`) including a BiqQuery table (using `BqDefinitionsProvider`) which, for instsnce, could be a sync from a data catalog tool.
  -  If a dimension doesn't contain the description, it is injected in the LookML file. If a description exists but it does not match the master definition, it is updated
@@ -150,10 +139,8 @@ As the comments in the script show, to run this script, you will need to set a f
 
 - `ACCESS_TOKEN` for github (or `GITHUB_USER` and `GITHUB_PASSWORD`)
 - `REMOTE` URL for gitrepo to update
-- parser binary (if not `lookml-parser`)
 - definitions source
 
 ## Current limitations, assumptions, and TODOs
-- we are only processing a single file at a time. The lookml-parser can take a blob `'lookml-parser --input="*.lkml" --whitespace=2` which would create a single JSON for all files
 - code assumes that the opening curly brace for a dimension or measure is on the same line, ie. `dimension: myname {` not `dimension: myname \n\n\n{`
  

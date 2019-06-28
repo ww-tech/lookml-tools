@@ -1,6 +1,4 @@
 {
-    "parser": "lookml-parser",
-    "tmp_file": "test/parsed_lookml.json",
     "definitions": {
         "type": "CsvDefinitionsProvider",
         "filename": "test/definitions.csv"

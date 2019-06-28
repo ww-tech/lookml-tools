@@ -13,9 +13,6 @@ import shlex
 import lkml
 class LookML():
 
-    def __init__(self, config):
-        self.config = config
-
     def get_json_representation(self, infilepath):
         '''parse the LookML infilepath, convert to JSON, and then read into JSON object
 

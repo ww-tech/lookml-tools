@@ -26,7 +26,7 @@ class LookMlModifier(LookML):
             config (JSON): the JSON configuration
 
         '''
-        super().__init__(config)
+        self.config = config
         definitions_provider = DefinitionsProviderFactory.instantiate(config["definitions"]['type'], config)
         self.definitions = definitions_provider.get_definitions()
 

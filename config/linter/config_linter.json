@@ -1,5 +1,4 @@
 {
-    "parser": "lookml-parser",
 
     "git": {
         "url": "https://github.com/exampleorg/examplerepo.git",
@@ -9,8 +8,6 @@
     "infile_globs": [
         "gitrepo/*.*.lkml"
     ],
-
-    "tmp_file": "parsed_lookml.json",
 
     "rules": {
         "file_level_rules" : [

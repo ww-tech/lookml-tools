@@ -41,8 +41,6 @@ The `example_linter_config.json` defines a few things:
 
 ```
 {
-    "parser": "lookml-parser",
-
     "git": {
         "url": "https://github.com/exampleorg/examplerepo.git",
         "folder": "gitrepo"
@@ -51,8 +49,6 @@ The `example_linter_config.json` defines a few things:
     "infile_globs": [
         "gitrepo/*.*.lkml"
     ],
-
-    "tmp_file": "parsed_lookml.json",
 
     "rules": {
         "field_level_rules": [
@@ -72,7 +68,7 @@ The `example_linter_config.json` defines a few things:
 }
 ```
 
-It defines the parser binary (`lookml-parser`), which files we want to process (via the `infile_globs` list which, in this case, specifies all the `.lkml` files in `examplerepo`). It defines the temporary files that LookML will be parsed to as JSON files (`parsed_lookml.json`).
+It defines which files we want to process (via the `infile_globs` list which, in this case, specifies all the `.lkml` files in `examplerepo`).
 
 The config specifies the set of rules to run. In this example, we run four field-level rules (field meaning that they apply at the individual `dimension`, `dimension_group`, and `measure` level, not at file or repo level):
 

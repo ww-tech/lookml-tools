@@ -7,9 +7,7 @@ import networkx as nx
 @pytest.fixture()
 def config():
     config = {
-        "parser": "lookml-parser",
         "infile_globs": ["test/grapher_lkml/*.lkml"],
-        "tmp_file": "parsed_lookml.json",
         "output": "test/graph.png",
         "options": {
           "node_size": 500,
@@ -86,9 +84,6 @@ def test_process_explores(config):
     assert grapher.models_to_explores == [('some_model','some_explore')]
     assert grapher.explores_to_views == [('some_explore','some_view'), ('some_explore','some_other_view')]
 
-    if os.path.exists(config['tmp_file']):
-        os.remove(config['tmp_file'])
-
 def test_process_file(config):
     grapher = LookMlGrapher(config)
     assert grapher.models_to_explores == []
@@ -96,8 +91,6 @@ def test_process_file(config):
     grapher.process_file("test/grapher_lkml/some_model.model.lkml")
     assert grapher.models_to_explores == [('some_model','some_explore')]
     assert grapher.explores_to_views == [('some_explore','some_view'), ('some_explore','some_other_view')]
-    if os.path.exists(config['tmp_file']):
-        os.remove(config['tmp_file'])
 
 def test_process_file2(config):
     grapher = LookMlGrapher(config)
@@ -109,8 +102,6 @@ def test_process_file2(config):
 
     assert grapher.models_to_explores == [('some_model','some_explore')]
     assert grapher.explores_to_views == [('some_explore','some_view'), ('some_explore','some_other_view')]
-    if os.path.exists(config['tmp_file']):
-        os.remove(config['tmp_file'])
 
 def test_process_file3(config):
     grapher = LookMlGrapher(config)
@@ -119,8 +110,6 @@ def test_process_file3(config):
 
     assert 'some_view' in grapher.node_map
     assert grapher.node_map['some_view'] == NodeType.VIEW
-    if os.path.exists(config['tmp_file']):
-        os.remove(config['tmp_file'])
 
 def test_process_file4(config):
     grapher = LookMlGrapher(config)
@@ -129,8 +118,6 @@ def test_process_file4(config):
     grapher.process_file("test/grapher_lkml/some_explore.explore.lkml")
     assert grapher.models_to_explores == []
     assert grapher.explores_to_views == [('some_explore','some_view'), ('some_explore','some_other_view')]
-    if os.path.exists(config['tmp_file']):
-        os.remove(config['tmp_file'])
 
 def test_process_file5(config):
     grapher = LookMlGrapher(config)
@@ -151,8 +138,6 @@ def test_extract_graph_info(config):
     assert grapher.node_map['some_explore'] == NodeType.EXPLORE
     assert 'some_model' in grapher.node_map
     assert grapher.node_map['some_model'] == NodeType.MODEL
-    if os.path.exists(config['tmp_file']):
-        os.remove(config['tmp_file'])
 
 def test_run(config):
     grapher = LookMlGrapher(config)
@@ -167,5 +152,3 @@ def test_run(config):
 
     if os.path.exists(config['output']):
         os.remove(img_file)
-    if os.path.exists(config['tmp_file']):
-        os.remove(config['tmp_file'])

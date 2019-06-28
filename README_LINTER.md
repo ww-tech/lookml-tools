@@ -37,14 +37,6 @@ specifies to run eight different rules. The rules are in two groups:
  - file-level rules: a rule that is applied to the file once, e.g. does the file contain just one view
  - field-level rules: a rule that is applied to each and every `dimension`, `dimension_group`, and `measure`. For instance, is the name of each field in ALL CAPS? If a rule is not relevant, e.g. a measure only rule is applied to a dimension, the rule is skipped and no output is added to the output files (see below).
 
-The tool makes use of Fabio's LookML parser (https://github.com/fabio-looker/node-lookml-parser)
-
-```
-brew install node   # if on mac
-npm install -g lookml-parser
-```
-which converts LookML into a JSON object that can be interrogated easily with the set of rules.
-
 The results are, optionally, written to two CSVs:
 
 ```
@@ -77,22 +69,7 @@ They can also be written to BigQuery:
 ```
 
 ## Installation
-
-This code makes use of Fabio's nade-based LookML parser (https://github.com/fabio-looker/node-lookml-parser)
-
-```
-brew install node   # if on mac
-npm install -g lookml-parser
-```
-
-You will need to set the path of the `lookml-parser` binary in the linter config file. For example:
-
-```
-{
-    "parser": "/usr/local/bin/lookml-parser",
-    ...
-}
-```
+TODO
 
 ## Running
 

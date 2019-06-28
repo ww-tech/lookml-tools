@@ -36,7 +36,7 @@ class LookMlGrapher():
 
         '''
         self.config = config
-        self.lookml = LookML(config)
+        self.lookml = LookML()
 
         # list of edge pair names
         self.models_to_explores = []

@@ -1,11 +1,7 @@
 {
-    "parser": "lookml-parser",
-
     "infile_globs": [
         "../somerepo/*.lkml"
     ],
-
-    "tmp_file": "parsed_lookml.json",
 
     "output": "graph.png",
 

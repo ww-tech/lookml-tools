@@ -12,16 +12,10 @@ def get_json_from_lookml(raw_lookml, user_defined_filename=None):
     with open(filename, "w") as text_file:
         text_file.write(raw_lookml)
 
-    config = {
-        "parser": "lookml-parser",
-        "tmp_file": "test/parsed_lookml.json"
-    }
-
-    lookml = LookML(config)
+    lookml = LookML()
 
     json_data = lookml.get_json_representation(filename)
     teardown(filename)
-    teardown(config['tmp_file'])
     return json_data
 
 @pytest.fixture(scope="module")

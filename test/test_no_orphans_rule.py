@@ -34,18 +34,16 @@ def test_process_file():
 
 def test_finish_up():
     config = {
-        "parser": "lookml-parser",
         "infile_globs": [
             "test/test_orphans_repo/*.*.lkml"
         ],
-        "tmp_file": "test/parsed_lookml.json",
         "rules": {
             "other_rules": [
                 {"name": "NoOrphansRule", "run": True}
             ]
         }
     }
-    lookml = LookML(config)
+    lookml = LookML()
     rule = NoOrphansRule(config)
     globstrings = config['infile_globs']
     for globstring in globstrings:
@@ -55,6 +53,3 @@ def test_finish_up():
             rule.process_file(json_data)
     file_out = rule.finish_up([])
     assert file_out == [{"file": "test/test_orphans_repo/orphan.view.lkml", "rule": rule.name(), "passed": 0}]
-
-    if os.path.exists(config['tmp_file']):
-        os.remove(config['tmp_file'])

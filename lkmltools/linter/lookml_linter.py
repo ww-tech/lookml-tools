@@ -150,7 +150,7 @@ class LookMlLinter():
             Returns:
                 nothing. Saves two CSV files, specified in the config
         '''
-        lookml = LookML(self.config)
+        lookml = LookML()
 
         file_out = []
         field_out = []

@@ -85,15 +85,6 @@ brew install node   # if on mac
 npm install -g lookml-parser
 ```
 
-You will need to set the path of the `lookml-parser` binary in the linter config file. For example:
-
-```
-{
-    "parser": "/usr/local/bin/lookml-parser",
-    ...
-}
-```
-
 ## Running
 
 To run, 

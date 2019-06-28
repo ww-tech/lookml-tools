@@ -39,8 +39,6 @@ You will need to set the path of the `lookml-parser` binary in the config file. 
 
 ```
 {
-    "parser": "/usr/local/bin/lookml-parser",
-    "tmp_file": "parsed_lookml.json",
     "definitions": {
         "type": "CsvDefinitionsProvider",
         "filename": "definitions.csv"

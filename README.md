@@ -30,27 +30,14 @@ Full documentation is [here](README_GRAPHER.md).
 
 ## Installation
 
-All three tools above makes use of Fabio's node-based LookML parser (https://github.com/fabio-looker/node-lookml-parser)
-
-*Update*: 2019-06-27. `node-lookml-parser`'s recent upgrade to 5.0.0 introduced breaking changes. This borks `lookml-parser`. While I am currently working on fixes, please make sure to check out the 4.0.0 version of the parser not the current 5.0.0 version. 
-
-```
-brew install node   # if on mac
-
-npm install -g lookml-parser@4.0.0
-```
-
-You will also need to install grapviz:
+You will need to install grapviz:
 ```
 brew install graphviz
 ```
 
-You will need to set the path of the `lookml-parser` binary in the config file. For example, for the updater config, your path might be:
-
+You will need to set the source of the definitions:
 ```
 {
-    "parser": "/usr/local/bin/lookml-parser",
-    "tmp_file": "parsed_lookml.json",
     "definitions": {
         "type": "CsvDefinitionsProvider",
         "filename": "definitions.csv"
@@ -82,13 +69,6 @@ pip install pytest-cov
 
 python -m pytest --cov=lkmltools/ test/*.py ; coverage html
 ```
-
-Importantly, as this code relies on an external node utility (`lookml-parser`), one that might not be installed, and one that could be installed but whose behavior might change compared to today,
-
- - the unit tests are set to check that it is installed (`test/test_prequisites.py`)
- - the unit tests use a cached and checked in parsed lookml file (`test/parsed_minimal_multiline_lookml.json`) and check that parsing the same input file produces the same output as that cached version (see `test/test_lookml_modifier`.`test_get_json_representation`).
-
- This should provide confidence that this core-functionality parser is working as expected.
 
 ## Developer Notes
 There are some developer notes for the linter [here](README_DEVELOPER.md).

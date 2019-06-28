@@ -96,38 +96,11 @@ def test_find_description3(config):
     if os.path.exists(filename):
         os.remove(filename)
 
-# def test_get_json_representation(config):
-#     modifier = LookMlModifier(config)
-#     json_data = modifier.get_json_representation("test/minimal_multiline.view.lkml")
-#     assert isinstance(json_data, dict)
-
-#     ## this tests whether the installed lookml-parser is working the same manner
-#     ## as when this code was being developed
-#     ## /usr/local/bin/lookml-parser --input='test/minimal_multiline.view.lkml' --whitespace=2 > test/parsed_minimal_multiline_lookml.json
-#     with open("test/parsed_minimal_multiline_lookml.json", 'r') as f:
-#         json_data2 = json.load(f)
-
-#     assert json_data == json_data2
-
-#     if os.path.exists(config['tmp_file']):
-#         os.remove(config['tmp_file'])
-
 def test_get_json_representation2(config):
     modifier = LookMlModifier(config)
     with pytest.raises(Exception) as e:
         json_data = modifier.get_json_representation("doesnotexist.lkml")
     assert 'Filename does not exist: doesnotexist.lkml' in str(e.value)
-    if os.path.exists(config['tmp_file']):
-        os.remove(config['tmp_file'])
-
-# def test_get_json_representation3(config):
-#     config['parser'] = 'binarythatdoesnotexist'
-#     modifier = LookMlModifier(config)
-#     with pytest.raises(Exception) as e:
-#         json_data = modifier.get_json_representation("test/minimal_multiline.view.lkml")
-#     assert "No such file or directory: 'binarythatdoesnotexist'" in str(e.value)
-#     if os.path.exists(config['tmp_file']):
-#         os.remove(config['tmp_file'])
 
 def test_modify(config):
     modifier = LookMlModifier(config)
@@ -160,13 +133,9 @@ def test_modify(config):
 
     if os.path.exists(outfile):
         os.remove(outfile)
-    if os.path.exists(config['tmp_file']):
-        os.remove(config['tmp_file'])
 
 def test_modify2(config):
     config = {
-      "parser": "lookml-parser",
-      "tmp_file": "test/parsed_lookml.json",
       "definitions": {
           "type": "CsvDefinitionsProvider",
           "filename": "test/definitions_basename.csv"
@@ -203,5 +172,3 @@ def test_modify2(config):
 
     if os.path.exists(outfile):
         os.remove(outfile)
-    if os.path.exists(config['tmp_file']):
-        os.remove(config['tmp_file'])

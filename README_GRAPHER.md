@@ -16,21 +16,6 @@ where the nodes are colored as follows:
 we can see that the `membership_facts` model has 5 explores. The first explore (`engagement`) references 4 views: `fact_engagement`, `dim_product`, `dim_date`, and `dim_member`. We can also see that there is one orphaned view (called `orphan` in this fake example).
 
 ## Installation
-
-This code makes use of Fabio's node-based LookML parser (https://github.com/fabio-looker/node-lookml-parser)
-
-```
-brew install node   # if on mac
-npm install -g lookml-parser
-```
-
-You will need to set the path of the `lookml-parser` binary in the `config/grapher/config_grapher.json` config file. For example:
-
-```
-{
-    "parser": "/usr/local/bin/lookml-parser",
-    ...
-}
 ```
 
 ## Running the tool
@@ -44,13 +29,9 @@ where the config file has the following fields:
 
 ```
 {
-    "parser": "/usr/local/bin/lookml-parser",
-
     "infile_globs": [
         "../somerepo/*.lkml"
     ],
-
-    "tmp_file": "parsed_lookml.json",
 
     "output": "graph.png",
 
