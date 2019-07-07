@@ -2,6 +2,7 @@ import os
 import json
 import pytest
 from lkmltools.grapher.lookml_grapher import LookMlGrapher, NodeType
+from lkmltools.lookml import LookML
 import networkx as nx
 
 @pytest.fixture()
@@ -67,14 +68,10 @@ def test_plot_graph(config):
 
 def test_process_explores(config):
     grapher = LookMlGrapher(config)
-    json_data = grapher.lookml.get_json_representation("test/grapher_lkml/some_model.model.lkml")
+    lookml = LookML("test/grapher_lkml/some_model.model.lkml")
 
-    import pprint
-    pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(json_data)
-
-    m = json_data['metadata']['base_name']
-    e = json_data['explores'][0]
+    m = lookml.base_name
+    e = lookml.json_data['explores'][0]
 
     assert grapher.models_to_explores == []
     assert grapher.explores_to_views == []
@@ -88,7 +85,7 @@ def test_process_file(config):
     grapher = LookMlGrapher(config)
     assert grapher.models_to_explores == []
     assert grapher.explores_to_views == []
-    grapher.process_file("test/grapher_lkml/some_model.model.lkml")
+    grapher.process_lookml(LookML("test/grapher_lkml/some_model.model.lkml"))
     assert grapher.models_to_explores == [('some_model','some_explore')]
     assert grapher.explores_to_views == [('some_explore','some_view'), ('some_explore','some_other_view')]
 
@@ -97,8 +94,8 @@ def test_process_file2(config):
     assert grapher.models_to_explores == []
     assert grapher.explores_to_views == []
 
-    json_data = grapher.lookml.get_json_representation("test/grapher_lkml/some_model.model.lkml")
-    grapher.process_file(None, json_data)
+    lookml = LookML("test/grapher_lkml/some_model.model.lkml")
+    grapher.process_lookml(lookml)
 
     assert grapher.models_to_explores == [('some_model','some_explore')]
     assert grapher.explores_to_views == [('some_explore','some_view'), ('some_explore','some_other_view')]
@@ -106,7 +103,8 @@ def test_process_file2(config):
 def test_process_file3(config):
     grapher = LookMlGrapher(config)
     assert grapher.node_map == {}
-    grapher.process_file("test/grapher_lkml/some_view.view.lkml")
+    lookml = LookML("test/grapher_lkml/some_view.view.lkml")
+    grapher.process_lookml(lookml)
 
     assert 'some_view' in grapher.node_map
     assert grapher.node_map['some_view'] == NodeType.VIEW
@@ -115,22 +113,26 @@ def test_process_file4(config):
     grapher = LookMlGrapher(config)
     assert grapher.models_to_explores == []
     assert grapher.explores_to_views == []
-    grapher.process_file("test/grapher_lkml/some_explore.explore.lkml")
+    lookml = LookML("test/grapher_lkml/some_explore.explore.lkml")
+    grapher.process_lookml(lookml)
     assert grapher.models_to_explores == []
     assert grapher.explores_to_views == [('some_explore','some_view'), ('some_explore','some_other_view')]
 
 def test_process_file5(config):
     grapher = LookMlGrapher(config)
     with pytest.raises(Exception) as e:
-        grapher.process_file("test/empty.view.lkml")
-    assert 'No models, views, or explores?' in str(e.value)
+        lookml = LookML("test/empty.view.lkml")
+        grapher.process_lookml(lookml)
+    assert 'No models, views, or explores? test/empty.view.lkml' in str(e.value)
 
 def test_extract_graph_info(config):
     grapher = LookMlGrapher(config)
     assert grapher.node_map == {}
     assert grapher.models_to_explores == []
     assert grapher.explores_to_views == []
+    
     grapher.extract_graph_info(["test/grapher_lkml/some_model.model.lkml"])
+
     assert grapher.models_to_explores == [('some_model','some_explore')]
     assert grapher.explores_to_views == [('some_explore','some_view'), ('some_explore','some_other_view')]
     assert len(grapher.node_map) == 2

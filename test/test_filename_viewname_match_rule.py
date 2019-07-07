@@ -2,7 +2,7 @@ import pytest
 import os
 import json
 from lkmltools.linter.rules.filerules.filename_viewname_match_rule import FilenameViewnameMatchRule
-from conftest import get_json_from_lookml
+from conftest import get_lookml_from_raw_lookml
 
 def test_run():
     raw_lookml = """
@@ -12,13 +12,12 @@ def test_run():
         }
       }
     """
-    filename = "test/junkyname.view.lkml"
-    json_data = get_json_from_lookml(raw_lookml,filename)
-    relevant, passed = FilenameViewnameMatchRule().run(json_data)
+    lookml = get_lookml_from_raw_lookml(raw_lookml, 'junkyname.view')
+    relevant, passed = FilenameViewnameMatchRule().run(lookml)
     assert relevant
     assert not passed
-    if os.path.exists(filename):
-      os.remove(filename)
+    if os.path.exists(lookml.infilepath):
+      os.remove(lookml.infilepath)
 
 def test_run2():
     raw_lookml = """
@@ -28,14 +27,12 @@ def test_run2():
         }
       }
     """
-    filename = "test/aview.view.lkml"
-    json_data = get_json_from_lookml(raw_lookml, "test/aview.view.lkml")
-    rule = FilenameViewnameMatchRule()
-    relevant, passed = rule.run(json_data)
+    lookml = get_lookml_from_raw_lookml(raw_lookml, 'aview.view')
+    relevant, passed = FilenameViewnameMatchRule().run(lookml)
     assert relevant
     assert passed
-    if os.path.exists(filename):
-      os.remove(filename)
+    if os.path.exists(lookml.infilepath):
+      os.remove(lookml.infilepath)
 
 def test_run3():
     raw_lookml = """
@@ -44,10 +41,9 @@ def test_run3():
         explore: an_explore {
         }
     """
-    filename = "test/amodel.model.lkml"
-    json_data = get_json_from_lookml(raw_lookml, filename)
-    relevant, passed = FilenameViewnameMatchRule().run(json_data)
+    lookml = get_lookml_from_raw_lookml(raw_lookml, 'amodel.model')
+    relevant, passed = FilenameViewnameMatchRule().run(lookml)
     assert not relevant
     assert not passed
-    if os.path.exists(filename):
-      os.remove(filename)
+    if os.path.exists(lookml.infilepath):
+      os.remove(lookml.infilepath)

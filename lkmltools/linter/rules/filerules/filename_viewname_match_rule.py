@@ -11,11 +11,11 @@ class FilenameViewnameMatchRule(Rule):
         does filename match the view name?
     '''
 
-    def run(self, json_data):
+    def run(self, lookml):
         '''does filename match the view name?
 
         Args:
-            json_data (JSON): json_data of the whole lookml-parser ouput for a file
+            lookml (LookML): instance of LookML
 
         Returns:
             (tuple): tuple containing:
@@ -25,8 +25,6 @@ class FilenameViewnameMatchRule(Rule):
                 passed (bool): did the rule pass?
 
         '''
-        if not 'views' in json_data: #['files'][0]:
+        if not lookml.has_views():
             return False, None
-        view_name = json_data['views'][0]['name'] #['files'][0]['views'][0]['_view']
-        filename = json_data['metadata']['base_filename'].replace(".view.lkml","") #files'][0]['_file_name']
-        return True, view_name == filename
+        return True, lookml.views()[0]['name'] == lookml.base_name

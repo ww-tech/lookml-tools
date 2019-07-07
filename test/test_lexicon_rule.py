@@ -1,6 +1,7 @@
 import pytest
 from lkmltools.linter.rules.fieldrules.lexicon_rule import LexiconRule
 from conftest import get_1st_dimension, get_1st_measure
+from lkmltools.lookml_field import LookMLField
 
 def test_run():
     raw_lookml = """
@@ -29,7 +30,7 @@ def test_run2():
     assert not passed
 
 def test_run3():
-    relevant, passed = LexiconRule().run({})
+    relevant, passed = LexiconRule().run(LookMLField({'_type': 'junk'}))
     assert not relevant
     assert not passed
 

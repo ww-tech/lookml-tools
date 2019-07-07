@@ -1,14 +1,14 @@
 '''
-    abstract base / interface for a rule
+    abstract base / interface for a field rule
 
     Authors:
             Carl Anderson (carl.anderson@weightwatchers.com)
 '''
 from abc import ABC, abstractmethod
 
-class Rule(ABC):
+class FieldRule(ABC):
     '''
-        concept of a rule that is applied to some LookML
+        concept of a rule that is applied to some view field: dimension, dimension_group, or measure
     '''
 
     def name(self):
@@ -21,11 +21,11 @@ class Rule(ABC):
         return self.__class__.__name__
 
     @abstractmethod
-    def run(self, lookml):
+    def run(self, lookml_field):
         '''run the rule
 
         Args:
-            lookml (LookML): LookML instance
+            lookml (LookMLField): LookMLField instance
 
         Returns:
             (tuple): tuple containing:

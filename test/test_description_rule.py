@@ -1,7 +1,7 @@
 import pytest
 from lkmltools.linter.rules.fieldrules.description_rule import DescriptionRule
 from conftest import get_1st_dimension, get_1st_measure
-
+from lkmltools.lookml_field import LookMLField
 def test_run():
     raw_lookml = """
       view: aview {
@@ -44,6 +44,6 @@ def test_run3():
     assert not passed
 
 def test_run4():
-    relevant, passed = DescriptionRule().run({})
+    relevant, passed = DescriptionRule().run(LookMLField({'_type': 'junk'}))
     assert not relevant
     assert not passed
