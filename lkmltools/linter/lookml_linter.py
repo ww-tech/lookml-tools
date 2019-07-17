@@ -49,7 +49,7 @@ class LookMlLinter():
                 for rule in config['rules'][k]:
                     if rule['run']:
                         logging.info("Creating %s Rule %s" % (s, rule['name']))
-                        out.append(RuleFactory.instantiate(rule['name']))
+                        out.append(RuleFactory().instantiate(rule['name']))
             return out
 
         self.file_rules = create_rules('file_level_rules', 'File-level')
