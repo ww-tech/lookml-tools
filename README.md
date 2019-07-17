@@ -89,6 +89,8 @@ You can reach me directly at carl.anderson@weightwatchers.com as well as [@leapi
 
     Given the impact of these two changes, this is a major release.
 
+ - `lkmltools.RuleFactory` is now a singleton so it is easier for users to register their own rules
+
 2019-06-10: 1.0.0
  - initial release
 
