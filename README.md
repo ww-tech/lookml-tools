@@ -33,22 +33,11 @@ Full documentation is [here](README_GRAPHER.md).
 
 ## Installation
 
-You will need to install grapviz:
+For the grapher, you will need to install grapviz:
 ```
 brew install graphviz
 ```
 
-You will need to set the source of the definitions:
-```
-{
-    "definitions": {
-        "type": "CsvDefinitionsProvider",
-        "filename": "definitions.csv"
-    }
-}
-```
-
-### pip
 You will need to install dependencies:
 ```
   pip install -r requirements.txt
@@ -61,6 +50,11 @@ You can install the Python codebase of `lookml-tools` via pip:
 ```
 
 One user reported having to install a specific version of pandas (`pandas==0.24.0`) to make this all work. YMMV.
+
+Alternatively, you can install with
+```
+  python setup.py install
+```
 
 ## Unit tests
 There is a test suite with close to 100% code coverage

@@ -27,7 +27,7 @@ The config file also specifies a set of rules to be run. For instance, this
             {"name": "YesNoNameRule", "run": true},
             {"name": "CountNameRule", "run": true},
             {"name": "AllCapsRule", "run": true}
-            {"name": "LexiconRule", "run": true}
+            {"name": "LexiconRule", "run": true, "phrases": ["Subscriber",  "Subscription", "studio"]}
         ]
     },
 
@@ -68,8 +68,13 @@ They can also be written to BigQuery:
     }
 ```
 
-## Installation
-TODO
+### Parameterization
+It is possible to pass parameters, other than `name` and `run`, into the rules via the configuration file. An example is the lexicon rule which checks that certain phrases are *not* mentioned in the field name or description.
+
+```
+    {"name": "LexiconRule", "run": true, "phrases": ["Subscriber",  "Subscription", "studio"]}
+```
+The complete dictionary for the rule (above) is passed into the `LexiconRule` during instantiation.
 
 ## Running
 

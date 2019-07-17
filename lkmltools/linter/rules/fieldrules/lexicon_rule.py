@@ -36,7 +36,7 @@ class LexiconRule(FieldRule):
         phrases = self.config_for_key("phrases")
         if not isinstance(phrases, list):
             raise Exception("Error with phrases list. Should be a list")
-        phrases = [str(s) for s in phrases]
+        phrases = [str(s).lower() for s in phrases]
 
         passed = True
         for phrase in phrases:

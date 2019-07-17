@@ -95,3 +95,33 @@ from mymodules.myawesomerule import MyAwesomeRule
 RuleFactory().register('MyAwesomeRule', MyAwesomeRule)
 
 ```
+
+### Parameterization of Rules
+It is possible to pass parameters, other than `name` and `run`, into the rules via the configuration file. An example is the lexicon rule which checks that certain phrases are *not* mentioned in the field name or description.
+
+```
+"rules": {
+        "file_level_rules" : [
+            {"name": "DataSourceRule", "run": true},
+            {"name": "OneViewPerFileRule", "run": true},
+            {"name": "FilenameViewnameMatchRule", "run": true}
+        ],
+        "field_level_rules": [
+            {"name": "DescriptionRule", "run": true},
+            {"name": "DrillDownRule", "run": true},
+            {"name": "YesNoNameRule", "run": true},
+            {"name": "CountNameRule", "run": true},
+            {"name": "AllCapsRule", "run": true}
+            {"name": "LexiconRule", "run": true, "phrases": ["Subscriber",  "Subscription", "studio"]}
+        ]
+    },
+
+```
+The complete configuration dictionary for the `LexiconRule`, i.e.
+
+```
+    {"name": "LexiconRule", "run": true, "phrases": ["Subscriber",  "Subscription", "studio"]}
+```
+is passed into the `LexiconRule` during instantiation. 
+
+This is true for all rules--this functionality is baked into the base `AbsrtractRule` class---any additional keys in the configuration dictionary are available to the rule.

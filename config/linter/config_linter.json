@@ -21,7 +21,7 @@
             {"name": "YesNoNameRule", "run": true},
             {"name": "CountNameRule", "run": true},
             {"name": "AllCapsRule", "run": true},
-            {"name": "LexiconRule", "run": true}
+            {"name": "LexiconRule", "run": true, "phrases": ["Subscriber",  "Subscription", "studio"]}
         ],
         "other_rules": [
             {"name": "NoOrphansRule", "run": true}
