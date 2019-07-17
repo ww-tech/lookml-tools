@@ -84,8 +84,9 @@ You can reach me directly at carl.anderson@weightwatchers.com as well as [@leapi
     Given the impact of these two changes, this is a major release. Other changes:
 
  - `lkmltools.RuleFactory` is now a singleton so it is easier for users to register their own rules
- - Can now parameterize rules in the configuration
-
+ - Can now parameterize any rule in the configuration by adding additional keys to the dictionary for that rule.
+  For instance, if the config defines `{"name": "MyAwesomeRule", "run": true, "debug": true, "strict_mode":true, length: 6}` then this whole dictionary is passed into the constructor during rule instantiation
+  
 2019-06-10: 1.0.0
  - initial release
 
