@@ -27,7 +27,7 @@ class NoOrphansRule(Rule):
         '''run the rule
 
         Args:
-            json_data (JSON): json_data of the lookml-parser dictionary for this file
+            json_data (JSON): json_data of the lkml-parsed JSON dictionary for this file
 
         Returns:
             (tuple): tuple containing:

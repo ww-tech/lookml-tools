@@ -206,6 +206,7 @@ class LookMlGrapher():
 
             for filepath in glob.glob(globstring):
                 assert os.path.exists(filepath)
+                logging.info("Processing " + filepath)
                 lookml = LookML(filepath)
                 self.process_lookml(lookml)
         self.tag_orphans()

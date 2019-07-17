@@ -1,11 +1,11 @@
 {
     "git": {
         "url": "https://github.com/exampleorg/examplerepo.git",
-        "folder": "gitrepo"
+        "folder": "myrepo"
     },
 
     "infile_globs": [
-        "gitrepo/*.*.lkml"
+        "myrepo/*.*.lkml"
     ],
 
     "rules": {
