@@ -10,7 +10,10 @@ There are three tools:
  - `LookML linter`
  - `LookML grapher`
 
- Documentation site: https://ww-tech.github.io/lookml-tools/
+Sites:
+ - source: https://github.com/ww-tech/lookml-tools
+ - documentation: https://ww-tech.github.io/lookml-tools/
+ - Pypi: https://pypi.org/project/lookml-tools/
 
 ## LookML updater
 The first tool helps solve a problem of official definitions of `dimensions` and `measures`&mdash;such as in a business glossary&mdash;getting out of sync from some other system. The solution implemented here is to have a remote master list whose definitions are propagated to LookML. Thus, given some remote definition for a given LookML `dimension`, `dimension_group`, or `measure`, inject it in the LookML.
@@ -76,7 +79,7 @@ There are some developer notes for the linter [here](README_DEVELOPER.md).
 ## Contribute
 We would love to have your feedback, suggestions, and especially contributions to the project. Create a pull request!
 
-You can reach me directly at carl.anderson@weightwatchers.com as well as @leapingllamas on Twitter.
+You can reach me directly at carl.anderson@weightwatchers.com as well as [@leapingllamas](https://twitter.com/LeapingLlamas) on Twitter.
 
 ## Release notes
 
