@@ -1,14 +1,14 @@
-'''
-    abstract base / interface for a field rule
+'''abstract base / interface for a field rule
 
-    Authors:
-            Carl Anderson (carl.anderson@weightwatchers.com)
-'''
-from abc import ABC, abstractmethod
+Authors:
+    Carl Anderson (carl.anderson@weightwatchers.com)
 
-class FieldRule(ABC):
-    '''
-        concept of a rule that is applied to some view field: dimension, dimension_group, or measure
+'''
+from lkmltools.abstract_rule import AbstractRule
+from abc import abstractmethod
+
+class FieldRule(AbstractRule):
+    '''concept of a rule that is applied to some view field: dimension, dimension_group, or measure
     '''
 
     def name(self):

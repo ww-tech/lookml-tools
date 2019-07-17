@@ -4,9 +4,10 @@
     Authors:
             Carl Anderson (carl.anderson@weightwatchers.com)
 '''
-from abc import ABC, abstractmethod
+from lkmltools.abstract_rule import AbstractRule
+from abc import abstractmethod
 
-class Rule(ABC):
+class Rule(AbstractRule):
     '''
         concept of a rule that is applied to some LookML
     '''

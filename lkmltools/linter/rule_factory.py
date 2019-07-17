@@ -53,7 +53,7 @@ class RuleFactory():
                 "LexiconRule": LexiconRule
             }
 
-        def instantiate(self, class_name):
+        def instantiate(self, class_name, json_config=None):
             '''instantiate instances of rule, given name of rule class
 
             Args:
@@ -63,7 +63,7 @@ class RuleFactory():
                 instance (Rule): instance of a rule
 
             '''
-            return self.name_dict[class_name]()
+            return self.name_dict[class_name](json_config)
 
         def register(self, key, class_obj):
             """Registering class_obj with key

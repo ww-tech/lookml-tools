@@ -12,7 +12,8 @@ def test_run():
       }
     """
     dj = get_1st_dimension(raw_lookml)
-    relevant, passed = LexiconRule().run(dj)
+    config = {"name": "AllCapsRule", "run": True, "phrases": ["cow", "dog", "subscription"]}
+    relevant, passed = LexiconRule(config).run(dj)
     assert relevant
     assert passed
 
@@ -25,7 +26,8 @@ def test_run2():
       }
     """
     dj = get_1st_dimension(raw_lookml)
-    relevant, passed = LexiconRule().run(dj)
+    config = {"name": "AllCapsRule", "run": True, "phrases": ["cow", "dog", "subscription"]}
+    relevant, passed = LexiconRule(config).run(dj)
     assert relevant
     assert not passed
 
@@ -44,6 +46,7 @@ def test_run4():
       }
     """
     dj = get_1st_dimension(raw_lookml)
-    relevant, passed = LexiconRule().run(dj)
+    config = {"name": "AllCapsRule", "run": True, "phrases": ["cow", "dog", "subscription"]}
+    relevant, passed = LexiconRule(config).run(dj)
     assert relevant
     assert not passed

@@ -85,11 +85,12 @@ You can reach me directly at carl.anderson@weightwatchers.com as well as [@leapi
 
 2019-07-17: 2.0.0
  - swapped out the node-based LookML parser with [Josh Temple's](https://github.com/joshtemple) new Python lkml parser (https://pypi.org/project/lkml/). This simplifies install, dependency management, and underlying parsed JSON format.
- - added layer of abstraction via `LookML` and `LookMLField` classes so that rules and other code query LookML attributes via methods instead of raw JSON.
+ - added layer of abstraction via `LookML` and `LookMLField` classes so that rules and other code can query LookML attributes via methods instead of inspecting raw JSON.
 
-    Given the impact of these two changes, this is a major release.
+    Given the impact of these two changes, this is a major release. Other changes:
 
  - `lkmltools.RuleFactory` is now a singleton so it is easier for users to register their own rules
+ - Can now parameterize rules in the configuration
 
 2019-06-10: 1.0.0
  - initial release
