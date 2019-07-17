@@ -47,6 +47,25 @@ def test_run3():
     assert passed
 
 def test_run4():
+  #this has a hanging comma in list which lkml parser should handle
+    raw_lookml = """
+      view: aview {
+        measure: count {
+          type: count
+          drill_fields: ["year_name",
+            "quarter_name",
+            "day_name",
+            "month_name",
+            ]
+        }
+      }
+    """
+    mj = get_1st_measure(raw_lookml)
+    relevant, passed = DrillDownRule().run(mj)
+    assert relevant
+    assert passed
+
+def test_run5():
     raw_lookml = """
       view: aview {
         dimension: memberID {

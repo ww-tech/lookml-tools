@@ -22,10 +22,14 @@ def test_init2():
     os.remove(filename)
 
 def test_explores():
+    #this will test duplicate model keys
     raw_lookml="""
         connection: "datawarehouse"
         
     include: "*.view.lkml"
+
+    week_start_day: sunday
+    week_start_day: monday
 
     explore: explore1 {
         from: view1
@@ -38,6 +42,7 @@ def test_explores():
     explores = lookml.explores()
     assert explores is not None
     assert lookml.has_explores()
+    assert lookml.json_data['week_start_day'] == 'monday'
 
 def test_explores2():
     raw_lookml = """
