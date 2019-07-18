@@ -90,8 +90,9 @@
 <li class="toctree-l2"><a class="reference internal" href="#developer-notes">Developer Notes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#contribute">Contribute</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#release-notes">Release notes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">2019-07-17: 2.0.0</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">2019-06-10: 1.0.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">2019-07-17: 2.0.1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">2019-07-17: 2.0.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">2019-06-10: 1.0.0</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
@@ -241,7 +242,11 @@
 <div class="section" id="release-notes">
 <h2>Release notes<a class="headerlink" href="#release-notes" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id1">
-<h3>2019-07-17: 2.0.0<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h3>2019-07-17: 2.0.1<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Adding missing <code class="docutils literal notranslate"><span class="pre">lkml</span></code> to <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code></p>
+</div>
+<div class="section" id="id2">
+<h3>2019-07-17: 2.0.0<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>Given the impact of the following two changes, this is a major release:</p>
 <ul class="simple">
 <li><p>swapped out the node-based LookML parser with <a class="reference external" href="https://github.com/joshtemple">Josh Temple’s</a> new Python lkml parser (https://pypi.org/project/lkml/). This simplifies install, dependency management, and underlying parsed JSON format.</p></li>
@@ -254,8 +259,8 @@
 For instance, if the config defines <code class="docutils literal notranslate"><span class="pre">{&quot;name&quot;:</span> <span class="pre">&quot;MyAwesomeRule&quot;,</span> <span class="pre">&quot;run&quot;:</span> <span class="pre">true,</span> <span class="pre">&quot;debug&quot;:</span> <span class="pre">true,</span> <span class="pre">&quot;strict_mode&quot;:true,</span> <span class="pre">length:</span> <span class="pre">6}</span></code> then this whole dictionary is passed into the constructor during rule instantiation.</p></li>
 </ul>
 </div>
-<div class="section" id="id2">
-<h3>2019-06-10: 1.0.0<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>2019-06-10: 1.0.0<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>initial release</p></li>
 </ul>

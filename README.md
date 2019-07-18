@@ -76,6 +76,9 @@ We would love to have your feedback, suggestions, and especially contributions t
 You can reach me directly at carl.anderson@weightwatchers.com as well as [@leapingllamas](https://twitter.com/LeapingLlamas) on Twitter.
 
 ## Release notes
+#### 2019-07-17: 2.0.1
+
+Adding missing `lkml` to `requirements.txt`
 
 #### 2019-07-17: 2.0.0
 
