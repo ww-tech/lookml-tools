@@ -68,7 +68,7 @@ The `example_linter_config.json` defines a few things:
 }
 ```
 
-It defines which files we want to process (via the `infile_globs` list which, in this case, specifies all the `.lkml` files in `examplerepo`).
+It defines which files we want to process (via the `infile_globs` list which, in this case, specifies all the `.lkml` files in `examplerepo`). It defines the temporary files that LookML will be parsed to as JSON files (`parsed_lookml.json`).
 
 The config specifies the set of rules to run. In this example, we run four field-level rules (field meaning that they apply at the individual `dimension`, `dimension_group`, and `measure` level, not at file or repo level):
 
@@ -96,15 +96,13 @@ and you should see output similar to:
 
 ```
 python ../../run_linter.py --config example_linter_config.json
-2019-05-05 18:31:28,835 INFO lookml_linter.py create_rules: Creating Field-level Rule DescriptionRule
-2019-05-05 18:31:28,835 INFO lookml_linter.py create_rules: Creating Field-level Rule DrillDownRule
-2019-05-05 18:31:28,835 INFO lookml_linter.py create_rules: Creating Field-level Rule YesNoNameRule
-2019-05-05 18:31:28,835 INFO lookml_linter.py create_rules: Creating Field-level Rule AllCapsRule
-2019-05-05 18:31:28,835 INFO lookml_linter.py run: Processing gitrepo/view1.view.lkml
-2019-05-05 18:31:28,836 INFO lookml.py parse_repo: running lookml-parser --input='gitrepo/view1.view.lkml' --whitespace=2 > parsed_lookml.json
-2019-05-05 18:31:29,278 INFO lookml_linter.py run: Processing gitrepo/view2.view.lkml
-2019-05-05 18:31:29,279 INFO lookml.py parse_repo: running lookml-parser --input='gitrepo/view2.view.lkml' --whitespace=2 > parsed_lookml.json
-2019-05-05 18:31:29,499 INFO lookml_linter.py write_field_csv: Field output written to linter_field_report.csv
+2019-07-17 09:20:36,969 INFO lookml_linter.py create_rules: Creating Field-level Rule DescriptionRule
+2019-07-17 09:20:36,969 INFO lookml_linter.py create_rules: Creating Field-level Rule DrillDownRule
+2019-07-17 09:20:36,969 INFO lookml_linter.py create_rules: Creating Field-level Rule YesNoNameRule
+2019-07-17 09:20:36,969 INFO lookml_linter.py create_rules: Creating Field-level Rule AllCapsRule
+2019-07-17 09:20:36,970 INFO lookml_linter.py run: Processing myrepo/view1.view.lkml
+2019-07-17 09:20:36,972 INFO lookml_linter.py run: Processing myrepo/view2.view.lkml
+2019-07-17 09:20:37,000 INFO lookml_linter.py write_field_csv: Field output written to linter_field_report.csv
 ```
 
 ## Examining the Output
@@ -113,16 +111,16 @@ If we open the `linter_field_report.csv`, we find the following:
 
 ```
 time,file,rule,type,fieldname,passed,repo,glob
-2019-05-05T18:31:28.835588,view1.view.lkml,DescriptionRule,dimension,member_uuid,0,https://github.com/exampleorg/examplerepo.git,examplerepo/*.*.lkml
-2019-05-05T18:31:28.835588,view1.view.lkml,AllCapsRule,dimension,member_uuid,1,https://github.com/exampleorg/examplerepo.git,examplerepo/*.*.lkml
-2019-05-05T18:31:28.835588,view1.view.lkml,DescriptionRule,dimension,LOCATION,0,https://github.com/exampleorg/examplerepo.git,examplerepo/*.*.lkml
-2019-05-05T18:31:28.835588,view1.view.lkml,AllCapsRule,dimension,LOCATION,0,https://github.com/exampleorg/examplerepo.git,examplerepo/*.*.lkml
-2019-05-05T18:31:28.835588,view1.view.lkml,DescriptionRule,dimension,is_active,0,https://github.com/exampleorg/examplerepo.git,examplerepo/*.*.lkml
-2019-05-05T18:31:28.835588,view1.view.lkml,YesNoNameRule,dimension,is_active,1,https://github.com/exampleorg/examplerepo.git,examplerepo/*.*.lkml
-2019-05-05T18:31:28.835588,view1.view.lkml,AllCapsRule,dimension,is_active,1,https://github.com/exampleorg/examplerepo.git,examplerepo/*.*.lkml
-2019-05-05T18:31:28.835588,view2.view.lkml,DescriptionRule,measure,count,0,https://github.com/exampleorg/examplerepo.git,examplerepo/*.*.lkml
-2019-05-05T18:31:28.835588,view2.view.lkml,DrillDownRule,measure,count,0,https://github.com/exampleorg/examplerepo.git,examplerepo/*.*.lkml
-2019-05-05T18:31:28.835588,view2.view.lkml,AllCapsRule,measure,count,1,https://github.com/exampleorg/examplerepo.git,examplerepo/*.*.lkml
+2019-07-17T09:20:36.970020,view1.view.lkml,DescriptionRule,dimension,member_uuid,0,https://github.com/exampleorg/examplerepo.git,myrepo/*.*.lkml
+2019-07-17T09:20:36.970020,view1.view.lkml,AllCapsRule,dimension,member_uuid,1,https://github.com/exampleorg/examplerepo.git,myrepo/*.*.lkml
+2019-07-17T09:20:36.970020,view1.view.lkml,DescriptionRule,dimension,LOCATION,0,https://github.com/exampleorg/examplerepo.git,myrepo/*.*.lkml
+2019-07-17T09:20:36.970020,view1.view.lkml,AllCapsRule,dimension,LOCATION,0,https://github.com/exampleorg/examplerepo.git,myrepo/*.*.lkml
+2019-07-17T09:20:36.970020,view1.view.lkml,DescriptionRule,dimension,is_active,0,https://github.com/exampleorg/examplerepo.git,myrepo/*.*.lkml
+2019-07-17T09:20:36.970020,view1.view.lkml,YesNoNameRule,dimension,is_active,1,https://github.com/exampleorg/examplerepo.git,myrepo/*.*.lkml
+2019-07-17T09:20:36.970020,view1.view.lkml,AllCapsRule,dimension,is_active,1,https://github.com/exampleorg/examplerepo.git,myrepo/*.*.lkml
+2019-07-17T09:20:36.970020,view2.view.lkml,DescriptionRule,measure,count,0,https://github.com/exampleorg/examplerepo.git,myrepo/*.*.lkml
+2019-07-17T09:20:36.970020,view2.view.lkml,DrillDownRule,measure,count,0,https://github.com/exampleorg/examplerepo.git,myrepo/*.*.lkml
+2019-07-17T09:20:36.970020,view2.view.lkml,AllCapsRule,measure,count,1,https://github.com/exampleorg/examplerepo.git,myrepo/*.*.lkml
 ```
 
 This is easier to interpret in a table:

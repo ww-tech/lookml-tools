@@ -85,13 +85,15 @@
 <li class="toctree-l2"><a class="reference internal" href="#lookml-updater">LookML updater</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookml-linter">LookML linter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookml-grapher">LookML grapher</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#pip">pip</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#unit-tests">Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#developer-notes">Developer Notes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#contribute">Contribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#release-notes">Release notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">2019-07-17: 2.0.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">2019-06-10: 1.0.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
 </ul>
 </li>
@@ -176,6 +178,12 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">LookML</span> <span class="pre">linter</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">LookML</span> <span class="pre">grapher</span></code></p></li>
 </ul>
+<p>Sites:</p>
+<ul class="simple">
+<li><p>source: https://github.com/ww-tech/lookml-tools</p></li>
+<li><p>documentation: https://ww-tech.github.io/lookml-tools/</p></li>
+<li><p>Pypi: https://pypi.org/project/lookml-tools/</p></li>
+</ul>
 <div class="section" id="lookml-updater">
 <h2>LookML updater<a class="headerlink" href="#lookml-updater" title="Permalink to this headline">¶</a></h2>
 <p>The first tool helps solve a problem of official definitions of <code class="docutils literal notranslate"><span class="pre">dimensions</span></code> and <code class="docutils literal notranslate"><span class="pre">measures</span></code>—such as in a business glossary—getting out of sync from some other system. The solution implemented here is to have a remote master list whose definitions are propagated to LookML. Thus, given some remote definition for a given LookML <code class="docutils literal notranslate"><span class="pre">dimension</span></code>, <code class="docutils literal notranslate"><span class="pre">dimension_group</span></code>, or <code class="docutils literal notranslate"><span class="pre">measure</span></code>, inject it in the LookML.</p>
@@ -193,32 +201,22 @@
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p>All three tools above makes use of Fabio’s node-based LookML parser (https://github.com/fabio-looker/node-lookml-parser)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">node</span>   <span class="c1"># if on mac</span>
-<span class="n">npm</span> <span class="n">install</span> <span class="o">-</span><span class="n">g</span> <span class="n">lookml</span><span class="o">-</span><span class="n">parser</span>
+<p>For the grapher, you will need to install grapviz:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">graphviz</span>
 </pre></div>
 </div>
-<p>You will need to set the path of the <code class="docutils literal notranslate"><span class="pre">lookml-parser</span></code> binary in the config file. For example, for the updater config, your path might be:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;parser&quot;</span><span class="p">:</span> <span class="s2">&quot;/usr/local/bin/lookml-parser&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tmp_file&quot;</span><span class="p">:</span> <span class="s2">&quot;parsed_lookml.json&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;definitions&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CsvDefinitionsProvider&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;filename&quot;</span><span class="p">:</span> <span class="s2">&quot;definitions.csv&quot;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<p>For all tools, you will need to install dependencies:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
 </pre></div>
 </div>
-<div class="section" id="pip">
-<h3>pip<a class="headerlink" href="#pip" title="Permalink to this headline">¶</a></h3>
 <p>You can install the Python codebase of <code class="docutils literal notranslate"><span class="pre">lookml-tools</span></code> via pip:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">pip</span> <span class="n">install</span> <span class="n">lookml</span><span class="o">-</span><span class="n">tools</span>
 </pre></div>
 </div>
-<p>You may need to install its dependencies:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+<p>One user reported having to install a specific version of pandas (<code class="docutils literal notranslate"><span class="pre">pandas==0.24.0</span></code>) to make this all work. YMMV.</p>
+<p>Alternatively, you can install with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
 </pre></div>
-</div>
 </div>
 </div>
 <div class="section" id="unit-tests">
@@ -230,12 +228,6 @@
 <span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pytest</span> <span class="o">--</span><span class="n">cov</span><span class="o">=</span><span class="n">lkmltools</span><span class="o">/</span> <span class="n">test</span><span class="o">/*.</span><span class="n">py</span> <span class="p">;</span> <span class="n">coverage</span> <span class="n">html</span>
 </pre></div>
 </div>
-<p>Importantly, as this code relies on an external node utility (<code class="docutils literal notranslate"><span class="pre">lookml-parser</span></code>), one that might not be installed, and one that could be installed but whose behavior might change compared to today,</p>
-<ul class="simple">
-<li><p>the unit tests are set to check that it is installed (<code class="docutils literal notranslate"><span class="pre">test/test_prequisites.py</span></code>)</p></li>
-<li><p>the unit tests use a cached and checked in parsed lookml file (<code class="docutils literal notranslate"><span class="pre">test/parsed_minimal_multiline_lookml.json</span></code>) and check that parsing the same input file produces the same output as that cached version (see <code class="docutils literal notranslate"><span class="pre">test/test_lookml_modifier</span></code>.<code class="docutils literal notranslate"><span class="pre">test_get_json_representation</span></code>).</p></li>
-</ul>
-<p>This should provide confidence that this core-functionality parser is working as expected.</p>
 </div>
 <div class="section" id="developer-notes">
 <h2>Developer Notes<a class="headerlink" href="#developer-notes" title="Permalink to this headline">¶</a></h2>
@@ -244,7 +236,30 @@
 <div class="section" id="contribute">
 <h2>Contribute<a class="headerlink" href="#contribute" title="Permalink to this headline">¶</a></h2>
 <p>We would love to have your feedback, suggestions, and especially contributions to the project. Create a pull request!</p>
-<p>You can reach me directly at carl.anderson&#64;weightwatchers.com as well as &#64;leapingllamas on Twitter.</p>
+<p>You can reach me directly at carl.anderson&#64;weightwatchers.com as well as <a class="reference external" href="https://twitter.com/LeapingLlamas">&#64;leapingllamas</a> on Twitter.</p>
+</div>
+<div class="section" id="release-notes">
+<h2>Release notes<a class="headerlink" href="#release-notes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>2019-07-17: 2.0.0<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Given the impact of the following two changes, this is a major release:</p>
+<ul class="simple">
+<li><p>swapped out the node-based LookML parser with <a class="reference external" href="https://github.com/joshtemple">Josh Temple’s</a> new Python lkml parser (https://pypi.org/project/lkml/). This simplifies install, dependency management, and underlying parsed JSON format.</p></li>
+<li><p>added layer of abstraction via <code class="docutils literal notranslate"><span class="pre">LookML</span></code> and <code class="docutils literal notranslate"><span class="pre">LookMLField</span></code> classes so that rules and other code can query LookML attributes via methods instead of inspecting raw JSON.</p></li>
+</ul>
+<p>Other changes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lkmltools.RuleFactory</span></code> is now a singleton so it is easier for users to register their own rules.</p></li>
+<li><p>Can now parameterize any rule in the configuration by adding additional keys to the dictionary for that rule.
+For instance, if the config defines <code class="docutils literal notranslate"><span class="pre">{&quot;name&quot;:</span> <span class="pre">&quot;MyAwesomeRule&quot;,</span> <span class="pre">&quot;run&quot;:</span> <span class="pre">true,</span> <span class="pre">&quot;debug&quot;:</span> <span class="pre">true,</span> <span class="pre">&quot;strict_mode&quot;:true,</span> <span class="pre">length:</span> <span class="pre">6}</span></code> then this whole dictionary is passed into the constructor during rule instantiation.</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3>2019-06-10: 1.0.0<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>initial release</p></li>
+</ul>
+</div>
 </div>
 <div class="section" id="license">
 <h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>

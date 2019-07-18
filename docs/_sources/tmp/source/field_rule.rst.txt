@@ -1,0 +1,7 @@
+field\_rule module
+==================
+
+.. automodule:: field_rule
+   :members:
+   :undoc-members:
+   :show-inheritance:

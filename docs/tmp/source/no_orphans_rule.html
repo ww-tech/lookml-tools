@@ -177,15 +177,15 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="no_orphans_rule.NoOrphansRule.process_file">
-<code class="sig-name descname">process_file</code><span class="sig-paren">(</span><em class="sig-param">json_data</em><span class="sig-paren">)</span><a class="headerlink" href="#no_orphans_rule.NoOrphansRule.process_file" title="Permalink to this definition">¶</a></dt>
+<dt id="no_orphans_rule.NoOrphansRule.process_lookml">
+<code class="sig-name descname">process_lookml</code><span class="sig-paren">(</span><em class="sig-param">lookml</em><span class="sig-paren">)</span><a class="headerlink" href="#no_orphans_rule.NoOrphansRule.process_lookml" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>process the JSON_DATA of a file, delegating down to the grapher</dt><dd><p>also store metadata we’ll need in a later stage</p>
 </dd>
 </dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>json_data</strong> (<em>JSON</em>) – json_data: parsed lkml file as JSON</p>
+<dd class="field-odd"><p><strong>lookmlk</strong> (<a class="reference internal" href="lkmltools.html#lkmltools.lookml.LookML" title="lkmltools.lookml.LookML"><em>LookML</em></a>) – instance of LookML</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>nothing. side effect is to store data in grapher and in this class</p>
@@ -199,7 +199,7 @@
 <dd><p>run the rule</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>json_data</strong> (<em>JSON</em>) – json_data of the lookml-parser dictionary for this file</p>
+<dd class="field-odd"><p><strong>json_data</strong> (<em>JSON</em>) – json_data of the lkml-parsed JSON dictionary for this file</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><p>tuple containing:</p>

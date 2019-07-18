@@ -153,30 +153,25 @@
             
   <div class="section" id="module-lexicon_rule">
 <span id="lexicon-rule-module"></span><h1>lexicon_rule module<a class="headerlink" href="#module-lexicon_rule" title="Permalink to this headline">¶</a></h1>
-<p>a lexicon rule</p>
+<p>a lexicon rule: check that field name or description does not mention certain words or phrases provided int the config</p>
 <dl class="simple">
 <dt>Authors:</dt><dd><p>Carl Anderson (<a class="reference external" href="mailto:carl&#46;anderson&#37;&#52;&#48;weightwatchers&#46;com">carl<span>&#46;</span>anderson<span>&#64;</span>weightwatchers<span>&#46;</span>com</a>)</p>
 </dd>
 </dl>
 <dl class="class">
 <dt id="lexicon_rule.LexiconRule">
-<em class="property">class </em><code class="sig-prename descclassname">lexicon_rule.</code><code class="sig-name descname">LexiconRule</code><a class="headerlink" href="#lexicon_rule.LexiconRule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">lkmltools.linter.rule.Rule</span></code></p>
-<p>does dimension, dimension group, or measure follow some lexicon rules?</p>
+<em class="property">class </em><code class="sig-prename descclassname">lexicon_rule.</code><code class="sig-name descname">LexiconRule</code><span class="sig-paren">(</span><em class="sig-param">config_dict=None</em><span class="sig-paren">)</span><a class="headerlink" href="#lexicon_rule.LexiconRule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">lkmltools.linter.field_rule.FieldRule</span></code></p>
+<p>does dimension, dimension group, or measure follow some lexicon rules,
+i.e. not mention certain words or phrases in name or description?</p>
 <dl class="method">
 <dt id="lexicon_rule.LexiconRule.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">json_data</em><span class="sig-paren">)</span><a class="headerlink" href="#lexicon_rule.LexiconRule.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>apply some lexion rules:</p>
-<dl class="simple">
-<dt>we want:</dt><dd><p>member not “Subscriber”
-membership not “Subscription”
-workshop not “studio”</p>
-</dd>
-</dl>
-<p>so this is a has subscriber, has suscription, or has studio rule in name or description.</p>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">lookml_field</em><span class="sig-paren">)</span><a class="headerlink" href="#lexicon_rule.LexiconRule.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>apply some lexion rules: check that the field name or description does not mention certain words or
+phrases provided int the config</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>json_data</strong> (<em>JSON</em>) – json_data of the lookml-parser dictionary for this dimension, dimension_group, or measure only</p>
+<dd class="field-odd"><p><strong>lookml_field</strong> (<a class="reference internal" href="lkmltools.html#lkmltools.lookml_field.LookMLField" title="lkmltools.lookml_field.LookMLField"><em>LookMLField</em></a>) – instance of LookMLField</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><p>tuple containing:</p>

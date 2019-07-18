@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>description_rule module &mdash; lookml-tools 1.0.0 documentation</title>
+  <title>field_rule module &mdash; lookml-tools 1.0.0 documentation</title>
   
 
   
@@ -132,13 +132,13 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-      <li>description_rule module</li>
+      <li>field_rule module</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/tmp/source/description_rule.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/tmp/source/field_rule.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -151,25 +151,36 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-description_rule">
-<span id="description-rule-module"></span><h1>description_rule module<a class="headerlink" href="#module-description_rule" title="Permalink to this headline">¶</a></h1>
-<p>A description rule: does <cite>dimension</cite>, <cite>dimension_group</cite>, or <cite>measure</cite> have a description?</p>
+  <div class="section" id="module-field_rule">
+<span id="field-rule-module"></span><h1>field_rule module<a class="headerlink" href="#module-field_rule" title="Permalink to this headline">¶</a></h1>
+<p>abstract base / interface for a field rule</p>
 <dl class="simple">
 <dt>Authors:</dt><dd><p>Carl Anderson (<a class="reference external" href="mailto:carl&#46;anderson&#37;&#52;&#48;weightwatchers&#46;com">carl<span>&#46;</span>anderson<span>&#64;</span>weightwatchers<span>&#46;</span>com</a>)</p>
 </dd>
 </dl>
 <dl class="class">
-<dt id="description_rule.DescriptionRule">
-<em class="property">class </em><code class="sig-prename descclassname">description_rule.</code><code class="sig-name descname">DescriptionRule</code><span class="sig-paren">(</span><em class="sig-param">config_dict=None</em><span class="sig-paren">)</span><a class="headerlink" href="#description_rule.DescriptionRule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">lkmltools.linter.field_rule.FieldRule</span></code></p>
-<p>Does <cite>dimension</cite>, <cite>dimension_group</cite>, or <cite>measure</cite> have a description?</p>
+<dt id="field_rule.FieldRule">
+<em class="property">class </em><code class="sig-prename descclassname">field_rule.</code><code class="sig-name descname">FieldRule</code><span class="sig-paren">(</span><em class="sig-param">config_dict=None</em><span class="sig-paren">)</span><a class="headerlink" href="#field_rule.FieldRule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="lkmltools.html#lkmltools.abstract_rule.AbstractRule" title="lkmltools.abstract_rule.AbstractRule"><code class="xref py py-class docutils literal notranslate"><span class="pre">lkmltools.abstract_rule.AbstractRule</span></code></a></p>
+<p>concept of a rule that is applied to some view field: dimension, dimension_group, or measure</p>
 <dl class="method">
-<dt id="description_rule.DescriptionRule.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">lookml_field</em><span class="sig-paren">)</span><a class="headerlink" href="#description_rule.DescriptionRule.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run the rule: check whether <cite>dimension</cite>, <cite>dimension_group</cite>, or <cite>measure</cite> has a description</p>
+<dt id="field_rule.FieldRule.name">
+<code class="sig-name descname">name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#field_rule.FieldRule.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>name of the the rule</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>name of the the rule</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="field_rule.FieldRule.run">
+<em class="property">abstract </em><code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">lookml_field</em><span class="sig-paren">)</span><a class="headerlink" href="#field_rule.FieldRule.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>run the rule</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>lookml_field</strong> (<a class="reference internal" href="lkmltools.html#lkmltools.lookml_field.LookMLField" title="lkmltools.lookml_field.LookMLField"><em>LookMLField</em></a>) – instance of LookMLField</p>
+<dd class="field-odd"><p><strong>lookml</strong> (<a class="reference internal" href="lkmltools.html#lkmltools.lookml_field.LookMLField" title="lkmltools.lookml_field.LookMLField"><em>LookMLField</em></a>) – LookMLField instance</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><p>tuple containing:</p>

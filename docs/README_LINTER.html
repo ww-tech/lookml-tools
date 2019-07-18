@@ -83,8 +83,10 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="README.html">LookML Tools</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">LookML Linter</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#how-it-works">How it works</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-it-works">How it works</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#parameterization">Parameterization</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#running">Running</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-rules">The Rules</a></li>
 </ul>
@@ -166,7 +168,7 @@
 <h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">config/linter/config_linter.json</span></code> specifies which set of files to apply the linter to, by specifying a file glob. For instance,</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="s2">&quot;infile_globs&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;/Users/carl.anderson/code/core-analytics-looker/*.view.lkml&quot;</span>
+        <span class="s2">&quot;/Users/joedoe/myrepo/*.view.lkml&quot;</span>
     <span class="p">],</span>
 </pre></div>
 </div>
@@ -184,7 +186,7 @@
             <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;YesNoNameRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">},</span>
             <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;CountNameRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">},</span>
             <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;AllCapsRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">}</span>
-            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;LexiconRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">}</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;LexiconRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;phrases&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Subscriber&quot;</span><span class="p">,</span>  <span class="s2">&quot;Subscription&quot;</span><span class="p">,</span> <span class="s2">&quot;studio&quot;</span><span class="p">]}</span>
         <span class="p">]</span>
     <span class="p">},</span>
 </pre></div>
@@ -194,12 +196,6 @@
 <li><p>file-level rules: a rule that is applied to the file once, e.g. does the file contain just one view</p></li>
 <li><p>field-level rules: a rule that is applied to each and every <code class="docutils literal notranslate"><span class="pre">dimension</span></code>, <code class="docutils literal notranslate"><span class="pre">dimension_group</span></code>, and <code class="docutils literal notranslate"><span class="pre">measure</span></code>. For instance, is the name of each field in ALL CAPS? If a rule is not relevant, e.g. a measure only rule is applied to a dimension, the rule is skipped and no output is added to the output files (see below).</p></li>
 </ul>
-<p>The tool makes use of Fabio’s LookML parser (https://github.com/fabio-looker/node-lookml-parser)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">node</span>   <span class="c1"># if on mac</span>
-<span class="n">npm</span> <span class="n">install</span> <span class="o">-</span><span class="n">g</span> <span class="n">lookml</span><span class="o">-</span><span class="n">parser</span>
-</pre></div>
-</div>
-<p>which converts LookML into a JSON object that can be interrogated easily with the set of rules.</p>
 <p>The results are, optionally, written to two CSVs:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="s2">&quot;output&quot;</span><span class="p">:</span> 
         <span class="s2">&quot;csv&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -227,20 +223,13 @@
     <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p>This code makes use of Fabio’s nade-based LookML parser (https://github.com/fabio-looker/node-lookml-parser)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">node</span>   <span class="c1"># if on mac</span>
-<span class="n">npm</span> <span class="n">install</span> <span class="o">-</span><span class="n">g</span> <span class="n">lookml</span><span class="o">-</span><span class="n">parser</span>
+<div class="section" id="parameterization">
+<h3>Parameterization<a class="headerlink" href="#parameterization" title="Permalink to this headline">¶</a></h3>
+<p>It is possible to pass parameters, other than <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">run</span></code>, into the rules via the configuration file. An example is the lexicon rule which checks that certain phrases are <em>not</em> mentioned in the field name or description.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;LexiconRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;phrases&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Subscriber&quot;</span><span class="p">,</span>  <span class="s2">&quot;Subscription&quot;</span><span class="p">,</span> <span class="s2">&quot;studio&quot;</span><span class="p">]}</span>
 </pre></div>
 </div>
-<p>You will need to set the path of the <code class="docutils literal notranslate"><span class="pre">lookml-parser</span></code> binary in the linter config file. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;parser&quot;</span><span class="p">:</span> <span class="s2">&quot;/usr/local/bin/lookml-parser&quot;</span><span class="p">,</span>
-    <span class="o">...</span>
-<span class="p">}</span>
-</pre></div>
+<p>The complete dictionary for the rule (above) is passed into the <code class="docutils literal notranslate"><span class="pre">LexiconRule</span></code> during instantiation.</p>
 </div>
 </div>
 <div class="section" id="running">
@@ -287,13 +276,13 @@
 <li><p><strong>YesNoNameRule</strong>: if this is a yesno dimension, does name start with ‘is_’?</p></li>
 <li><p><strong>CountNameRule</strong>: if this is a measure of type count, does name end with ‘_count’?</p></li>
 <li><p><strong>AllCapsRule</strong>: is the name not ALL CAPS?</p></li>
-<li><p><strong>LexiconRule</strong>: does the name or description (if any) of dimension, dimension_group, or measures mention “subscriber”, “subscription”, or “studio”? If so, that’s a fail.</p></li>
+<li><p><strong>LexiconRule</strong>: does the name or description (if any) of <code class="docutils literal notranslate"><span class="pre">dimension</span></code>, <code class="docutils literal notranslate"><span class="pre">dimension_group</span></code>, or <code class="docutils literal notranslate"><span class="pre">measure</span></code> mention any words in some list of “banned” phrases defined in the configuration? If so, that’s a fail.</p></li>
 </ul>
 <p>Other rules:</p>
 <ul class="simple">
 <li><p><strong>NoOrphansRule</strong>: each view should be referenced by an explore. If not, the file is an orphan. This is a special rule in that assessment of whether a file has passed can only be ascertained after all files in the repo have been processed.</p></li>
 </ul>
-<p>To add a new rule, it needs to implement the very simple <code class="docutils literal notranslate"><span class="pre">lkmltools.linter.rule</span></code> interface (excepting any special rules).</p>
+<p>To add a new rule, see the <a class="reference internal" href="README_DEVELOPER.html"><span class="doc">linter developer notes</span></a>.</p>
 </div>
 </div>
 

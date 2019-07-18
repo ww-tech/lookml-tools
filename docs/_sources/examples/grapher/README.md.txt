@@ -19,7 +19,7 @@ The `example_grapher_config.json` is simple:
     "output": "graph.png"
 }
 ```
-specifiying the files to process (`myrepo/*.*.lkml`), and the output filename (`graph.png`).
+specifiying the files to process (`myrepo/*.*.lkml`) and the output filename (`graph.png`).
 
 ## Running
 To run, 
@@ -34,19 +34,14 @@ You should see something like:
 
 ```
 python ../../run_grapher.py --config example_grapher_config.json
-2019-05-05 20:28:47,360 INFO lookml_grapher.py process_file: Processing myrepo/orphan.view.lkml
-2019-05-05 20:28:47,361 INFO lookml.py parse_repo: running lookml-parser --input='myrepo/orphan.view.lkml' --whitespace=2 > parsed_lookml.json
-2019-05-05 20:28:47,763 INFO lookml_grapher.py process_file: Processing myrepo/view1.view.lkml
-2019-05-05 20:28:47,763 INFO lookml.py parse_repo: running lookml-parser --input='myrepo/view1.view.lkml' --whitespace=2 > parsed_lookml.json
-2019-05-05 20:28:47,963 INFO lookml_grapher.py process_file: Processing myrepo/model1.model.lkml
-2019-05-05 20:28:47,963 INFO lookml.py parse_repo: running lookml-parser --input='myrepo/model1.model.lkml' --whitespace=2 > parsed_lookml.json
-2019-05-05 20:28:48,156 INFO lookml_grapher.py process_file: Processing myrepo/view2.view.lkml
-2019-05-05 20:28:48,157 INFO lookml.py parse_repo: running lookml-parser --input='myrepo/view2.view.lkml' --whitespace=2 > parsed_lookml.json
-2019-05-05 20:28:48,349 INFO lookml_grapher.py process_file: Processing myrepo/model2.model.lkml
-2019-05-05 20:28:48,350 INFO lookml.py parse_repo: running lookml-parser --input='myrepo/model2.model.lkml' --whitespace=2 > parsed_lookml.json
-2019-05-05 20:28:48,544 INFO lookml_grapher.py process_file: Processing myrepo/view3.view.lkml
-2019-05-05 20:28:48,545 INFO lookml.py parse_repo: running lookml-parser --input='myrepo/view3.view.lkml' --whitespace=2 > parsed_lookml.json
-2019-05-05 20:28:49,324 INFO lookml_grapher.py plot_graph: Graph written to graph.png
+2019-07-17 09:15:41,709 INFO lookml_grapher.py extract_graph_info: Processing myrepo/orphan.view.lkml
+2019-07-17 09:15:41,710 INFO lookml_grapher.py extract_graph_info: Processing myrepo/view1.view.lkml
+2019-07-17 09:15:41,710 INFO lookml_grapher.py extract_graph_info: Processing myrepo/model1.model.lkml
+2019-07-17 09:15:41,711 INFO lookml_grapher.py extract_graph_info: Processing myrepo/view2.view.lkml
+2019-07-17 09:15:41,712 INFO lookml_grapher.py extract_graph_info: Processing myrepo/model2.model.lkml
+2019-07-17 09:15:41,712 INFO lookml_grapher.py extract_graph_info: Processing myrepo/view3.view.lkml
+2019-07-17 09:15:41,713 INFO lookml_grapher.py run: Setting the following options: {'g': <networkx.classes.digraph.DiGraph object at 0x108537ac8>, 'filename': 'graph.png', 'title': 'myrepo/*.*.lkml as of 2019-07-17'}
+2019-07-17 09:15:42,252 INFO lookml_grapher.py plot_graph: Graph written to graph.png
 ```
 
 The resulting `graph.png` shows the relationships among the models (blue), explores (green), and views (purple). It also shows that there is a single, orphaned view, shown in orange.

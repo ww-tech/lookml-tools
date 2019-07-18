@@ -162,17 +162,17 @@ to filemodifier to make requested changes</p>
 <dl class="class">
 <dt id="lookml_modifier.LookMlModifier">
 <em class="property">class </em><code class="sig-prename descclassname">lookml_modifier.</code><code class="sig-name descname">LookMlModifier</code><span class="sig-paren">(</span><em class="sig-param">config</em><span class="sig-paren">)</span><a class="headerlink" href="#lookml_modifier.LookMlModifier" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="lkmltools.html#lkmltools.lookml.LookML" title="lkmltools.lookml.LookML"><code class="xref py py-class docutils literal notranslate"><span class="pre">lkmltools.lookml.LookML</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>class that understands additions or modifications to be made and then delegates
 to filemodifier to make requested changes</p>
 <dl class="method">
 <dt id="lookml_modifier.LookMlModifier.find_description">
-<code class="sig-name descname">find_description</code><span class="sig-paren">(</span><em class="sig-param">json_data</em>, <em class="sig-param">header_type</em>, <em class="sig-param">header_name</em><span class="sig-paren">)</span><a class="headerlink" href="#lookml_modifier.LookMlModifier.find_description" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">find_description</code><span class="sig-paren">(</span><em class="sig-param">lookml</em>, <em class="sig-param">header_type</em>, <em class="sig-param">header_name</em><span class="sig-paren">)</span><a class="headerlink" href="#lookml_modifier.LookMlModifier.find_description" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the description, if any, from this measure or dimension</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>json_data</strong> (<em>JSON</em>) – the complete JSON dictionary of the LookML</p></li>
+<li><p><strong>lookml</strong> (<a class="reference internal" href="lkmltools.html#lkmltools.lookml.LookML" title="lkmltools.lookml.LookML"><em>LookML</em></a>) – instance of LookML</p></li>
 <li><p><strong>header_type</strong> (<em>str</em>) – ‘measure’ or ‘dimension’</p></li>
 <li><p><strong>header_name</strong> (<em>str</em>) – name of measure or dimension</p></li>
 </ul>

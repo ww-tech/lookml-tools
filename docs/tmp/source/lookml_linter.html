@@ -214,7 +214,7 @@ of field level rules</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>v</strong> (<em>JSON</em>) – chunk of view for this view</p></li>
+<li><p><strong>v</strong> (<em>JSON</em>) – list of views</p></li>
 <li><p><strong>single_key</strong> (<em>str</em>) – e.g. dimension</p></li>
 <li><p><strong>plural_key</strong> (<em>str</em>) – e.g. dimensions</p></li>
 <li><p><strong>simple_fileapath</strong> (<em>str</em>) – path to some file</p></li>
@@ -229,7 +229,7 @@ of field level rules</p>
 
 <dl class="method">
 <dt id="lookml_linter.LookMlLinter.run_file_rules">
-<code class="sig-name descname">run_file_rules</code><span class="sig-paren">(</span><em class="sig-param">json_data</em>, <em class="sig-param">simple_filepath</em>, <em class="sig-param">file_out</em><span class="sig-paren">)</span><a class="headerlink" href="#lookml_linter.LookMlLinter.run_file_rules" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run_file_rules</code><span class="sig-paren">(</span><em class="sig-param">lookml</em>, <em class="sig-param">simple_filepath</em>, <em class="sig-param">file_out</em><span class="sig-paren">)</span><a class="headerlink" href="#lookml_linter.LookMlLinter.run_file_rules" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>run the set of file level rules against some json_data, that came from simple_filepath,</dt><dd><p>and append results to file_out list</p>
 </dd>
@@ -237,7 +237,7 @@ of field level rules</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>json_data</strong> (<em>JSON</em>) – JSON chunk of the LookML</p></li>
+<li><p><strong>lookml</strong> (<a class="reference internal" href="lkmltools.html#lkmltools.lookml.LookML" title="lkmltools.lookml.LookML"><em>LookML</em></a>) – instance of LookML</p></li>
 <li><p><strong>simple_fileapath</strong> (<em>str</em>) – path to some file</p></li>
 <li><p><strong>file_out</strong> (<em>list</em>) – list of results for file-level rules</p></li>
 </ul>

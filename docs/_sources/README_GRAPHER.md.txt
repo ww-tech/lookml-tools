@@ -15,11 +15,8 @@ where the nodes are colored as follows:
 
 we can see that the `membership_facts` model has 5 explores. The first explore (`engagement`) references 4 views: `fact_engagement`, `dim_product`, `dim_date`, and `dim_member`. We can also see that there is one orphaned view (called `orphan` in this fake example).
 
-## Installation
-TODO
-
-## Running the tool
-Simply run:
+## Configuration
+To run the grapher, run
 
 ```
 	python run_grapher.py --config config/grapher/config_grapher.json

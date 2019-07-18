@@ -84,8 +84,7 @@
 <li class="toctree-l1"><a class="reference internal" href="README.html">LookML Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="README_LINTER.html">LookML Linter</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">LookML Grapher</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#running-the-tool">Running the tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#limitations">Limitations</a></li>
 </ul>
 </li>
@@ -171,36 +170,17 @@
 <li><p><em>orphans</em>: orange,</p></li>
 </ul>
 <p>we can see that the <code class="docutils literal notranslate"><span class="pre">membership_facts</span></code> model has 5 explores. The first explore (<code class="docutils literal notranslate"><span class="pre">engagement</span></code>) references 4 views: <code class="docutils literal notranslate"><span class="pre">fact_engagement</span></code>, <code class="docutils literal notranslate"><span class="pre">dim_product</span></code>, <code class="docutils literal notranslate"><span class="pre">dim_date</span></code>, and <code class="docutils literal notranslate"><span class="pre">dim_member</span></code>. We can also see that there is one orphaned view (called <code class="docutils literal notranslate"><span class="pre">orphan</span></code> in this fake example).</p>
-<div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p>This code makes use of Fabio’s node-based LookML parser (https://github.com/fabio-looker/node-lookml-parser)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">node</span>   <span class="c1"># if on mac</span>
-<span class="n">npm</span> <span class="n">install</span> <span class="o">-</span><span class="n">g</span> <span class="n">lookml</span><span class="o">-</span><span class="n">parser</span>
-</pre></div>
-</div>
-<p>You will need to set the path of the <code class="docutils literal notranslate"><span class="pre">lookml-parser</span></code> binary in the <code class="docutils literal notranslate"><span class="pre">config/grapher/config_grapher.json</span></code> config file. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;parser&quot;</span><span class="p">:</span> <span class="s2">&quot;/usr/local/bin/lookml-parser&quot;</span><span class="p">,</span>
-    <span class="o">...</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="running-the-tool">
-<h2>Running the tool<a class="headerlink" href="#running-the-tool" title="Permalink to this headline">¶</a></h2>
-<p>Simply run:</p>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>To run the grapher, run</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>	<span class="n">python</span> <span class="n">run_grapher</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config</span> <span class="n">config</span><span class="o">/</span><span class="n">grapher</span><span class="o">/</span><span class="n">config_grapher</span><span class="o">.</span><span class="n">json</span>
 </pre></div>
 </div>
 <p>where the config file has the following fields:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;parser&quot;</span><span class="p">:</span> <span class="s2">&quot;/usr/local/bin/lookml-parser&quot;</span><span class="p">,</span>
-
     <span class="s2">&quot;infile_globs&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="s2">&quot;../somerepo/*.lkml&quot;</span>
     <span class="p">],</span>
-
-    <span class="s2">&quot;tmp_file&quot;</span><span class="p">:</span> <span class="s2">&quot;parsed_lookml.json&quot;</span><span class="p">,</span>
 
     <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="s2">&quot;graph.png&quot;</span><span class="p">,</span>
 

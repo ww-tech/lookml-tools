@@ -160,16 +160,16 @@
 </dl>
 <dl class="class">
 <dt id="count_name_rule.CountNameRule">
-<em class="property">class </em><code class="sig-prename descclassname">count_name_rule.</code><code class="sig-name descname">CountNameRule</code><a class="headerlink" href="#count_name_rule.CountNameRule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">lkmltools.linter.rule.Rule</span></code></p>
+<em class="property">class </em><code class="sig-prename descclassname">count_name_rule.</code><code class="sig-name descname">CountNameRule</code><span class="sig-paren">(</span><em class="sig-param">config_dict=None</em><span class="sig-paren">)</span><a class="headerlink" href="#count_name_rule.CountNameRule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">lkmltools.linter.field_rule.FieldRule</span></code></p>
 <p>if this is a measure of type count, does name end with <code class="docutils literal notranslate"><span class="pre">_count</span></code></p>
 <dl class="method">
 <dt id="count_name_rule.CountNameRule.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">json_data</em><span class="sig-paren">)</span><a class="headerlink" href="#count_name_rule.CountNameRule.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">lookml_field</em><span class="sig-paren">)</span><a class="headerlink" href="#count_name_rule.CountNameRule.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>if this is a measure of type count, does name end with <code class="docutils literal notranslate"><span class="pre">_count</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>json_data</strong> (<em>JSON</em>) – json_data of the lookml-parser dictionary for this count measure only</p>
+<dd class="field-odd"><p><strong>lookml_field</strong> (<a class="reference internal" href="lkmltools.html#lkmltools.lookml_field.LookMLField" title="lkmltools.lookml_field.LookMLField"><em>LookMLField</em></a>) – instance of LookMLField</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><p>tuple containing:</p>

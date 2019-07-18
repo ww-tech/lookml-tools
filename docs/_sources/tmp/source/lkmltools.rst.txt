@@ -4,6 +4,13 @@ lkmltools package
 Submodules
 ----------
 
+lkmltools.abstract\_rule module
+-------------------------------
+
+.. automodule:: lkmltools.abstract_rule
+   :members:
+   :undoc-members:
+   :show-inheritance:
 lkmltools.bq\_writer module
 ---------------------------
 
@@ -22,6 +29,13 @@ lkmltools.lookml module
 -----------------------
 
 .. automodule:: lkmltools.lookml
+   :members:
+   :undoc-members:
+   :show-inheritance:
+lkmltools.lookml\_field module
+------------------------------
+
+.. automodule:: lkmltools.lookml_field
    :members:
    :undoc-members:
    :show-inheritance:

@@ -87,7 +87,8 @@
 <li class="toctree-l1"><a class="reference internal" href="README_UPDATER.html">LookML Updater</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Developer Notes</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#linter">Linter</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#rule-interface">Rule Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rule-interfaces">Rule Interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameterization-of-rules">Parameterization of Rules</a></li>
 </ul>
 </li>
 </ul>
@@ -169,39 +170,64 @@
 <li><p><strong>File-level rules</strong>: these are rules that apply to the file as a whole, such as there should only be one view per file (<code class="docutils literal notranslate"><span class="pre">OneViewPerFileRule</span></code>) or that files should specify a data source with <code class="docutils literal notranslate"><span class="pre">sql_table_name</span></code> or <code class="docutils literal notranslate"><span class="pre">derived_table</span></code> (<code class="docutils literal notranslate"><span class="pre">DataSourceRule</span></code>).</p></li>
 <li><p><strong>Other rules</strong>: the third category are other rules. The only, current example is the <code class="docutils literal notranslate"><span class="pre">NoOrphansRule</span></code> that says that each view should be referenced by at least one explore. While it sounds like a file-level rule, the code can only assess whether the rule is passed once it has parsed <em>all</em> of the files, and not from a single file. Thus, it has to be handled differently than the file-level rules.</p></li>
 </ul>
-<div class="section" id="rule-interface">
-<h3>Rule Interface<a class="headerlink" href="#rule-interface" title="Permalink to this headline">¶</a></h3>
-<p>The rule interface for field-level and file-level rules is simple. They must implement the single method:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_data</span><span class="p">):</span>
-       <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">       run the rule</span>
+<div class="section" id="rule-interfaces">
+<h3>Rule Interfaces<a class="headerlink" href="#rule-interfaces" title="Permalink to this headline">¶</a></h3>
+<p>Field-level rules have an interface:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lookml_field</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;run the rule</span>
 
-<span class="sd">       Returns:</span>
-<span class="sd">           whether rule was relevant: true/false</span>
-<span class="sd">           whether it passed: (True) or failed (False) the rule</span>
-<span class="sd">       &#39;&#39;&#39;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            lookml (LookMLField): LookMLField instance</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            (tuple): tuple containing:</span>
+
+<span class="sd">                relevant (bool): is this rule relevant for this JSON chunk?</span>
+
+<span class="sd">                passed (bool): did the rule pass?</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
 </pre></div>
 </div>
-<p>which is in <code class="docutils literal notranslate"><span class="pre">lkmltools.rules.rule</span></code> file.</p>
-<p>Rules must always return two Boolean flags:</p>
+<p>which is in <code class="docutils literal notranslate"><span class="pre">lkmltools.linter.field_rule</span></code> file where <code class="docutils literal notranslate"><span class="pre">LookMLField</span></code> is a wrapper around the JSON data for that field.</p>
+<p>These rules must always return two Boolean flags:</p>
 <ul class="simple">
 <li><p><strong>Relevant</strong>: was the rule relevant for this fragment. So, if a rule that only applies to <code class="docutils literal notranslate"><span class="pre">measures</span></code> is fed JSON from a <code class="docutils literal notranslate"><span class="pre">dimension_group</span></code>, it should return <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
 <li><p><strong>Passed</strong>: did the rule pass. If it was not relevant, it should return <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
 </ul>
-<p>For file-level rules, the <code class="docutils literal notranslate"><span class="pre">json_data</span></code> is the parsed JSON of the whole file and for field-level rules, it is the JSON for an individual <code class="docutils literal notranslate"><span class="pre">dimension</span></code>, <code class="docutils literal notranslate"><span class="pre">dimension_group</span></code>, or <code class="docutils literal notranslate"><span class="pre">measure</span></code>.</p>
-<p>For instance, for the <code class="docutils literal notranslate"><span class="pre">DrillDownRule</span></code>, which only applies to measures, the implementation is:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_data</span><span class="p">):</span>
-     
-        <span class="k">if</span> <span class="n">json_data</span><span class="p">[</span><span class="s1">&#39;_type&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;measure&#39;</span><span class="p">:</span>
+<p>File-level rules have a similar interface:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lookml</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;run the rule</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            lookml (LookML): LookML instance</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            (tuple): tuple containing:</span>
+
+<span class="sd">                relevant (bool): is this rule relevant for this JSON chunk?</span>
+
+<span class="sd">                passed (bool): did the rule pass?</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+</pre></div>
+</div>
+<p>which is in the <code class="docutils literal notranslate"><span class="pre">lkmltools.linter.rule</span></code> file.
+This time however, the input is an instance of <code class="docutils literal notranslate"><span class="pre">LookML</span></code> which is a wrapper around the parsed JSON of the whole LookML file.</p>
+<p>Both <code class="docutils literal notranslate"><span class="pre">LookML</span></code> and <code class="docutils literal notranslate"><span class="pre">LookMLField</span></code> provide methods for querying the LookML attributes without having to intimately understand the JSON representation.
+For instance, for the <code class="docutils literal notranslate"><span class="pre">DrillDownRule</span></code>, which only applies to measures, the implementation is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lookml_field</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">lookml_field</span><span class="o">.</span><span class="n">is_measure</span><span class="p">():</span>
             <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">None</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="s1">&#39;drill_fields&#39;</span> <span class="ow">in</span> <span class="n">json_data</span> <span class="ow">or</span> <span class="n">json_data</span><span class="p">[</span><span class="s1">&#39;drill_fields&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="p">[]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">lookml_field</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s1">&#39;drill_fields&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">lookml_field</span><span class="o">.</span><span class="n">drill_fields</span> <span class="o">==</span> <span class="p">[]:</span>
             <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span>
         <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span>
 </pre></div>
 </div>
 <p>which should be relatively easy to understand.</p>
-<p>You should examine the parsed JSON of some LookML files to see the structure. For instance,  dimension’s JSON for a dimension <code class="docutils literal notranslate"><span class="pre">city_code</span></code> is relatively intuitive:</p>
+<p>For any functionality not covered by the methods in <code class="docutils literal notranslate"><span class="pre">LookML</span></code> or <code class="docutils literal notranslate"><span class="pre">LookMLField</span></code>, you can always access and examine the underlying JSON representation via <code class="docutils literal notranslate"><span class="pre">lookml.json_data</span></code> and <code class="docutils literal notranslate"><span class="pre">lookml_field.json_data</span></code>.
+You should examine the parsed JSON of some LookML files to see the structure. For instance,  dimension’s JSON for a dimension <code class="docutils literal notranslate"><span class="pre">city_code</span></code> is relatively intuitive:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
       <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
       <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;this is a description&quot;</span><span class="p">,</span>
@@ -213,7 +239,42 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>As well as implementing the rule, it will also needs to be added to added to the <code class="docutils literal notranslate"><span class="pre">lkmltools.linter.rule_factory</span></code>.</p>
+<p>If you implement a new rule, it will need to be registered with the <code class="docutils literal notranslate"><span class="pre">RuleFactory</span></code> before it can be used.
+You can register new rules using the <code class="docutils literal notranslate"><span class="pre">RuleFactory</span></code> singleton:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">lkmltools.linter.rule_factory</span> <span class="k">import</span> <span class="n">RuleFactory</span>
+
+<span class="kn">from</span> <span class="nn">mymodules.myawesomerule</span> <span class="k">import</span> <span class="n">MyAwesomeRule</span>
+
+<span class="n">RuleFactory</span><span class="p">()</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s1">&#39;MyAwesomeRule&#39;</span><span class="p">,</span> <span class="n">MyAwesomeRule</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="parameterization-of-rules">
+<h3>Parameterization of Rules<a class="headerlink" href="#parameterization-of-rules" title="Permalink to this headline">¶</a></h3>
+<p>It is possible to pass parameters, other than <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">run</span></code>, into the rules via the configuration file. An example is the lexicon rule which checks that certain phrases are <em>not</em> mentioned in the field name or description.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;file_level_rules&quot;</span> <span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;DataSourceRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;OneViewPerFileRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;FilenameViewnameMatchRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;field_level_rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;DescriptionRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;DrillDownRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;YesNoNameRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;CountNameRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;AllCapsRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">}</span>
+            <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;LexiconRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;phrases&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Subscriber&quot;</span><span class="p">,</span>  <span class="s2">&quot;Subscription&quot;</span><span class="p">,</span> <span class="s2">&quot;studio&quot;</span><span class="p">]}</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+</pre></div>
+</div>
+<p>The complete configuration dictionary for the <code class="docutils literal notranslate"><span class="pre">LexiconRule</span></code>, i.e.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;LexiconRule&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;phrases&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Subscriber&quot;</span><span class="p">,</span>  <span class="s2">&quot;Subscription&quot;</span><span class="p">,</span> <span class="s2">&quot;studio&quot;</span><span class="p">]}</span>
+</pre></div>
+</div>
+<p>is passed into the <code class="docutils literal notranslate"><span class="pre">LexiconRule</span></code> during instantiation.</p>
+<p>This is true for all rules–this functionality is baked into the base <code class="docutils literal notranslate"><span class="pre">AbsrtractRule</span></code> class—any additional keys in the configuration dictionary are available to the rule.</p>
 </div>
 </div>
 </div>
