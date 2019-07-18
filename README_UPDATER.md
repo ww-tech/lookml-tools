@@ -11,7 +11,7 @@ Here is a possible, example workflow:
 
 ![](img/workflow.png)
 
-## Installation
+## Configuration
 
 You will need to specify the source of the definitions:
 

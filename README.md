@@ -38,7 +38,7 @@ For the grapher, you will need to install grapviz:
 brew install graphviz
 ```
 
-You will need to install dependencies:
+For all tools, you will need to install dependencies:
 ```
   pip install -r requirements.txt
 ```
@@ -77,17 +77,20 @@ You can reach me directly at carl.anderson@weightwatchers.com as well as [@leapi
 
 ## Release notes
 
-2019-07-17: 2.0.0
+#### 2019-07-17: 2.0.0
+
+Given the impact of the following two changes, this is a major release:
+
  - swapped out the node-based LookML parser with [Josh Temple's](https://github.com/joshtemple) new Python lkml parser (https://pypi.org/project/lkml/). This simplifies install, dependency management, and underlying parsed JSON format.
  - added layer of abstraction via `LookML` and `LookMLField` classes so that rules and other code can query LookML attributes via methods instead of inspecting raw JSON.
 
-    Given the impact of these two changes, this is a major release. Other changes:
+Other changes:
 
- - `lkmltools.RuleFactory` is now a singleton so it is easier for users to register their own rules
+ - `lkmltools.RuleFactory` is now a singleton so it is easier for users to register their own rules.
  - Can now parameterize any rule in the configuration by adding additional keys to the dictionary for that rule.
-  For instance, if the config defines `{"name": "MyAwesomeRule", "run": true, "debug": true, "strict_mode":true, length: 6}` then this whole dictionary is passed into the constructor during rule instantiation
-  
-2019-06-10: 1.0.0
+  For instance, if the config defines `{"name": "MyAwesomeRule", "run": true, "debug": true, "strict_mode":true, length: 6}` then this whole dictionary is passed into the constructor during rule instantiation.
+
+#### 2019-06-10: 1.0.0
  - initial release
 
 ## License
