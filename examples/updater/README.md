@@ -4,15 +4,13 @@ In this updater example, we use the `example_updater_config.json`:
 
 ```
 {
-    "parser": "lookml-parser",
-    "tmp_file": "parsed_lookml.json",
     "definitions": {
         "type": "CsvDefinitionsProvider",
         "filename": "test/example_definitions.csv"
     }
 }
 ```
-which defines the binary parser we are using (`lookml-parser`), the temporary JSON files that `.lkml` files are parsed to, and the set of definitions we are using. The definitions map the filename and their dimensions, dimension_groups, and measures to our desired definitions.
+which defines the set of definitions we are using. The definitions map the filename and their dimensions, dimension_groups, and measures to our desired definitions.
 
 ### Running
 Run with

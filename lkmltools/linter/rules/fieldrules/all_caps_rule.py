@@ -4,17 +4,18 @@
     Authors:
             Carl Anderson (carl.anderson@weightwatchers.com)
 '''
-from lkmltools.linter.rule import Rule
+from lkmltools.linter.field_rule import FieldRule
+from lkmltools.lookml_field import LookMLField
 
-class AllCapsRule(Rule):
+class AllCapsRule(FieldRule):
     '''is the name non all caps?
     '''
 
-    def run(self, json_data):
+    def run(self, lookml_field):
         '''is the name non all caps?
 
         Args:
-            json_data (JSON): json_data of the lookml-parser dictionary for this dimension, dimension group, or measure only
+            lookml_field (LookMLField): instance of LookMLField
 
         Returns:
             (tuple): tuple containing:
@@ -24,7 +25,6 @@ class AllCapsRule(Rule):
                 passed (bool): did the rule pass?
 
         '''
-        if not '_type' in json_data or not json_data['_type'] in ['dimension', 'dimension_group', 'measure']:
+        if not (lookml_field.is_dimension() or lookml_field.is_dimension_group() or lookml_field.is_measure()):
             return False, None
-        name = json_data['_' + json_data['_type']]
-        return True, name != name.upper()
+        return True, lookml_field.name != lookml_field.name.upper()

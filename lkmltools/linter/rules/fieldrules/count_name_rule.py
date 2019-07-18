@@ -2,20 +2,21 @@
     a count name rule
 
     Authors:
-            Carl Anderson (carl.anderson@weightwatchers.com)
+        Carl Anderson (carl.anderson@weightwatchers.com)
 '''
-from lkmltools.linter.rule import Rule
+from lkmltools.linter.field_rule import FieldRule
+from lkmltools.lookml_field import LookMLField
 
-class CountNameRule(Rule):
+class CountNameRule(FieldRule):
     '''
         if this is a measure of type count, does name end with ``_count``
     '''
 
-    def run(self, json_data):
+    def run(self, lookml_field):
         '''if this is a measure of type count, does name end with ``_count``
 
         Args:
-            json_data (JSON): json_data of the lookml-parser dictionary for this count measure only
+            lookml_field (LookMLField): instance of LookMLField
 
         Returns:
             (tuple): tuple containing:
@@ -25,6 +26,6 @@ class CountNameRule(Rule):
                 passed (bool): did the rule pass?
 
         '''
-        if json_data['_type'] == 'measure' and 'type' in json_data and json_data['type'] == 'count':
-            return True, json_data['_measure'].endswith("_count")
+        if lookml_field.is_measure() and lookml_field.type == 'count':
+            return True, lookml_field.name.endswith("_count")
         return False, None

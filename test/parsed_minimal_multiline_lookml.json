@@ -113,8 +113,8 @@
           "_n": 0
         }
       ],
-      "_file_path": "test/minimal_multiline.lkml",
-      "_file_rel": "test/minimal_multiline.lkml",
+      "_file_path": "test/minimal_multiline.view.lkml",
+      "_file_rel": "test/minimal_multiline.view.lkml",
       "_file_name": "",
       "_file_type": "minimal_multiline"
     }

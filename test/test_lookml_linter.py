@@ -35,8 +35,6 @@ def test_initialize_rules():
 
 def test_run_file_rules():
     config = {
-        "parser": "lookml-parser",
-        "tmp_file": "parsed_lookml.json",
         "rules": {
             "file_level_rules" : [
                 {"name": "DataSourceRule", "run": True},
@@ -48,18 +46,14 @@ def test_run_file_rules():
     linter = LookMlLinter(config)
 
     rule = DataSourceRule()
-    json_data = LookML(config).get_json_representation("test/minimal_multiline.lkml")
-    out = linter.run_file_rules(json_data, "xxx", [])
+    lookml = LookML("test/minimal_multiline.view.lkml")
+    out = linter.run_file_rules(lookml, "xxx", [])
     assert len(out) == 2
     assert out[0] == {'file': 'xxx', 'passed': 1, 'rule': 'DataSourceRule'}
     assert out[1] == {'file': 'xxx', 'passed': 0, 'rule': 'FilenameViewnameMatchRule'}
-    if os.path.exists(config['tmp_file']):
-        os.remove(config['tmp_file'])
 
 def test_run_field_rules():
     config = {
-        "parser": "lookml-parser",
-        "tmp_file": "parsed_lookml.json",
         "rules": {
             "field_level_rules": [
                 {"name": "DescriptionRule", "run": True},
@@ -68,13 +62,13 @@ def test_run_field_rules():
         },
     }
     linter = LookMlLinter(config)
-    json_data = LookML(config).get_json_representation("test/minimal_multiline.lkml")
-    v = json_data['files'][0]['views'][0]
+    lookml = LookML("test/minimal_multiline.view.lkml")
+    v = lookml.views()[0]
+
+    print("v",v)
 
     out = linter.run_field_rules(v, 'dimension', 'dimensions', "xxx", [])
     assert out[0] == {'file': 'xxx', 'rule': 'DescriptionRule', 'passed': 1, 'type': 'dimension', 'fieldname': 'city_code'}
-    if os.path.exists(config['tmp_file']):
-        os.remove(config['tmp_file'])
 
 def test_run_field_rules2():
     config = {
@@ -92,14 +86,12 @@ def test_run_field_rules2():
       }
     """
     json_data = get_json_from_lookml(raw_lookml)
-    v = json_data['files'][0]['views'][0]
+    v = json_data['views'][0]
     out = linter.run_field_rules(v, 'dimension', 'dimensions', "xxx", [])
     assert out == []
 
 def test_run(monkeypatch):
     config = {
-        "parser": "lookml-parser",
-
         "git": {
             "url": "https://github.com/exampleorg/examplerepo.git",
             "folder": "gitrepo"
@@ -108,8 +100,6 @@ def test_run(monkeypatch):
         "infile_globs": [
             "test/test_linter.view.lkml"
         ],
-
-        "tmp_file": "parsed_linter_lookml.json",
 
         "rules": {
             "file_level_rules" : [
@@ -171,8 +161,6 @@ def test_run(monkeypatch):
         os.remove(config['output']['csv']['file_output'])
     if os.path.exists(config['output']['csv']['field_output']):
         os.remove(config['output']['csv']['field_output'])
-    if os.path.exists(config['tmp_file']):
-        os.remove(config['tmp_file'])
 
 def test_other_rules_to_run():
     config = {
@@ -192,14 +180,12 @@ def test_other_rules_to_run():
 
 def test_run_orphans():
     config = {
-        "parser": "lookml-parser",
         "git": {
             "url": "https://github.com/exampleorg/examplerepo.git"
         },
         "infile_globs": [
             "test/test_orphans_repo/*.*.lkml"
         ],
-        "tmp_file": "test/parsed_lookml.json",
         "rules": {
             "other_rules": [
                 {"name": "NoOrphansRule", "run": True}
@@ -213,5 +199,3 @@ def test_run_orphans():
     assert len(file_out) == 1
     assert len(field_out) == 0
     assert file_out[0] == {'file': 'test/test_orphans_repo/orphan.view.lkml','passed': 0,'rule': 'NoOrphansRule'}
-    if os.path.exists(config['tmp_file']):
-        os.remove(config['tmp_file'])

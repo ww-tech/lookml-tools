@@ -13,7 +13,7 @@ from lkmltools.util import FieldCategory
 from lkmltools.lookml import LookML
 from lkmltools.updater.definitions_provider_factory import DefinitionsProviderFactory
 
-class LookMlModifier(LookML):
+class LookMlModifier():
     '''
         class that understands additions or modifications to be made and then delegates
         to filemodifier to make requested changes
@@ -26,15 +26,16 @@ class LookMlModifier(LookML):
             config (JSON): the JSON configuration
 
         '''
-        super().__init__(config)
+        #super(LookMlModifier).__init__(filepath)
+        self.config = config
         definitions_provider = DefinitionsProviderFactory.instantiate(config["definitions"]['type'], config)
         self.definitions = definitions_provider.get_definitions()
 
-    def find_description(self, json_data, header_type, header_name):
+    def find_description(self, lookml, header_type, header_name):
         '''get the description, if any, from this measure or dimension
 
         Args:
-            json_data (JSON): the complete JSON dictionary of the LookML
+            lookml (LookML): instance of LookML
             header_type (str): 'measure' or 'dimension'
             header_name (str): name of measure or dimension            
 
@@ -43,22 +44,31 @@ class LookMlModifier(LookML):
             boolean: whether it has one
 
         '''
-        if not 'views' in json_data['files'][0]:
-            raise Exception("Only views are supported. Is this a LookML model?")
+        if lookml.filetype != "view":
+            raise Exception("Only views are supported. This is type " + lookml.filetype)
 
         # coding standards say that we should have one view per file
-        n = len(json_data['files'][0]['views'])
+        n = len(lookml.views())
         if n > 1:
             raise Exception("There should only 1 view. We found %d" % n) 
 
-        v = json_data['files'][0]['views'][0]
+        v = lookml.views()[0]
 
         if header_type not in [FieldCategory.DIMENSION.value,  FieldCategory.DIMENSION_GROUP.value, FieldCategory.MEASURE.value]:
             raise Exception("Unrecognized header_type %s" % header_type)
 
-        if not header_name in v[header_type]:
+        plural_key = header_type + "s"
+        if not plural_key in v:
             raise IOError("Did not find %s %s" % (header_type, header_name))
-        d = v[header_type][header_name]
+
+        found = False
+        for d in v[plural_key]:
+            if d['name'] == header_name:
+                found=True
+                break
+        if not found:
+            raise IOError("Did not find %s %s" % (header_type, header_name))
+
         if FieldCategory.DESCRIPTION.value in d:
             return d[FieldCategory.DESCRIPTION.value], True
         else:
@@ -81,10 +91,9 @@ class LookMlModifier(LookML):
             nothing. Writes out modified file contents to file
 
         '''
-
-        json_data = self.get_json_representation(infilepath)
-
         modifier = FileModifier(infilepath)
+
+        lookml = LookML(infilepath)
 
         # get definitions for this file. In some cases, we might not
         # easily know the full path (such as full_auto_updater.sh which
@@ -98,7 +107,7 @@ class LookMlModifier(LookML):
         for definition in defs.T.to_dict().values():
             logging.info("Processing %s: %s", definition['type'], definition['name'])
 
-            description, has_key = self.find_description(json_data, definition['type'], definition['name'])
+            description, has_key = self.find_description(lookml, definition['type'], definition['name'])
 
             num_lines = len(description.split("\n"))
 

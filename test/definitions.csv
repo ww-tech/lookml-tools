@@ -1,8 +1,8 @@
 file,type,name,definition
-test/basic.lkml,dimension,country,"This
+test/basic.view.lkml,dimension,country,"This
 is
 the
 correct
 description"
-test/basic.lkml,dimension,tier,this is a new description
+test/basic.view.lkml,dimension,tier,this is a new description
 someotherfile,dimension,xxx,yyy

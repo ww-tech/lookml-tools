@@ -2,7 +2,7 @@ import pytest
 import json
 import os
 from lkmltools.linter.rules.filerules.data_source_rule import DataSourceRule
-from conftest import get_1st_dimension, get_1st_measure, get_json_from_lookml
+from conftest import get_lookml_from_raw_lookml
 
 def test_run1():
     raw_lookml = """
@@ -10,10 +10,12 @@ def test_run1():
         sql_table_name: bqdw.engagement_score ;;
       }
     """
-    json_data = get_json_from_lookml(raw_lookml)
-    relevant, passed = DataSourceRule().run(json_data)
+    lookml = get_lookml_from_raw_lookml(raw_lookml, 'aview.view')
+    relevant, passed = DataSourceRule().run(lookml)
     assert relevant
     assert passed
+    if os.path.exists(lookml.infilepath):
+      os.remove(lookml.infilepath)
 
 def test_run2():
     raw_lookml = """
@@ -23,10 +25,12 @@ def test_run2():
         }
       }
     """
-    json_data = get_json_from_lookml(raw_lookml)
-    relevant, passed = DataSourceRule().run(json_data)
+    lookml = get_lookml_from_raw_lookml(raw_lookml, 'aview.view')
+    relevant, passed = DataSourceRule().run(lookml)
     assert relevant
     assert not passed
+    if os.path.exists(lookml.infilepath):
+      os.remove(lookml.infilepath)
 
 def test_run3():
     raw_lookml = """
@@ -40,10 +44,12 @@ def test_run3():
         }
       }
     """
-    json_data = get_json_from_lookml(raw_lookml)
-    relevant, passed = DataSourceRule().run(json_data)
+    lookml = get_lookml_from_raw_lookml(raw_lookml, 'aview.view')
+    relevant, passed = DataSourceRule().run(lookml)
     assert relevant
     assert passed
+    if os.path.exists(lookml.infilepath):
+      os.remove(lookml.infilepath)
 
 def test_run4():
     raw_lookml = """
@@ -52,11 +58,9 @@ def test_run4():
         explore: an_explore {
         }
     """
-    filename = "test/amodel.model.lkml"
-    json_data = get_json_from_lookml(raw_lookml, filename)
-    rule = DataSourceRule()
-    relevant, passed = rule.run(json_data)
+    lookml = get_lookml_from_raw_lookml(raw_lookml, 'amodel.model')
+    relevant, passed = DataSourceRule().run(lookml)
     assert not relevant
     assert not passed
-    if os.path.exists(filename):
-      os.remove(filename)
+    if os.path.exists(lookml.infilepath):
+      os.remove(lookml.infilepath)

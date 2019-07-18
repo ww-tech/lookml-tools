@@ -156,6 +156,35 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="module-lkmltools.abstract_rule">
+<span id="lkmltools-abstract-rule-module"></span><h2>lkmltools.abstract_rule module<a class="headerlink" href="#module-lkmltools.abstract_rule" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="lkmltools.abstract_rule.AbstractRule">
+<em class="property">class </em><code class="sig-prename descclassname">lkmltools.abstract_rule.</code><code class="sig-name descname">AbstractRule</code><span class="sig-paren">(</span><em class="sig-param">config_dict=None</em><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.abstract_rule.AbstractRule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Abstract rule that can take a JSON configuration object</p>
+<dl class="method">
+<dt id="lkmltools.abstract_rule.AbstractRule.config_for_key">
+<code class="sig-name descname">config_for_key</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.abstract_rule.AbstractRule.config_for_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lkmltools.abstract_rule.AbstractRule.has_key">
+<code class="sig-name descname">has_key</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.abstract_rule.AbstractRule.has_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>does the config dictionary have a key ‘key’?</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>whether there is a configuration dictionary and key is present</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>response (bool)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-lkmltools.bq_writer">
 <span id="lkmltools-bq-writer-module"></span><h2>lkmltools.bq_writer module<a class="headerlink" href="#module-lkmltools.bq_writer" title="Permalink to this headline">¶</a></h2>
 <dl class="simple">
@@ -281,54 +310,114 @@
 </dl>
 <dl class="class">
 <dt id="lkmltools.lookml.LookML">
-<em class="property">class </em><code class="sig-prename descclassname">lkmltools.lookml.</code><code class="sig-name descname">LookML</code><span class="sig-paren">(</span><em class="sig-param">config</em><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.lookml.LookML" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">lkmltools.lookml.</code><code class="sig-name descname">LookML</code><span class="sig-paren">(</span><em class="sig-param">infilepath</em><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.lookml.LookML" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
-<dt id="lkmltools.lookml.LookML.create_command">
-<code class="sig-name descname">create_command</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.lookml.LookML.create_command" title="Permalink to this definition">¶</a></dt>
-<dd><p>create the command that will parse the LookML and convert to a JSON object</p>
+<dt id="lkmltools.lookml.LookML.explores">
+<code class="sig-name descname">explores</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.lookml.LookML.explores" title="Permalink to this definition">¶</a></dt>
+<dd><p>get explores (if any) from the LookML</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – filepath of input LookML file</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>list of unix command strings</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>explores (list) if any, None otherwise</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
-<dt id="lkmltools.lookml.LookML.get_json_representation">
-<code class="sig-name descname">get_json_representation</code><span class="sig-paren">(</span><em class="sig-param">infilepath</em><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.lookml.LookML.get_json_representation" title="Permalink to this definition">¶</a></dt>
-<dd><p>parse the LookML infilepath, convert to JSON, and then read into JSON object</p>
+<dt id="lkmltools.lookml.LookML.has_explores">
+<code class="sig-name descname">has_explores</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.lookml.LookML.has_explores" title="Permalink to this definition">¶</a></dt>
+<dd><p>does this have one or more explores?</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>infilepath</strong> (<em>str</em>) – path to input LookML file</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>JSON object of LookML</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>bool, whether this has explores</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
-<dt id="lkmltools.lookml.LookML.parse_repo">
-<code class="sig-name descname">parse_repo</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.lookml.LookML.parse_repo" title="Permalink to this definition">¶</a></dt>
-<dd><p>parse the LookML and convert to a JSON object</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>this runs a parser on the command line. It is not Python code</p>
+<dt id="lkmltools.lookml.LookML.has_views">
+<code class="sig-name descname">has_views</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.lookml.LookML.has_views" title="Permalink to this definition">¶</a></dt>
+<dd><p>does this have one or more views?</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>bool, whether this has views</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="lkmltools.lookml.LookML.views">
+<code class="sig-name descname">views</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.lookml.LookML.views" title="Permalink to this definition">¶</a></dt>
+<dd><p>get views (if any) from the LookML</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>views (list) if any, None otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </div>
+<div class="section" id="module-lkmltools.lookml_field">
+<span id="lkmltools-lookml-field-module"></span><h2>lkmltools.lookml_field module<a class="headerlink" href="#module-lkmltools.lookml_field" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="lkmltools.lookml_field.LookMLField">
+<em class="property">class </em><code class="sig-prename descclassname">lkmltools.lookml_field.</code><code class="sig-name descname">LookMLField</code><span class="sig-paren">(</span><em class="sig-param">json_data</em><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.lookml_field.LookMLField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A view field such a dimension, dimension_group, or measure</p>
+<dl class="method">
+<dt id="lkmltools.lookml_field.LookMLField.has_key">
+<code class="sig-name descname">has_key</code><span class="sig-paren">(</span><em class="sig-param">k</em><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.lookml_field.LookMLField.has_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>does this have a key k?</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – filepath of input LookML file</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>whether this has key k</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>output from subprocess call
-error: error from subprocess call</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>output</p>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="lkmltools.lookml_field.LookMLField.is_dimension">
+<code class="sig-name descname">is_dimension</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.lookml_field.LookMLField.is_dimension" title="Permalink to this definition">¶</a></dt>
+<dd><p>is this a dimension?</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>whether this is a dimension</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="lkmltools.lookml_field.LookMLField.is_dimension_group">
+<code class="sig-name descname">is_dimension_group</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.lookml_field.LookMLField.is_dimension_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>is this a dimension_group?</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>whether this is a dimension_group</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="lkmltools.lookml_field.LookMLField.is_measure">
+<code class="sig-name descname">is_measure</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#lkmltools.lookml_field.LookMLField.is_measure" title="Permalink to this definition">¶</a></dt>
+<dd><p>is this a measure?</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>whether this is a measure</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>

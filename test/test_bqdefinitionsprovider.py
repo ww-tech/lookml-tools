@@ -14,9 +14,9 @@ def test_get_definitions(monkeypatch):
     reader = BqDefinitionsProvider(config)
 
     def fake_df(q, project_id):
-        return pd.DataFrame({'file': ['test/basic.lkml'],'type':['dimension'],'name':['tier'],'definition':['this is a new description']})
+        return pd.DataFrame({'file': ['test/basic.view.lkml'],'type':['dimension'],'name':['tier'],'definition':['this is a new description']})
     monkeypatch.setattr(pandas_gbq,'read_gbq',fake_df)
 
     df = reader.get_definitions()
 
-    assert list(df.T.to_dict().values())[0] == {'file': 'test/basic.lkml','type':'dimension','name':'tier','definition':'this is a new description'}
+    assert list(df.T.to_dict().values())[0] == {'file': 'test/basic.view.lkml','type':'dimension','name':'tier','definition':'this is a new description'}

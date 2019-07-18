@@ -11,11 +11,11 @@ class OneViewPerFileRule(Rule):
         is there one view only in this file?
     '''
 
-    def run(self, json_data):
-        '''is there one view only in this file?
+    def run(self, lookml):
+        '''is there one view only in this LookML file?
 
         Args:
-            json_data (JSON): json_data of the whole lookml-parser ouput for a file
+            lookml (LookML): instance of LookML
 
         Returns:
             (tuple): tuple containing:
@@ -25,9 +25,8 @@ class OneViewPerFileRule(Rule):
                 passed (bool): did the rule pass?
 
         '''
-        if not 'views' in json_data['files'][0]:
+        if not lookml.has_views():
             return False, None
-        n = len(json_data['files'][0]['views'])
-        if n > 1:
+        if len(lookml.views()) > 1:
             return True, False
         return True, True

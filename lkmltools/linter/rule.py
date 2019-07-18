@@ -4,11 +4,12 @@
     Authors:
             Carl Anderson (carl.anderson@weightwatchers.com)
 '''
-from abc import ABC, abstractmethod
+from lkmltools.abstract_rule import AbstractRule
+from abc import abstractmethod
 
-class Rule(ABC):
+class Rule(AbstractRule):
     '''
-        concept of a rule that is applied to some JSON version of LookML
+        concept of a rule that is applied to some LookML
     '''
 
     def name(self):
@@ -21,11 +22,11 @@ class Rule(ABC):
         return self.__class__.__name__
 
     @abstractmethod
-    def run(self, json_data):
+    def run(self, lookml):
         '''run the rule
 
         Args:
-            json_data (JSON): some JSON chunk from LookML
+            lookml (LookML): LookML instance
 
         Returns:
             (tuple): tuple containing:

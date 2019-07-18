@@ -7,7 +7,7 @@ The `config/linter/config_linter.json` specifies which set of files to apply the
 
 ```
     "infile_globs": [
-        "/Users/carl.anderson/code/core-analytics-looker/*.view.lkml"
+        "/Users/joedoe/myrepo/*.view.lkml"
     ],
 ```
 specifies it to run on all view files in Carl's `core-analytics-looker` folder.
@@ -27,7 +27,7 @@ The config file also specifies a set of rules to be run. For instance, this
             {"name": "YesNoNameRule", "run": true},
             {"name": "CountNameRule", "run": true},
             {"name": "AllCapsRule", "run": true}
-            {"name": "LexiconRule", "run": true}
+            {"name": "LexiconRule", "run": true, "phrases": ["Subscriber",  "Subscription", "studio"]}
         ]
     },
 
@@ -36,14 +36,6 @@ specifies to run eight different rules. The rules are in two groups:
 
  - file-level rules: a rule that is applied to the file once, e.g. does the file contain just one view
  - field-level rules: a rule that is applied to each and every `dimension`, `dimension_group`, and `measure`. For instance, is the name of each field in ALL CAPS? If a rule is not relevant, e.g. a measure only rule is applied to a dimension, the rule is skipped and no output is added to the output files (see below).
-
-The tool makes use of Fabio's LookML parser (https://github.com/fabio-looker/node-lookml-parser)
-
-```
-brew install node   # if on mac
-npm install -g lookml-parser
-```
-which converts LookML into a JSON object that can be interrogated easily with the set of rules.
 
 The results are, optionally, written to two CSVs:
 
@@ -76,23 +68,13 @@ They can also be written to BigQuery:
     }
 ```
 
-## Installation
-
-This code makes use of Fabio's nade-based LookML parser (https://github.com/fabio-looker/node-lookml-parser)
-
-```
-brew install node   # if on mac
-npm install -g lookml-parser
-```
-
-You will need to set the path of the `lookml-parser` binary in the linter config file. For example:
+### Parameterization
+It is possible to pass parameters, other than `name` and `run`, into the rules via the configuration file. An example is the lexicon rule which checks that certain phrases are *not* mentioned in the field name or description.
 
 ```
-{
-    "parser": "/usr/local/bin/lookml-parser",
-    ...
-}
+    {"name": "LexiconRule", "run": true, "phrases": ["Subscriber",  "Subscription", "studio"]}
 ```
+The complete dictionary for the rule (above) is passed into the `LexiconRule` during instantiation.
 
 ## Running
 
@@ -144,9 +126,9 @@ Field-level rules:
  - **YesNoNameRule**: if this is a yesno dimension, does name start with 'is_'?
  - **CountNameRule**: if this is a measure of type count, does name end with '_count'?
  - **AllCapsRule**: is the name not ALL CAPS?
- - **LexiconRule**: does the name or description (if any) of dimension, dimension_group, or measures mention "subscriber", "subscription", or "studio"? If so, that's a fail.
+ - **LexiconRule**: does the name or description (if any) of `dimension`, `dimension_group`, or `measure` mention any words in some list of "banned" phrases defined in the configuration? If so, that's a fail.
 
 Other rules:
  - **NoOrphansRule**: each view should be referenced by an explore. If not, the file is an orphan. This is a special rule in that assessment of whether a file has passed can only be ascertained after all files in the repo have been processed.
 
-To add a new rule, it needs to implement the very simple `lkmltools.linter.rule` interface (excepting any special rules).
+To add a new rule, see the [linter developer notes](README_DEVELOPER.md).

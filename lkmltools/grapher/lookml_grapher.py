@@ -36,7 +36,6 @@ class LookMlGrapher():
 
         '''
         self.config = config
-        self.lookml = LookML(config)
 
         # list of edge pair names
         self.models_to_explores = []
@@ -153,24 +152,20 @@ class LookMlGrapher():
             nothing. Side effect is to add to maps
 
         '''
-        explore_name = e['_explore']
+        explore_name = e['name'] #['_explore']
         self.node_map[explore_name] = NodeType.EXPLORE
-        if m and '_model' in m:
-            self.models_to_explores.append((m['_model'], explore_name))
+        if m:
+            self.models_to_explores.append((m, explore_name))
         if 'from' in e:
             # this is the first view mentioned
             self.explores_to_views.append((explore_name, e['from']))
-            #logging.info("Adding %s %s" % (explore_name, e['from']))
 
             # but there could be more mentioned in the list (if any) of joins
-            if 'join' in e:
-                for k in e['join']:
-                    if not k.startswith('_'):
-                        if 'from' in e['join'][k]:
-                            # this is an edge from explore to a view contained within joined views
-                            self.explores_to_views.append((explore_name, e['join'][k]['from']))
+            if 'joins' in e:
+                for k in e['joins']:
+                    self.explores_to_views.append((explore_name, k['from']))
 
-    def process_file(self, filepath, json_data=None):
+    def process_lookml(self, lookml):
         '''given a filepath to a LookML file, extract the views, models, explores as the nodes
         as well as any model-->explore and explore-->view edges
 
@@ -182,24 +177,18 @@ class LookMlGrapher():
             nothing but stores node names and their types as well as edges
 
         '''
-        assert filepath or json_data
-        if filepath and not json_data:
-            logging.info("Processing %s", filepath)
-            json_data = self.lookml.get_json_representation(filepath)
-
-        if 'views' in json_data['files'][0]:
-            for v in json_data['files'][0]['views']:
-                self.node_map[v['_view']] = NodeType.VIEW
-        elif 'models' in json_data['files'][0]:
-            for m in json_data['files'][0]['models']:
-                self.node_map[m['_model']] = NodeType.MODEL
-                [self.process_explores(m, e) for e in m['explores']]
-        elif 'explores' in json_data['files'][0]: 
-            for e in json_data['files'][0]['explores']:
+        if lookml.has_views():
+            for v in lookml.views():
+                self.node_map[v['name']] = NodeType.VIEW
+        elif lookml.filetype == 'model':
+            m = lookml.base_name
+            self.node_map[m] = NodeType.MODEL
+            [self.process_explores(m, e) for e in lookml.explores()]
+        elif lookml.filetype == 'explore':
+            for e in lookml.explores():
                 self.process_explores(None, e)
         else:
-            #logging.error("Issue with %s", filepath)
-            raise Exception("No models, views, or explores? %s", filepath)
+            raise Exception("No models, views, or explores? " + lookml.infilepath)
 
     def extract_graph_info(self, globstrings):
         '''given a list of fileglobs, process them to extract list of nodes and edges, and orphaned views
@@ -217,7 +206,9 @@ class LookMlGrapher():
 
             for filepath in glob.glob(globstring):
                 assert os.path.exists(filepath)
-                self.process_file(filepath)
+                logging.info("Processing " + filepath)
+                lookml = LookML(filepath)
+                self.process_lookml(lookml)
         self.tag_orphans()
 
     def run(self):

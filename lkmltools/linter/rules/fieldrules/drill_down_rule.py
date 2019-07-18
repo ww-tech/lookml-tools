@@ -4,18 +4,19 @@
     Authors:
             Carl Anderson (carl.anderson@weightwatchers.com)
 '''
-from lkmltools.linter.rule import Rule
+from lkmltools.linter.field_rule import FieldRule
+from lkmltools.lookml_field import LookMLField
 
-class DrillDownRule(Rule):
+class DrillDownRule(FieldRule):
     '''
         does this have drilldowns?
     '''
 
-    def run(self, json_data):
+    def run(self, lookml_field):
         '''does this have drilldowns?
 
         Args:
-            json_data (JSON): json_data of the lookml-parser dictionary for this measure only
+            lookml_field (LookMLField): instance of LookMLField
 
         Returns:
             (tuple): tuple containing:
@@ -25,10 +26,9 @@ class DrillDownRule(Rule):
                 passed (bool): did the rule pass?
 
         '''
-        # relevant for measures only
-        if json_data['_type'] != 'measure':
+        if not lookml_field.is_measure():
             return False, None
 
-        if not 'drill_fields' in json_data or json_data['drill_fields'] == []:
+        if not lookml_field.has_key('drill_fields') or lookml_field.drill_fields == []:
             return True, False
         return True, True

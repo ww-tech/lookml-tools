@@ -17,7 +17,7 @@ view: dim_geography {
     timeframes: [
       date,
       week,
-      month,
+      month
     ]
     convert_tz: no
     datatype: date

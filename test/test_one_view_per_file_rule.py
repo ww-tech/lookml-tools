@@ -2,7 +2,7 @@ import pytest
 import json
 import os
 from lkmltools.linter.rules.filerules.one_view_per_file_rule import OneViewPerFileRule
-from conftest import get_json_from_lookml
+from conftest import get_lookml_from_raw_lookml
 
 def test_run():
     raw_lookml = """
@@ -18,10 +18,12 @@ def test_run():
         }
       }
     """
-    json_data = get_json_from_lookml(raw_lookml)
-    relevant, passed = OneViewPerFileRule().run(json_data)
+    lookml = get_lookml_from_raw_lookml(raw_lookml, 'tmp.view')
+    relevant, passed = OneViewPerFileRule().run(lookml)
     assert relevant
     assert not passed
+    if os.path.exists(lookml.infilepath):
+      os.remove(lookml.infilepath)
 
 def test_run2():
     raw_lookml = """
@@ -31,10 +33,12 @@ def test_run2():
         }
       }
     """
-    json_data = get_json_from_lookml(raw_lookml)
-    relevant, passed = OneViewPerFileRule().run(json_data)    
+    lookml = get_lookml_from_raw_lookml(raw_lookml, 'tmp.view')
+    relevant, passed = OneViewPerFileRule().run(lookml)  
     assert relevant
     assert passed
+    if os.path.exists(lookml.infilepath):
+      os.remove(lookml.infilepath)
 
 def test_run3():
     raw_lookml = """
@@ -43,10 +47,9 @@ def test_run3():
         explore: an_explore {
         }
     """
-    filename = "test/amodel.model.lkml"
-    json_data = get_json_from_lookml(raw_lookml, filename)
-    relevant, passed = OneViewPerFileRule().run(json_data)    
+    lookml = get_lookml_from_raw_lookml(raw_lookml, 'tmp.model')
+    relevant, passed = OneViewPerFileRule().run(lookml)    
     assert not relevant
     assert not passed
-    if os.path.exists(filename):
-      os.remove(filename)
+    if os.path.exists(lookml.infilepath):
+      os.remove(lookml.infilepath)

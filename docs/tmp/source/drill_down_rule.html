@@ -160,16 +160,16 @@
 </dl>
 <dl class="class">
 <dt id="drill_down_rule.DrillDownRule">
-<em class="property">class </em><code class="sig-prename descclassname">drill_down_rule.</code><code class="sig-name descname">DrillDownRule</code><a class="headerlink" href="#drill_down_rule.DrillDownRule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">lkmltools.linter.rule.Rule</span></code></p>
+<em class="property">class </em><code class="sig-prename descclassname">drill_down_rule.</code><code class="sig-name descname">DrillDownRule</code><span class="sig-paren">(</span><em class="sig-param">config_dict=None</em><span class="sig-paren">)</span><a class="headerlink" href="#drill_down_rule.DrillDownRule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">lkmltools.linter.field_rule.FieldRule</span></code></p>
 <p>does this have drilldowns?</p>
 <dl class="method">
 <dt id="drill_down_rule.DrillDownRule.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">json_data</em><span class="sig-paren">)</span><a class="headerlink" href="#drill_down_rule.DrillDownRule.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">lookml_field</em><span class="sig-paren">)</span><a class="headerlink" href="#drill_down_rule.DrillDownRule.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>does this have drilldowns?</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>json_data</strong> (<em>JSON</em>) – json_data of the lookml-parser dictionary for this measure only</p>
+<dd class="field-odd"><p><strong>lookml_field</strong> (<a class="reference internal" href="lkmltools.html#lkmltools.lookml_field.LookMLField" title="lkmltools.lookml_field.LookMLField"><em>LookMLField</em></a>) – instance of LookMLField</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><p>tuple containing:</p>

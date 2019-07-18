@@ -1,30 +1,31 @@
 '''
-    a yesno name rule
+    a yesno name field rule
 
     Authors:
             Carl Anderson (carl.anderson@weightwatchers.com)
 '''
-from lkmltools.linter.rule import Rule
+from lkmltools.linter.field_rule import FieldRule
+#from lkmltools.lookml_dimension import LookMLDimension
 
-class YesNoNameRule(Rule):
+class YesNoNameRule(FieldRule):
     '''
         if this is a yesno dimension, does name start with ``is_``
     '''
 
-    def run(self, json_data):
+    def run(self, lookml_field):
         '''if this is a yesno dimension, does name start with ``is_``
 
         Args:
-            json_data (JSON): json_data of the lookml-parser dictionary for this dimension only
+            lookml_field (LookMLField): instance of LookMLField
 
         Returns:
             (tuple): tuple containing:
 
-                relevant (bool): is this rule relevant for this JSON chunk?
+                relevant (bool): is this rule relevant for this field?
 
                 passed (bool): did the rule pass?
 
         '''
-        if json_data['_type'] == 'dimension' and 'type' in json_data and  json_data['type'] == 'yesno':
-            return True, json_data['_dimension'].startswith("is_")
+        if lookml_field.is_dimension() and lookml_field.type == 'yesno':
+            return True,lookml_field.name.startswith("is_")
         return False, None

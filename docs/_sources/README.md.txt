@@ -10,8 +10,13 @@ There are three tools:
  - `LookML linter`
  - `LookML grapher`
 
+Sites:
+ - source: https://github.com/ww-tech/lookml-tools
+ - documentation: https://ww-tech.github.io/lookml-tools/
+ - Pypi: https://pypi.org/project/lookml-tools/
+
 ## LookML updater
-The first tool helps solve a problem of official definitions of `dimensions` and `measures`---such as in a business glossary---getting out of sync from some other system. The solution implemented here is to have a remote master list whose definitions are propagated to LookML. Thus, given some remote definition for a given LookML `dimension`, `dimension_group`, or `measure`, inject it in the LookML.
+The first tool helps solve a problem of official definitions of `dimensions` and `measures`&mdash;such as in a business glossary&mdash;getting out of sync from some other system. The solution implemented here is to have a remote master list whose definitions are propagated to LookML. Thus, given some remote definition for a given LookML `dimension`, `dimension_group`, or `measure`, inject it in the LookML.
 
 Full documentation is [here](README_UPDATER.md).
 
@@ -28,36 +33,27 @@ Full documentation is [here](README_GRAPHER.md).
 
 ## Installation
 
-All three tools above makes use of Fabio's node-based LookML parser (https://github.com/fabio-looker/node-lookml-parser)
-
+For the grapher, you will need to install grapviz:
 ```
-brew install node   # if on mac
-npm install -g lookml-parser
+brew install graphviz
 ```
 
-You will need to set the path of the `lookml-parser` binary in the config file. For example, for the updater config, your path might be:
-
+For all tools, you will need to install dependencies:
 ```
-{
-    "parser": "/usr/local/bin/lookml-parser",
-    "tmp_file": "parsed_lookml.json",
-    "definitions": {
-        "type": "CsvDefinitionsProvider",
-        "filename": "definitions.csv"
-    }
-}
+  pip install -r requirements.txt
 ```
 
-### pip
 You can install the Python codebase of `lookml-tools` via pip:
 
 ```
   pip install lookml-tools
 ```
 
-You may need to install its dependencies:
+One user reported having to install a specific version of pandas (`pandas==0.24.0`) to make this all work. YMMV.
+
+Alternatively, you can install with
 ```
-  pip install -r requirements.txt
+  python setup.py install
 ```
 
 ## Unit tests
@@ -71,20 +67,31 @@ pip install pytest-cov
 python -m pytest --cov=lkmltools/ test/*.py ; coverage html
 ```
 
-Importantly, as this code relies on an external node utility (`lookml-parser`), one that might not be installed, and one that could be installed but whose behavior might change compared to today,
-
- - the unit tests are set to check that it is installed (`test/test_prequisites.py`)
- - the unit tests use a cached and checked in parsed lookml file (`test/parsed_minimal_multiline_lookml.json`) and check that parsing the same input file produces the same output as that cached version (see `test/test_lookml_modifier`.`test_get_json_representation`).
-
- This should provide confidence that this core-functionality parser is working as expected.
-
 ## Developer Notes
 There are some developer notes for the linter [here](README_DEVELOPER.md).
 
 ## Contribute
 We would love to have your feedback, suggestions, and especially contributions to the project. Create a pull request!
 
-You can reach me directly at carl.anderson@weightwatchers.com as well as @leapingllamas on Twitter.
+You can reach me directly at carl.anderson@weightwatchers.com as well as [@leapingllamas](https://twitter.com/LeapingLlamas) on Twitter.
+
+## Release notes
+
+#### 2019-07-17: 2.0.0
+
+Given the impact of the following two changes, this is a major release:
+
+ - swapped out the node-based LookML parser with [Josh Temple's](https://github.com/joshtemple) new Python lkml parser (https://pypi.org/project/lkml/). This simplifies install, dependency management, and underlying parsed JSON format.
+ - added layer of abstraction via `LookML` and `LookMLField` classes so that rules and other code can query LookML attributes via methods instead of inspecting raw JSON.
+
+Other changes:
+
+ - `lkmltools.RuleFactory` is now a singleton so it is easier for users to register their own rules.
+ - Can now parameterize any rule in the configuration by adding additional keys to the dictionary for that rule.
+  For instance, if the config defines `{"name": "MyAwesomeRule", "run": true, "debug": true, "strict_mode":true, length: 6}` then this whole dictionary is passed into the constructor during rule instantiation.
+
+#### 2019-06-10: 1.0.0
+ - initial release
 
 ## License
 Copyright 2019 WW International, Inc.

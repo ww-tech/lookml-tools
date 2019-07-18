@@ -4,7 +4,7 @@ import glob
 import pytest
 from lkmltools.linter.rules.otherrules.no_orphans_rule import NoOrphansRule
 from lkmltools.lookml import LookML
-from conftest import get_json_from_lookml
+from conftest import get_lookml_from_raw_lookml
 
 def test_process_file():
     config = {
@@ -22,9 +22,9 @@ def test_process_file():
       }
     """
     filename = "test/aview.view.lkml"
-    json_data = get_json_from_lookml(raw_lookml, filename)
+    lookml = get_lookml_from_raw_lookml(raw_lookml, 'aview.view')
     rule = NoOrphansRule(config)
-    rule.process_file(json_data)
+    rule.process_lookml(lookml)
     d = rule.view_dict
     assert len(d) == 1
     assert 'aview' in d
@@ -34,27 +34,20 @@ def test_process_file():
 
 def test_finish_up():
     config = {
-        "parser": "lookml-parser",
         "infile_globs": [
             "test/test_orphans_repo/*.*.lkml"
         ],
-        "tmp_file": "test/parsed_lookml.json",
         "rules": {
             "other_rules": [
                 {"name": "NoOrphansRule", "run": True}
             ]
         }
     }
-    lookml = LookML(config)
     rule = NoOrphansRule(config)
     globstrings = config['infile_globs']
     for globstring in globstrings:
         filepaths = glob.glob(globstring)
         for filepath in filepaths:
-            json_data = lookml.get_json_representation(filepath)
-            rule.process_file(json_data)
+            rule.process_lookml(LookML(filepath))
     file_out = rule.finish_up([])
     assert file_out == [{"file": "test/test_orphans_repo/orphan.view.lkml", "rule": rule.name(), "passed": 0}]
-
-    if os.path.exists(config['tmp_file']):
-        os.remove(config['tmp_file'])

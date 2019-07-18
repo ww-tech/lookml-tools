@@ -1,28 +1,23 @@
+'''a lexicon rule: check that field name or description does not mention certain words or phrases provided int the config
+
+Authors:
+        Carl Anderson (carl.anderson@weightwatchers.com)
+
 '''
-    a lexicon rule
+from lkmltools.linter.field_rule import FieldRule
+from lkmltools.lookml_field import LookMLField
 
-    Authors:
-            Carl Anderson (carl.anderson@weightwatchers.com)
-'''
-from lkmltools.linter.rule import Rule
-
-class LexiconRule(Rule):
-    '''
-        does dimension, dimension group, or measure follow some lexicon rules?
+class LexiconRule(FieldRule):
+    '''does dimension, dimension group, or measure follow some lexicon rules, 
+       i.e. not mention certain words or phrases in name or description?
     '''
 
-    def run(self, json_data):
-        '''apply some lexion rules:
-
-        we want:
-            member not "Subscriber"
-            membership not "Subscription"
-            workshop not "studio"
-
-        so this is a has subscriber, has suscription, or has studio rule in name or description.
+    def run(self, lookml_field):
+        '''apply some lexion rules: check that the field name or description does not mention certain words or 
+        phrases provided int the config
 
         Args:
-            json_data (JSON): json_data of the lookml-parser dictionary for this dimension, dimension_group, or measure only
+            lookml_field (LookMLField): instance of LookMLField
 
         Returns:
             (tuple): tuple containing:
@@ -32,18 +27,25 @@ class LexiconRule(Rule):
                 passed (bool): did the rule pass?
 
         '''
-        # not relevant
-        if not '_type' in json_data or not json_data['_type'] in ['dimension', 'measure', 'dimension_group']:
+        if not (lookml_field.is_dimension() or lookml_field.is_dimension_group() or lookml_field.is_measure()):
             return False, None
 
-        # check name
-        name = json_data['_' + json_data['_type']].lower()
-        passed = not ('subscriber' in name or 'subscription' in name or 'studio' in name)
+        if not self.has_key("phrases"):
+            raise Exception("Missing required key 'phrases'")
 
-        # check description
-        if 'description' in json_data:
-            desc = json_data['description'].lower()
-            ok = not ('subscriber' in desc or 'subscription' in desc or 'studio' in desc)
-            passed = passed and ok
+        phrases = self.config_for_key("phrases")
+        if not isinstance(phrases, list):
+            raise Exception("Error with phrases list. Should be a list")
+        phrases = [str(s).lower() for s in phrases]
+
+        passed = True
+        for phrase in phrases:
+            if phrase in lookml_field.name:
+                passed = False
+                break
+
+            if  lookml_field.has_key('description') and lookml_field.description != "" and phrase in lookml_field.description:
+                passed = False
+                break
 
         return True, passed

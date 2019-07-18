@@ -160,16 +160,16 @@
 </dl>
 <dl class="class">
 <dt id="all_caps_rule.AllCapsRule">
-<em class="property">class </em><code class="sig-prename descclassname">all_caps_rule.</code><code class="sig-name descname">AllCapsRule</code><a class="headerlink" href="#all_caps_rule.AllCapsRule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">lkmltools.linter.rule.Rule</span></code></p>
+<em class="property">class </em><code class="sig-prename descclassname">all_caps_rule.</code><code class="sig-name descname">AllCapsRule</code><span class="sig-paren">(</span><em class="sig-param">config_dict=None</em><span class="sig-paren">)</span><a class="headerlink" href="#all_caps_rule.AllCapsRule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">lkmltools.linter.field_rule.FieldRule</span></code></p>
 <p>is the name non all caps?</p>
 <dl class="method">
 <dt id="all_caps_rule.AllCapsRule.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">json_data</em><span class="sig-paren">)</span><a class="headerlink" href="#all_caps_rule.AllCapsRule.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">lookml_field</em><span class="sig-paren">)</span><a class="headerlink" href="#all_caps_rule.AllCapsRule.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>is the name non all caps?</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>json_data</strong> (<em>JSON</em>) – json_data of the lookml-parser dictionary for this dimension, dimension group, or measure only</p>
+<dd class="field-odd"><p><strong>lookml_field</strong> (<a class="reference internal" href="lkmltools.html#lkmltools.lookml_field.LookMLField" title="lkmltools.lookml_field.LookMLField"><em>LookMLField</em></a>) – instance of LookMLField</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><p>tuple containing:</p>

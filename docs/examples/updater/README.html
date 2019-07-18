@@ -159,8 +159,6 @@
 <h1>Updater Example<a class="headerlink" href="#updater-example" title="Permalink to this headline">¶</a></h1>
 <p>In this updater example, we use the <code class="docutils literal notranslate"><span class="pre">example_updater_config.json</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;parser&quot;</span><span class="p">:</span> <span class="s2">&quot;lookml-parser&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tmp_file&quot;</span><span class="p">:</span> <span class="s2">&quot;parsed_lookml.json&quot;</span><span class="p">,</span>
     <span class="s2">&quot;definitions&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CsvDefinitionsProvider&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filename&quot;</span><span class="p">:</span> <span class="s2">&quot;test/example_definitions.csv&quot;</span>
@@ -168,7 +166,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>which defines the binary parser we are using (<code class="docutils literal notranslate"><span class="pre">lookml-parser</span></code>), the temporary JSON files that <code class="docutils literal notranslate"><span class="pre">.lkml</span></code> files are parsed to, and the set of definitions we are using. The definitions map the filename and their dimensions, dimension_groups, and measures to our desired definitions.</p>
+<p>which defines the set of definitions we are using. The definitions map the filename and their dimensions, dimension_groups, and measures to our desired definitions.</p>
 <div class="section" id="running">
 <h2>Running<a class="headerlink" href="#running" title="Permalink to this headline">¶</a></h2>
 <p>Run with</p>

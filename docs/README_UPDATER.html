@@ -85,7 +85,7 @@
 <li class="toctree-l1"><a class="reference internal" href="README_LINTER.html">LookML Linter</a></li>
 <li class="toctree-l1"><a class="reference internal" href="README_GRAPHER.html">LookML Grapher</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">LookML Updater</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-it-works">How it works</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#to-run">To run</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
@@ -169,17 +169,10 @@ in our systems—we should never get out of sync as this causes confusion. Thus,
 <p>If they are missing or are incorrect or otherwise out of sync, this code will update or inject the correct description into the LookML. This can then be committed and pushed to a branch for review in a pull request. This code just does the LookML updating.</p>
 <p>Here is a possible, example workflow:</p>
 <p><img alt="_images/workflow.png" src="_images/workflow.png" /></p>
-<div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p>This code makes use of Fabio’s node-based LookML parser (https://github.com/fabio-looker/node-lookml-parser)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">node</span>   <span class="c1"># if on mac</span>
-<span class="n">npm</span> <span class="n">install</span> <span class="o">-</span><span class="n">g</span> <span class="n">lookml</span><span class="o">-</span><span class="n">parser</span>
-</pre></div>
-</div>
-<p>You will need to set the path of the <code class="docutils literal notranslate"><span class="pre">lookml-parser</span></code> binary in the updater config file. For example:</p>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>You will need to specify the source of the definitions:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;parser&quot;</span><span class="p">:</span> <span class="s2">&quot;/usr/local/bin/lookml-parser&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tmp_file&quot;</span><span class="p">:</span> <span class="s2">&quot;parsed_lookml.json&quot;</span><span class="p">,</span>
     <span class="s2">&quot;definitions&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CsvDefinitionsProvider&quot;</span><span class="p">,</span>
         <span class="s2">&quot;filename&quot;</span><span class="p">:</span> <span class="s2">&quot;definitions.csv&quot;</span>
@@ -189,8 +182,6 @@ in our systems—we should never get out of sync as this causes confusion. Thus,
 </div>
 <p>or</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;parser&quot;</span><span class="p">:</span> <span class="s2">&quot;/usr/local/bin/lookml-parser&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tmp_file&quot;</span><span class="p">:</span> <span class="s2">&quot;parsed_lookml.json&quot;</span><span class="p">,</span>
     <span class="s2">&quot;definitions&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;MySQLReader&quot;</span><span class="p">,</span>
         <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="s2">&quot;select * from test&quot;</span><span class="p">,</span>
@@ -207,7 +198,7 @@ in our systems—we should never get out of sync as this causes confusion. Thus,
 <div class="section" id="how-it-works">
 <h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>The code parses a LookML file into a JSON object using <code class="docutils literal notranslate"><span class="pre">lookml-parser</span></code>.</p></li>
+<li><p>The code parses a LookML file into a JSON object using <code class="docutils literal notranslate"><span class="pre">lkml</span></code> parser.</p></li>
 <li><p>This format allows easy interrogation of dimensions and measures to see whether they contain a description.</p></li>
 <li><p>We use a master source of dimension and measure definitions. Currently, can come from a local CSV (using <code class="docutils literal notranslate"><span class="pre">CsvDefinitionsProvider</span></code>) or relational databases (<code class="docutils literal notranslate"><span class="pre">MySQLReader</span></code>, <code class="docutils literal notranslate"><span class="pre">PostgreReader</span></code>, and <code class="docutils literal notranslate"><span class="pre">SqliteReader</span></code>) including a BiqQuery table (using <code class="docutils literal notranslate"><span class="pre">BqDefinitionsProvider</span></code>) which, for instsnce, could be a sync from a data catalog tool.</p></li>
 <li><p>If a dimension doesn’t contain the description, it is injected in the LookML file. If a description exists but it does not match the master definition, it is updated</p></li>
@@ -302,14 +293,12 @@ description&quot;	# programmatically added by LookML modifier
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ACCESS_TOKEN</span></code> for github (or <code class="docutils literal notranslate"><span class="pre">GITHUB_USER</span></code> and <code class="docutils literal notranslate"><span class="pre">GITHUB_PASSWORD</span></code>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">REMOTE</span></code> URL for gitrepo to update</p></li>
-<li><p>parser binary (if not <code class="docutils literal notranslate"><span class="pre">lookml-parser</span></code>)</p></li>
 <li><p>definitions source</p></li>
 </ul>
 </div>
 <div class="section" id="current-limitations-assumptions-and-todos">
 <h2>Current limitations, assumptions, and TODOs<a class="headerlink" href="#current-limitations-assumptions-and-todos" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>we are only processing a single file at a time. The lookml-parser can take a blob <code class="docutils literal notranslate"><span class="pre">'lookml-parser</span> <span class="pre">--input=&quot;*.lkml&quot;</span> <span class="pre">--whitespace=2</span></code> which would create a single JSON for all files</p></li>
 <li><p>code assumes that the opening curly brace for a dimension or measure is on the same line, ie. <code class="docutils literal notranslate"><span class="pre">dimension:</span> <span class="pre">myname</span> <span class="pre">{</span></code> not <code class="docutils literal notranslate"><span class="pre">dimension:</span> <span class="pre">myname</span> <span class="pre">\n\n\n{</span></code></p></li>
 </ul>
 </div>

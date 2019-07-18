@@ -11,6 +11,7 @@ import os
 import pandas as pd
 from lkmltools.linter.rule_factory import RuleFactory
 from lkmltools.lookml import LookML
+from lkmltools.lookml_field import LookMLField
 from lkmltools.linter.rules.otherrules.no_orphans_rule import NoOrphansRule
 from lkmltools.bq_writer import BqWriter
 from lkmltools.simple_bq_writer import SimpleBqWriter
@@ -48,18 +49,18 @@ class LookMlLinter():
                 for rule in config['rules'][k]:
                     if rule['run']:
                         logging.info("Creating %s Rule %s" % (s, rule['name']))
-                        out.append(RuleFactory.instantiate(rule['name']))
+                        out.append(RuleFactory().instantiate(rule['name'], rule))
             return out
 
         self.file_rules = create_rules('file_level_rules', 'File-level')
         self.field_rules = create_rules('field_level_rules', 'Field-level')
 
-    def run_file_rules(self, json_data, simple_filepath, file_out):
+    def run_file_rules(self, lookml, simple_filepath, file_out):
         '''run the set of file level rules against some json_data, that came from simple_filepath,
             and append results to file_out list
 
         Args:
-            json_data (JSON): JSON chunk of the LookML
+            lookml (LookML): instance of LookML
             simple_fileapath (str): path to some file
             file_out (list): list of results for file-level rules
 
@@ -68,7 +69,7 @@ class LookMlLinter():
 
         '''
         for rule in self.file_rules:
-            relevant, passed = rule.run(json_data)
+            relevant, passed = rule.run(lookml)
             if relevant:
                 d = {"file": simple_filepath, "rule": rule.name(), "passed": int(passed)}
                 file_out.append(d)
@@ -80,7 +81,7 @@ class LookMlLinter():
             and append results to field_out list
 
         Args:
-            v (JSON): chunk of view for this view
+            v (JSON): list of views
             single_key (str): e.g. dimension
             plural_key (str): e.g. dimensions
             simple_fileapath (str): path to some file
@@ -95,10 +96,12 @@ class LookMlLinter():
             return field_out
 
         for json_d in v[plural_key]:
+            json_d['_type'] = single_key
+            f = LookMLField(json_d)
             for rule in self.field_rules:
-                relevant, passed = rule.run(json_d)
+                relevant, passed = rule.run(f)
                 if relevant:
-                    d = {"file": simple_filepath, "rule": rule.name(), "passed": int(passed), "type": single_key, "fieldname": json_d['_' + single_key]}
+                    d = {"file": simple_filepath, "rule": rule.name(), "passed": int(passed), "type": single_key, "fieldname": json_d['name']} #['_' + single_key]}
                     field_out.append(d)
                     logging.debug(d)
         return field_out
@@ -149,12 +152,10 @@ class LookMlLinter():
             Returns:
                 nothing. Saves two CSV files, specified in the config
         '''
-        lookml = LookML(self.config)
 
         file_out = []
         field_out = []
 
-#        timestr = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         timestr = datetime.datetime.now().isoformat()
 
         no_orphans_rule = None
@@ -169,18 +170,19 @@ class LookMlLinter():
                 simple_filepath = os.path.basename(filepath)
 
                 logging.info("Processing %s", filepath)
-                json_data = lookml.get_json_representation(filepath)
 
-                file_out = self.run_file_rules(json_data, simple_filepath, file_out)
+                lookml = LookML(filepath)
 
-                if 'views' in json_data['files'][0]:
-                    v = json_data['files'][0]['views'][0]
+                file_out = self.run_file_rules(lookml, simple_filepath, file_out)
+
+                if lookml.has_views():
+                    v = lookml.views()[0]
                     field_out = self.run_field_rules(v, 'dimension', 'dimensions', simple_filepath, field_out)
                     field_out = self.run_field_rules(v, 'dimension_group', 'dimension_groups', simple_filepath, field_out)
                     field_out = self.run_field_rules(v, 'measure', 'measures', simple_filepath, field_out)
 
                 if no_orphans_rule:
-                    no_orphans_rule.process_file(json_data)
+                    no_orphans_rule.process_lookml(lookml)
 
             #add some metadata for each of the records we created above
             [f.update({'glob': globstring}) for f in field_out + file_out if not 'glob' in f]

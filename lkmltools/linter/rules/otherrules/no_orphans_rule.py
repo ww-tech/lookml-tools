@@ -27,7 +27,7 @@ class NoOrphansRule(Rule):
         '''run the rule
 
         Args:
-            json_data (JSON): json_data of the lookml-parser dictionary for this file
+            json_data (JSON): json_data of the lkml-parsed JSON dictionary for this file
 
         Returns:
             (tuple): tuple containing:
@@ -39,22 +39,23 @@ class NoOrphansRule(Rule):
         '''
         pass # pragma: no cover
 
-    def process_file(self, json_data):
+    def process_lookml(self, lookml):
         '''process the JSON_DATA of a file, delegating down to the grapher
             also store metadata we'll need in a later stage
 
         Args:
-            json_data (JSON): json_data: parsed lkml file as JSON
+            lookmlk (LookML): instance of LookML
 
         Returns:
             nothing. side effect is to store data in grapher and in this class
 
         '''
-        self.grapher.process_file(filepath=None, json_data=json_data)
+        self.grapher.process_lookml(lookml)
         # we'll need the view_namme->filename mapping to output later
-        if 'views' in json_data['files'][0]:
-            view_name = json_data['files'][0]['views'][0]['_view']
-            filepath = json_data['files'][0]['_file_path']
+        if lookml.has_views():
+            v = lookml.views()[0]
+            view_name = lookml.base_name
+            filepath = lookml.infilepath
             self.view_dict[view_name] = filepath
 
     def finish_up(self, file_out):
@@ -70,7 +71,7 @@ class NoOrphansRule(Rule):
         self.grapher.tag_orphans()
         orphans = self.grapher.orphans()
         for orphan in orphans:
-            simple_filepath = self.view_dict[orphan] #['files'][0]['_file_path']
+            simple_filepath = self.view_dict[orphan]
             logging.info("Found orphan %s in %s", orphan, simple_filepath)
             out = {"file": simple_filepath, "rule": self.name(), "passed": 0}
             file_out.append(out)

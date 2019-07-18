@@ -4,7 +4,7 @@ import os
 from pandas import DataFrame
 
 from lkmltools.updater.lookml_modifier import LookMlModifier
-from conftest import *
+from conftest import get_lookml_from_raw_lookml
 
 @pytest.fixture()
 def config():
@@ -15,13 +15,6 @@ def config():
 def test_init(config):
     modifier = LookMlModifier(config)
     assert isinstance(modifier.definitions, DataFrame)
-
-def test_create_command(config):
-    modifier = LookMlModifier(config)
-    command = modifier.create_command("somefile.lkml")
-    assert isinstance(command, list)
-    assert "somefile.lkml" in command[1]
-    assert config['parser'] in command[0]
 
 def test_find_description(config):
     raw_lookml = """
@@ -45,9 +38,10 @@ view: dim_geography {
   }
 }
     """
-    json_data = get_json_from_lookml(raw_lookml)
+    #json_data = get_json_from_lookml(raw_lookml)
     modifier = LookMlModifier(config)
-    desc, has_key = modifier.find_description(json_data, 'dimension', 'city_code')
+    lookml = get_lookml_from_raw_lookml(raw_lookml, 'aview.view')
+    desc, has_key = modifier.find_description(lookml, 'dimension', 'city_code')
     assert has_key
     assert desc == """this
     is
@@ -56,15 +50,15 @@ view: dim_geography {
     multiline
     description"""
 
-    desc, has_key = modifier.find_description(json_data, 'measure', 'count')
+    desc, has_key = modifier.find_description(lookml, 'measure', 'count')
     assert not has_key
 
     with pytest.raises(Exception) as e:
-        desc, has_key = modifier.find_description(json_data, 'dimension', 'xxx')
+        desc, has_key = modifier.find_description(lookml, 'dimension', 'xxx')
     assert 'Did not find dimension xxx' in str(e.value)
 
     with pytest.raises(Exception) as e:
-        desc, has_key = modifier.find_description(json_data, 'xxxx', 'city_code')
+        desc, has_key = modifier.find_description(lookml, 'xxxx', 'city_code')
     assert 'Unrecognized header_type xxx' in str(e.value)
 
 def test_find_description2(config):
@@ -82,13 +76,12 @@ def test_find_description2(config):
         }
       }
     """
-    json_data = get_json_from_lookml(raw_lookml)
+    lookml = get_lookml_from_raw_lookml(raw_lookml, 'aview.view')
     with pytest.raises(Exception) as e:
-        desc, has_key = modifier.find_description(json_data, 'xxx', 'xxx')
+        desc, has_key = modifier.find_description(lookml, 'xxx', 'xxx')
     assert 'There should only 1 view. We found 2' in str(e.value)
 
 def test_find_description3(config):
-    modifier = LookMlModifier(config)
     raw_lookml = """
         connection: "datawarehouse"
         include: "*.view.lkml"
@@ -96,54 +89,22 @@ def test_find_description3(config):
         }
     """
     filename = "test/amodel.model.lkml"
-    json_data = get_json_from_lookml(raw_lookml, filename)
+    modifier = LookMlModifier(config)
+    lookml = get_lookml_from_raw_lookml(raw_lookml, 'amodel.model')
     with pytest.raises(Exception) as e:
-        desc, has_key = modifier.find_description(json_data, 'xxx', 'xxx')
-    assert 'Only views are supported. Is this a LookML model?' in str(e.value)
+        desc, has_key = modifier.find_description(lookml, 'xxx', 'xxx')
+    assert 'Only views are supported. This is type model' in str(e.value)
     if os.path.exists(filename):
         os.remove(filename)
 
-def test_get_json_representation(config):
-    modifier = LookMlModifier(config)
-    json_data = modifier.get_json_representation("test/minimal_multiline.lkml")
-    assert isinstance(json_data, dict)
-
-    ## this tests whether the installed lookml-parser is working the same manner
-    ## as when this code was being developed
-    ## /usr/local/bin/lookml-parser --input='test/minimal_multiline.lkml' --whitespace=2 > test/parsed_minimal_multiline_lookml.json
-    with open("test/parsed_minimal_multiline_lookml.json", 'r') as f:
-        json_data2 = json.load(f)
-
-    assert json_data == json_data2
-
-    if os.path.exists(config['tmp_file']):
-        os.remove(config['tmp_file'])
-
-def test_get_json_representation2(config):
-    modifier = LookMlModifier(config)
-    with pytest.raises(Exception) as e:
-        json_data = modifier.get_json_representation("doesnotexist.lkml")
-    assert 'Filename does not exist: doesnotexist.lkml' in str(e.value)
-    if os.path.exists(config['tmp_file']):
-        os.remove(config['tmp_file'])
-
-def test_get_json_representation3(config):
-    config['parser'] = 'binarythatdoesnotexist'
-    modifier = LookMlModifier(config)
-    with pytest.raises(Exception) as e:
-        json_data = modifier.get_json_representation("test/minimal_multiline.lkml")
-    assert "No such file or directory: 'binarythatdoesnotexist'" in str(e.value)
-    if os.path.exists(config['tmp_file']):
-        os.remove(config['tmp_file'])
-
 def test_modify(config):
-    modifier = LookMlModifier(config)
-
-    infile = "test/basic.lkml"
-    outfile = "test/temp.lkml"
+    infile = "test/basic.view.lkml"
+    outfile = "test/temp.view.lkml"
 
     if os.path.exists(outfile):
         os.remove(outfile)
+
+    modifier = LookMlModifier(config)
 
     modifier.modify(infile, outfile)
 
@@ -167,13 +128,9 @@ def test_modify(config):
 
     if os.path.exists(outfile):
         os.remove(outfile)
-    if os.path.exists(config['tmp_file']):
-        os.remove(config['tmp_file'])
 
 def test_modify2(config):
     config = {
-      "parser": "lookml-parser",
-      "tmp_file": "test/parsed_lookml.json",
       "definitions": {
           "type": "CsvDefinitionsProvider",
           "filename": "test/definitions_basename.csv"
@@ -182,7 +139,7 @@ def test_modify2(config):
     }
     modifier = LookMlModifier(config)
 
-    infile = "test/basic.lkml"
+    infile = "test/basic.view.lkml"
     outfile = "test/temp.lkml"
 
     if os.path.exists(outfile):
@@ -210,5 +167,3 @@ def test_modify2(config):
 
     if os.path.exists(outfile):
         os.remove(outfile)
-    if os.path.exists(config['tmp_file']):
-        os.remove(config['tmp_file'])

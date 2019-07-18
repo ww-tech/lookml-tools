@@ -10,49 +10,10 @@ import os
 import json
 import shlex
 
+import lkml
 class LookML():
 
-    def __init__(self, config):
-        self.config = config
-
-    def create_command(self, filename):
-        '''create the command that will parse the LookML and convert to a JSON object
-
-        Args:
-            filename (str): filepath of input LookML file
-
-        Returns:
-            list of unix command strings
-
-        '''
-        command = [self.config['parser']]
-        command.append("--input=%s" % filename) #note: no single quotes around %s for shell=False
-        command.append('--whitespace=2')
-        return command
-
-    def parse_repo(self, filename):
-        '''parse the LookML and convert to a JSON object
-
-        Note: 
-            this runs a parser on the command line. It is not Python code
-
-        Args:
-            filename (str): filepath of input LookML file
-
-        Returns:
-            output: output from subprocess call
-            error: error from subprocess call
-
-        '''
-        outfile = self.config['tmp_file']
-        with open(outfile, 'w') as outf:
-            cmd = self.create_command(filename)
-            logging.info("running % s", " ".join(cmd + [">", outfile]))
-            process = subprocess.Popen(cmd, shell=False, stdout=outf, stderr=outf)
-            output, error = process.communicate()
-            return output, error
-
-    def get_json_representation(self, infilepath):
+    def __init__(self, infilepath):
         '''parse the LookML infilepath, convert to JSON, and then read into JSON object
 
         Args:
@@ -65,11 +26,59 @@ class LookML():
         if not os.path.exists(infilepath):
             raise IOError("Filename does not exist: %s" % infilepath)
 
-        _, error = self.parse_repo(infilepath)
+        self.infilepath = infilepath
+        if infilepath.endswith(".model.lkml"):
+            self.filetype = 'model'
+        elif infilepath.endswith(".view.lkml"):
+            self.filetype = 'view'
+        elif infilepath.endswith(".explore.lkml"):
+            self.filetype = 'explore'
+        else:
+            raise Exception("Unsupported filename " + infilepath)
+        self.base_filename = os.path.basename(infilepath)
+        self.base_name = self.base_filename.replace(".model.lkml", "").replace(".explore.lkml", "").replace(".view.lkml", "")        
 
-        if error:
-            raise Exception(str(error))
+        with open(infilepath, 'r') as file:
+            self.json_data = lkml.load(file)
 
-        with open(self.config['tmp_file']) as json_file:
-            json_data = json.load(json_file)
-            return json_data
+    def views(self):
+        """get views (if any) from the LookML
+
+        Returns:
+            views (list) if any, None otherwise
+
+        """
+        if 'views' in self.json_data:
+            return self.json_data['views']
+        return None
+
+    def has_views(self):
+        """does this have one or more views?
+
+        Returns:
+            bool, whether this has views
+
+        """
+        vs = self.views()
+        return (vs and len(vs) > 0)
+
+    def explores(self):
+        """get explores (if any) from the LookML
+
+        Returns:
+            explores (list) if any, None otherwise
+
+        """
+        if 'explores' in self.json_data:
+            return self.json_data['explores']
+        return None
+
+    def has_explores(self):
+        """does this have one or more explores?
+
+        Returns:
+            bool, whether this has explores
+
+        """
+        es = self.explores()
+        return (es and len(es) > 0)

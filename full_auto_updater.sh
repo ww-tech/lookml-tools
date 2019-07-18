@@ -15,8 +15,7 @@
 # to run, you will need to set:
 # 1) GITHUB_TOKEN
 # 2) REMOTE
-# 3) parser binary (in config)
-# 4) source of definitions (in config)
+# 3) source of definitions (in config)
 
 brew install hub
 
@@ -34,10 +33,7 @@ REMOTE="https://github.com/someorg/somerepo.git"
 GITREPO="auto_gitrepo_${TIMESTAMP}"
 
 cat > auto.config <<- EOM
-{
-    "parser": "lookml-parser",
-    "tmp_file": "parsed_lookml.json",
-    
+{    
     "git": {
         "url": "${REMOTE}",
         "folder": "${GITREPO}"

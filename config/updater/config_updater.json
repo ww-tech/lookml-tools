@@ -1,6 +1,4 @@
 {
-    "parser": "/usr/local/bin/lookml-parser",
-    "tmp_file": "parsed_lookml.json",
     "definitions": {
         "type": "CsvDefinitionsProvider",
         "filename": "definitions.csv"
