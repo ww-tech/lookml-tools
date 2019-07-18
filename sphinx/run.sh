@@ -30,3 +30,10 @@ git add docs/.nojekyll
 git commit
 
 git push
+
+
+#create build for pypi
+
+python setup.py sdist bdist_wheel
+
+python -m twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
