@@ -23,6 +23,10 @@ mv _build/html docs/
 
 git add docs/
 
+touch docs/.nojekyll
+
+git add docs/.nojekyll
+
 git commit
 
 git push
