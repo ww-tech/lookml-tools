@@ -76,6 +76,10 @@ We would love to have your feedback, suggestions, and especially contributions t
 You can reach me directly at carl.anderson@weightwatchers.com as well as [@leapingllamas](https://twitter.com/LeapingLlamas) on Twitter.
 
 ## Release notes
+#### 2019-09-28: 2.0.2
+
+Added missing __init__.py so that packages are recognized
+
 #### 2019-07-17: 2.0.1
 
 Adding missing `lkml` to `requirements.txt`
