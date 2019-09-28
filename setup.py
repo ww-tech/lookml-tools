@@ -4,7 +4,7 @@ with open('README.md') as f:
     long_description = f.read()
 
 setup(name='lookml-tools',
-      version='2.0.2',
+      version='2.0.3',
       description='Set of tools for handling LookML files: a linter, updater, and grapher',
       url='https://github.com/ww-tech/lookml-tools',
       author='Carl Anderson',
@@ -12,7 +12,7 @@ setup(name='lookml-tools',
       long_description=long_description,
       long_description_content_type='text/markdown',
       license='Apache 2.0',
-      packages=['lkmltools'],
+      packages=find_packages(),
       zip_safe=False,
       classifiers=[
         "Programming Language :: Python :: 3.6",
