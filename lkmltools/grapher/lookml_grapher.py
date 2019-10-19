@@ -183,7 +183,8 @@ class LookMlGrapher():
         elif lookml.filetype == 'model':
             m = lookml.base_name
             self.node_map[m] = NodeType.MODEL
-            [self.process_explores(m, e) for e in lookml.explores()]
+            if lookml.explores():
+                [self.process_explores(m, e) for e in lookml.explores()]
         elif lookml.filetype == 'explore':
             for e in lookml.explores():
                 self.process_explores(None, e)
@@ -225,7 +226,12 @@ class LookMlGrapher():
         args = {}
         args['g'] = g
         args['filename'] = self.config['output']
-        args['title'] = " ".join(globstrings) + " as of " + timestr
+
+        if 'title' in self.config:
+            args['title'] = self.config['title']
+        else:
+            args['title'] = " ".join(globstrings) + " as of " + timestr
+
         if 'options' in self.config:
             args.update(self.config['options'])
 
