@@ -1,6 +1,15 @@
 lkmltools package
 =================
 
+Subpackages
+-----------
+
+.. toctree::
+
+   lkmltools.grapher
+   lkmltools.linter
+   lkmltools.updater
+
 Submodules
 ----------
 

@@ -1,7 +1,0 @@
-filename\_viewname\_match\_rule module
-======================================
-
-.. automodule:: filename_viewname_match_rule
-   :members:
-   :undoc-members:
-   :show-inheritance:

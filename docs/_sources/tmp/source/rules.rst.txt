@@ -1,0 +1,19 @@
+rules package
+=============
+
+Subpackages
+-----------
+
+.. toctree::
+
+   rules.fieldrules
+   rules.filerules
+   rules.otherrules
+
+Module contents
+---------------
+
+.. automodule:: rules
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,7 +1,0 @@
-file\_modifier module
-=====================
-
-.. automodule:: file_modifier
-   :members:
-   :undoc-members:
-   :show-inheritance:

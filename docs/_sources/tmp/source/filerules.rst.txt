@@ -1,0 +1,36 @@
+filerules package
+=================
+
+Submodules
+----------
+
+filerules.data\_source\_rule module
+-----------------------------------
+
+.. automodule:: filerules.data_source_rule
+   :members:
+   :undoc-members:
+   :show-inheritance:
+filerules.filename\_viewname\_match\_rule module
+------------------------------------------------
+
+.. automodule:: filerules.filename_viewname_match_rule
+   :members:
+   :undoc-members:
+   :show-inheritance:
+filerules.one\_view\_per\_file\_rule module
+-------------------------------------------
+
+.. automodule:: filerules.one_view_per_file_rule
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: filerules
+   :members:
+   :undoc-members:
+   :show-inheritance:

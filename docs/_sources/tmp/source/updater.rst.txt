@@ -1,0 +1,85 @@
+updater package
+===============
+
+Submodules
+----------
+
+updater.abstract\_sql\_reader module
+------------------------------------
+
+.. automodule:: updater.abstract_sql_reader
+   :members:
+   :undoc-members:
+   :show-inheritance:
+updater.bq\_definitions\_provider module
+----------------------------------------
+
+.. automodule:: updater.bq_definitions_provider
+   :members:
+   :undoc-members:
+   :show-inheritance:
+updater.csv\_definitions\_provider module
+-----------------------------------------
+
+.. automodule:: updater.csv_definitions_provider
+   :members:
+   :undoc-members:
+   :show-inheritance:
+updater.definition\_provider module
+-----------------------------------
+
+.. automodule:: updater.definition_provider
+   :members:
+   :undoc-members:
+   :show-inheritance:
+updater.definitions\_provider\_factory module
+---------------------------------------------
+
+.. automodule:: updater.definitions_provider_factory
+   :members:
+   :undoc-members:
+   :show-inheritance:
+updater.file\_modifier module
+-----------------------------
+
+.. automodule:: updater.file_modifier
+   :members:
+   :undoc-members:
+   :show-inheritance:
+updater.lookml\_modifier module
+-------------------------------
+
+.. automodule:: updater.lookml_modifier
+   :members:
+   :undoc-members:
+   :show-inheritance:
+updater.mysql\_reader module
+----------------------------
+
+.. automodule:: updater.mysql_reader
+   :members:
+   :undoc-members:
+   :show-inheritance:
+updater.postgres\_reader module
+-------------------------------
+
+.. automodule:: updater.postgres_reader
+   :members:
+   :undoc-members:
+   :show-inheritance:
+updater.sqlite\_reader module
+-----------------------------
+
+.. automodule:: updater.sqlite_reader
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: updater
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,7 +1,0 @@
-bq\_definitions\_provider module
-================================
-
-.. automodule:: bq_definitions_provider
-   :members:
-   :undoc-members:
-   :show-inheritance:

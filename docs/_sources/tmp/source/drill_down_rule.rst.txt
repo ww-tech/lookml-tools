@@ -1,7 +1,0 @@
-drill\_down\_rule module
-========================
-
-.. automodule:: drill_down_rule
-   :members:
-   :undoc-members:
-   :show-inheritance:

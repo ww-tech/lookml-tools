@@ -1,0 +1,22 @@
+rules.otherrules package
+========================
+
+Submodules
+----------
+
+rules.otherrules.no\_orphans\_rule module
+-----------------------------------------
+
+.. automodule:: rules.otherrules.no_orphans_rule
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: rules.otherrules
+   :members:
+   :undoc-members:
+   :show-inheritance:

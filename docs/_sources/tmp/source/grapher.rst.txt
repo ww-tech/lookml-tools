@@ -1,0 +1,29 @@
+grapher package
+===============
+
+Submodules
+----------
+
+grapher.graph\_animator module
+------------------------------
+
+.. automodule:: grapher.graph_animator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+grapher.lookml\_grapher module
+------------------------------
+
+.. automodule:: grapher.lookml_grapher
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: grapher
+   :members:
+   :undoc-members:
+   :show-inheritance:

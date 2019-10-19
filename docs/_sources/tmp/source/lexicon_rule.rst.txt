@@ -1,7 +1,0 @@
-lexicon\_rule module
-====================
-
-.. automodule:: lexicon_rule
-   :members:
-   :undoc-members:
-   :show-inheritance:

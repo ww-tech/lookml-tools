@@ -1,0 +1,22 @@
+lkmltools.linter.rules.otherrules package
+=========================================
+
+Submodules
+----------
+
+lkmltools.linter.rules.otherrules.no\_orphans\_rule module
+----------------------------------------------------------
+
+.. automodule:: lkmltools.linter.rules.otherrules.no_orphans_rule
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: lkmltools.linter.rules.otherrules
+   :members:
+   :undoc-members:
+   :show-inheritance:

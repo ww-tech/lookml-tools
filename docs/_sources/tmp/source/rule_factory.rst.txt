@@ -1,7 +1,0 @@
-rule\_factory module
-====================
-
-.. automodule:: rule_factory
-   :members:
-   :undoc-members:
-   :show-inheritance:

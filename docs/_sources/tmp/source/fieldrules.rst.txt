@@ -1,0 +1,57 @@
+fieldrules package
+==================
+
+Submodules
+----------
+
+fieldrules.all\_caps\_rule module
+---------------------------------
+
+.. automodule:: fieldrules.all_caps_rule
+   :members:
+   :undoc-members:
+   :show-inheritance:
+fieldrules.count\_name\_rule module
+-----------------------------------
+
+.. automodule:: fieldrules.count_name_rule
+   :members:
+   :undoc-members:
+   :show-inheritance:
+fieldrules.description\_rule module
+-----------------------------------
+
+.. automodule:: fieldrules.description_rule
+   :members:
+   :undoc-members:
+   :show-inheritance:
+fieldrules.drill\_down\_rule module
+-----------------------------------
+
+.. automodule:: fieldrules.drill_down_rule
+   :members:
+   :undoc-members:
+   :show-inheritance:
+fieldrules.lexicon\_rule module
+-------------------------------
+
+.. automodule:: fieldrules.lexicon_rule
+   :members:
+   :undoc-members:
+   :show-inheritance:
+fieldrules.yesno\_name\_rule module
+-----------------------------------
+
+.. automodule:: fieldrules.yesno_name_rule
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: fieldrules
+   :members:
+   :undoc-members:
+   :show-inheritance:

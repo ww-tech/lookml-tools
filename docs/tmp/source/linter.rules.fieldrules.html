@@ -1,0 +1,428 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>linter.rules.fieldrules package &mdash; lookml-tools 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> lookml-tools
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">LookML Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README_LINTER.html">LookML Linter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README_GRAPHER.html">LookML Grapher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README_UPDATER.html">LookML Updater</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../README_DEVELOPER.html">Developer Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/linter/README.html">Linter Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/grapher/README.html">Grapher Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/updater/README.html">Updater Example</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">lookml-tools</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>linter.rules.fieldrules package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/tmp/source/linter.rules.fieldrules.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="linter-rules-fieldrules-package">
+<h1>linter.rules.fieldrules package<a class="headerlink" href="#linter-rules-fieldrules-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-linter.rules.fieldrules.all_caps_rule">
+<span id="linter-rules-fieldrules-all-caps-rule-module"></span><h2>linter.rules.fieldrules.all_caps_rule module<a class="headerlink" href="#module-linter.rules.fieldrules.all_caps_rule" title="Permalink to this headline">¶</a></h2>
+<p>an all caps rule</p>
+<dl class="simple">
+<dt>Authors:</dt><dd><p>Carl Anderson (<a class="reference external" href="mailto:carl&#46;anderson&#37;&#52;&#48;weightwatchers&#46;com">carl<span>&#46;</span>anderson<span>&#64;</span>weightwatchers<span>&#46;</span>com</a>)</p>
+</dd>
+</dl>
+<dl class="class">
+<dt id="linter.rules.fieldrules.all_caps_rule.AllCapsRule">
+<em class="property">class </em><code class="sig-prename descclassname">linter.rules.fieldrules.all_caps_rule.</code><code class="sig-name descname">AllCapsRule</code><span class="sig-paren">(</span><em class="sig-param">config_dict=None</em><span class="sig-paren">)</span><a class="headerlink" href="#linter.rules.fieldrules.all_caps_rule.AllCapsRule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="lkmltools.linter.html#lkmltools.linter.field_rule.FieldRule" title="lkmltools.linter.field_rule.FieldRule"><code class="xref py py-class docutils literal notranslate"><span class="pre">lkmltools.linter.field_rule.FieldRule</span></code></a></p>
+<p>is the name non all caps?</p>
+<dl class="method">
+<dt id="linter.rules.fieldrules.all_caps_rule.AllCapsRule.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">lookml_field</em><span class="sig-paren">)</span><a class="headerlink" href="#linter.rules.fieldrules.all_caps_rule.AllCapsRule.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>is the name non all caps?</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>lookml_field</strong> (<a class="reference internal" href="lkmltools.html#lkmltools.lookml_field.LookMLField" title="lkmltools.lookml_field.LookMLField"><em>LookMLField</em></a>) – instance of LookMLField</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>tuple containing:</p>
+<blockquote>
+<div><p>relevant (bool): is this rule relevant for this JSON chunk?</p>
+<p>passed (bool): did the rule pass?</p>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(tuple)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-linter.rules.fieldrules.count_name_rule">
+<span id="linter-rules-fieldrules-count-name-rule-module"></span><h2>linter.rules.fieldrules.count_name_rule module<a class="headerlink" href="#module-linter.rules.fieldrules.count_name_rule" title="Permalink to this headline">¶</a></h2>
+<p>a count name rule</p>
+<dl class="simple">
+<dt>Authors:</dt><dd><p>Carl Anderson (<a class="reference external" href="mailto:carl&#46;anderson&#37;&#52;&#48;weightwatchers&#46;com">carl<span>&#46;</span>anderson<span>&#64;</span>weightwatchers<span>&#46;</span>com</a>)</p>
+</dd>
+</dl>
+<dl class="class">
+<dt id="linter.rules.fieldrules.count_name_rule.CountNameRule">
+<em class="property">class </em><code class="sig-prename descclassname">linter.rules.fieldrules.count_name_rule.</code><code class="sig-name descname">CountNameRule</code><span class="sig-paren">(</span><em class="sig-param">config_dict=None</em><span class="sig-paren">)</span><a class="headerlink" href="#linter.rules.fieldrules.count_name_rule.CountNameRule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="lkmltools.linter.html#lkmltools.linter.field_rule.FieldRule" title="lkmltools.linter.field_rule.FieldRule"><code class="xref py py-class docutils literal notranslate"><span class="pre">lkmltools.linter.field_rule.FieldRule</span></code></a></p>
+<p>if this is a measure of type count, does name end with <code class="docutils literal notranslate"><span class="pre">_count</span></code></p>
+<dl class="method">
+<dt id="linter.rules.fieldrules.count_name_rule.CountNameRule.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">lookml_field</em><span class="sig-paren">)</span><a class="headerlink" href="#linter.rules.fieldrules.count_name_rule.CountNameRule.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>if this is a measure of type count, does name end with <code class="docutils literal notranslate"><span class="pre">_count</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>lookml_field</strong> (<a class="reference internal" href="lkmltools.html#lkmltools.lookml_field.LookMLField" title="lkmltools.lookml_field.LookMLField"><em>LookMLField</em></a>) – instance of LookMLField</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>tuple containing:</p>
+<blockquote>
+<div><p>relevant (bool): is this rule relevant for this JSON chunk?</p>
+<p>passed (bool): did the rule pass?</p>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(tuple)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-linter.rules.fieldrules.description_rule">
+<span id="linter-rules-fieldrules-description-rule-module"></span><h2>linter.rules.fieldrules.description_rule module<a class="headerlink" href="#module-linter.rules.fieldrules.description_rule" title="Permalink to this headline">¶</a></h2>
+<p>A description rule: does <cite>dimension</cite>, <cite>dimension_group</cite>, or <cite>measure</cite> have a description?</p>
+<dl class="simple">
+<dt>Authors:</dt><dd><p>Carl Anderson (<a class="reference external" href="mailto:carl&#46;anderson&#37;&#52;&#48;weightwatchers&#46;com">carl<span>&#46;</span>anderson<span>&#64;</span>weightwatchers<span>&#46;</span>com</a>)</p>
+</dd>
+</dl>
+<dl class="class">
+<dt id="linter.rules.fieldrules.description_rule.DescriptionRule">
+<em class="property">class </em><code class="sig-prename descclassname">linter.rules.fieldrules.description_rule.</code><code class="sig-name descname">DescriptionRule</code><span class="sig-paren">(</span><em class="sig-param">config_dict=None</em><span class="sig-paren">)</span><a class="headerlink" href="#linter.rules.fieldrules.description_rule.DescriptionRule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="lkmltools.linter.html#lkmltools.linter.field_rule.FieldRule" title="lkmltools.linter.field_rule.FieldRule"><code class="xref py py-class docutils literal notranslate"><span class="pre">lkmltools.linter.field_rule.FieldRule</span></code></a></p>
+<p>Does <cite>dimension</cite>, <cite>dimension_group</cite>, or <cite>measure</cite> have a description?</p>
+<dl class="method">
+<dt id="linter.rules.fieldrules.description_rule.DescriptionRule.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">lookml_field</em><span class="sig-paren">)</span><a class="headerlink" href="#linter.rules.fieldrules.description_rule.DescriptionRule.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the rule: check whether <cite>dimension</cite>, <cite>dimension_group</cite>, or <cite>measure</cite> has a description</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>lookml_field</strong> (<a class="reference internal" href="lkmltools.html#lkmltools.lookml_field.LookMLField" title="lkmltools.lookml_field.LookMLField"><em>LookMLField</em></a>) – instance of LookMLField</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>tuple containing:</p>
+<blockquote>
+<div><p>relevant (bool): is this rule relevant for this JSON chunk?</p>
+<p>passed (bool): did the rule pass?</p>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(tuple)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-linter.rules.fieldrules.drill_down_rule">
+<span id="linter-rules-fieldrules-drill-down-rule-module"></span><h2>linter.rules.fieldrules.drill_down_rule module<a class="headerlink" href="#module-linter.rules.fieldrules.drill_down_rule" title="Permalink to this headline">¶</a></h2>
+<p>a drill down rule</p>
+<dl class="simple">
+<dt>Authors:</dt><dd><p>Carl Anderson (<a class="reference external" href="mailto:carl&#46;anderson&#37;&#52;&#48;weightwatchers&#46;com">carl<span>&#46;</span>anderson<span>&#64;</span>weightwatchers<span>&#46;</span>com</a>)</p>
+</dd>
+</dl>
+<dl class="class">
+<dt id="linter.rules.fieldrules.drill_down_rule.DrillDownRule">
+<em class="property">class </em><code class="sig-prename descclassname">linter.rules.fieldrules.drill_down_rule.</code><code class="sig-name descname">DrillDownRule</code><span class="sig-paren">(</span><em class="sig-param">config_dict=None</em><span class="sig-paren">)</span><a class="headerlink" href="#linter.rules.fieldrules.drill_down_rule.DrillDownRule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="lkmltools.linter.html#lkmltools.linter.field_rule.FieldRule" title="lkmltools.linter.field_rule.FieldRule"><code class="xref py py-class docutils literal notranslate"><span class="pre">lkmltools.linter.field_rule.FieldRule</span></code></a></p>
+<p>does this have drilldowns?</p>
+<dl class="method">
+<dt id="linter.rules.fieldrules.drill_down_rule.DrillDownRule.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">lookml_field</em><span class="sig-paren">)</span><a class="headerlink" href="#linter.rules.fieldrules.drill_down_rule.DrillDownRule.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>does this have drilldowns?</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>lookml_field</strong> (<a class="reference internal" href="lkmltools.html#lkmltools.lookml_field.LookMLField" title="lkmltools.lookml_field.LookMLField"><em>LookMLField</em></a>) – instance of LookMLField</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>tuple containing:</p>
+<blockquote>
+<div><p>relevant (bool): is this rule relevant for this JSON chunk?</p>
+<p>passed (bool): did the rule pass?</p>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(tuple)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-linter.rules.fieldrules.lexicon_rule">
+<span id="linter-rules-fieldrules-lexicon-rule-module"></span><h2>linter.rules.fieldrules.lexicon_rule module<a class="headerlink" href="#module-linter.rules.fieldrules.lexicon_rule" title="Permalink to this headline">¶</a></h2>
+<p>a lexicon rule: check that field name or description does not mention certain words or phrases provided int the config</p>
+<dl class="simple">
+<dt>Authors:</dt><dd><p>Carl Anderson (<a class="reference external" href="mailto:carl&#46;anderson&#37;&#52;&#48;weightwatchers&#46;com">carl<span>&#46;</span>anderson<span>&#64;</span>weightwatchers<span>&#46;</span>com</a>)</p>
+</dd>
+</dl>
+<dl class="class">
+<dt id="linter.rules.fieldrules.lexicon_rule.LexiconRule">
+<em class="property">class </em><code class="sig-prename descclassname">linter.rules.fieldrules.lexicon_rule.</code><code class="sig-name descname">LexiconRule</code><span class="sig-paren">(</span><em class="sig-param">config_dict=None</em><span class="sig-paren">)</span><a class="headerlink" href="#linter.rules.fieldrules.lexicon_rule.LexiconRule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="lkmltools.linter.html#lkmltools.linter.field_rule.FieldRule" title="lkmltools.linter.field_rule.FieldRule"><code class="xref py py-class docutils literal notranslate"><span class="pre">lkmltools.linter.field_rule.FieldRule</span></code></a></p>
+<p>does dimension, dimension group, or measure follow some lexicon rules,
+i.e. not mention certain words or phrases in name or description?</p>
+<dl class="method">
+<dt id="linter.rules.fieldrules.lexicon_rule.LexiconRule.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">lookml_field</em><span class="sig-paren">)</span><a class="headerlink" href="#linter.rules.fieldrules.lexicon_rule.LexiconRule.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>apply some lexion rules: check that the field name or description does not mention certain words or
+phrases provided int the config</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>lookml_field</strong> (<a class="reference internal" href="lkmltools.html#lkmltools.lookml_field.LookMLField" title="lkmltools.lookml_field.LookMLField"><em>LookMLField</em></a>) – instance of LookMLField</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>tuple containing:</p>
+<blockquote>
+<div><p>relevant (bool): is this rule relevant for this JSON chunk?</p>
+<p>passed (bool): did the rule pass?</p>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(tuple)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-linter.rules.fieldrules.yesno_name_rule">
+<span id="linter-rules-fieldrules-yesno-name-rule-module"></span><h2>linter.rules.fieldrules.yesno_name_rule module<a class="headerlink" href="#module-linter.rules.fieldrules.yesno_name_rule" title="Permalink to this headline">¶</a></h2>
+<p>a yesno name field rule</p>
+<dl class="simple">
+<dt>Authors:</dt><dd><p>Carl Anderson (<a class="reference external" href="mailto:carl&#46;anderson&#37;&#52;&#48;weightwatchers&#46;com">carl<span>&#46;</span>anderson<span>&#64;</span>weightwatchers<span>&#46;</span>com</a>)</p>
+</dd>
+</dl>
+<dl class="class">
+<dt id="linter.rules.fieldrules.yesno_name_rule.YesNoNameRule">
+<em class="property">class </em><code class="sig-prename descclassname">linter.rules.fieldrules.yesno_name_rule.</code><code class="sig-name descname">YesNoNameRule</code><span class="sig-paren">(</span><em class="sig-param">config_dict=None</em><span class="sig-paren">)</span><a class="headerlink" href="#linter.rules.fieldrules.yesno_name_rule.YesNoNameRule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="lkmltools.linter.html#lkmltools.linter.field_rule.FieldRule" title="lkmltools.linter.field_rule.FieldRule"><code class="xref py py-class docutils literal notranslate"><span class="pre">lkmltools.linter.field_rule.FieldRule</span></code></a></p>
+<p>if this is a yesno dimension, does name start with <code class="docutils literal notranslate"><span class="pre">is_</span></code></p>
+<dl class="method">
+<dt id="linter.rules.fieldrules.yesno_name_rule.YesNoNameRule.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">lookml_field</em><span class="sig-paren">)</span><a class="headerlink" href="#linter.rules.fieldrules.yesno_name_rule.YesNoNameRule.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>if this is a yesno dimension, does name start with <code class="docutils literal notranslate"><span class="pre">is_</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>lookml_field</strong> (<a class="reference internal" href="lkmltools.html#lkmltools.lookml_field.LookMLField" title="lkmltools.lookml_field.LookMLField"><em>LookMLField</em></a>) – instance of LookMLField</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>tuple containing:</p>
+<blockquote>
+<div><p>relevant (bool): is this rule relevant for this field?</p>
+<p>passed (bool): did the rule pass?</p>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(tuple)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-linter.rules.fieldrules">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-linter.rules.fieldrules" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, WW International, Inc
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

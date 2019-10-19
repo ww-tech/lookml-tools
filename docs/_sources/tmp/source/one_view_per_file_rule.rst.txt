@@ -1,7 +1,0 @@
-one\_view\_per\_file\_rule module
-=================================
-
-.. automodule:: one_view_per_file_rule
-   :members:
-   :undoc-members:
-   :show-inheritance:

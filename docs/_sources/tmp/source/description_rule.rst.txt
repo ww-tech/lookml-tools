@@ -1,7 +1,0 @@
-description\_rule module
-========================
-
-.. automodule:: description_rule
-   :members:
-   :undoc-members:
-   :show-inheritance:

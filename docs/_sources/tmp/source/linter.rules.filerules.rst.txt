@@ -1,0 +1,36 @@
+linter.rules.filerules package
+==============================
+
+Submodules
+----------
+
+linter.rules.filerules.data\_source\_rule module
+------------------------------------------------
+
+.. automodule:: linter.rules.filerules.data_source_rule
+   :members:
+   :undoc-members:
+   :show-inheritance:
+linter.rules.filerules.filename\_viewname\_match\_rule module
+-------------------------------------------------------------
+
+.. automodule:: linter.rules.filerules.filename_viewname_match_rule
+   :members:
+   :undoc-members:
+   :show-inheritance:
+linter.rules.filerules.one\_view\_per\_file\_rule module
+--------------------------------------------------------
+
+.. automodule:: linter.rules.filerules.one_view_per_file_rule
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: linter.rules.filerules
+   :members:
+   :undoc-members:
+   :show-inheritance:
