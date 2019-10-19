@@ -37,10 +37,12 @@ where the config file has the following fields:
         "label_font_size": 18,
         "text_angle": 30,
         "image_width": 24,
-        "image_height" : 16
+        "image_height" : 16,
+        "title": "My Amazing LookML"
     }
 }
 ```
+Options, are, as you might suspect, optional.
 
 ## Limitations
 While this tool might create a network diagram for any valid `lkml` input repo, it is not guaranteed to be understandable or useful. YMMV. As the network gets large, overplotting of nodes can occur and makes them unreadable. Or, if your LookML is a mess and bunch of views and no models there won't be any structure to see. 
