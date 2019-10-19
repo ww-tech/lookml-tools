@@ -1,0 +1,19 @@
+linter.rules package
+====================
+
+Subpackages
+-----------
+
+.. toctree::
+
+   linter.rules.fieldrules
+   linter.rules.filerules
+   linter.rules.otherrules
+
+Module contents
+---------------
+
+.. automodule:: linter.rules
+   :members:
+   :undoc-members:
+   :show-inheritance:

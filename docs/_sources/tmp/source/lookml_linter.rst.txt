@@ -1,7 +1,0 @@
-lookml\_linter module
-=====================
-
-.. automodule:: lookml_linter
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -1,7 +1,0 @@
-all\_caps\_rule module
-======================
-
-.. automodule:: all_caps_rule
-   :members:
-   :undoc-members:
-   :show-inheritance:

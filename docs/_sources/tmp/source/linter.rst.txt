@@ -1,0 +1,50 @@
+linter package
+==============
+
+Subpackages
+-----------
+
+.. toctree::
+
+   linter.rules
+
+Submodules
+----------
+
+linter.field\_rule module
+-------------------------
+
+.. automodule:: linter.field_rule
+   :members:
+   :undoc-members:
+   :show-inheritance:
+linter.lookml\_linter module
+----------------------------
+
+.. automodule:: linter.lookml_linter
+   :members:
+   :undoc-members:
+   :show-inheritance:
+linter.rule module
+------------------
+
+.. automodule:: linter.rule
+   :members:
+   :undoc-members:
+   :show-inheritance:
+linter.rule\_factory module
+---------------------------
+
+.. automodule:: linter.rule_factory
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: linter
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,7 +1,0 @@
-abstract\_sql\_reader module
-============================
-
-.. automodule:: abstract_sql_reader
-   :members:
-   :undoc-members:
-   :show-inheritance:

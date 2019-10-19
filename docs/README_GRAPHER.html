@@ -86,6 +86,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">LookML Grapher</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#limitations">Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#animation">Animation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="README_UPDATER.html">LookML Updater</a></li>
@@ -189,16 +190,55 @@
         <span class="s2">&quot;label_font_size&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span>
         <span class="s2">&quot;text_angle&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
         <span class="s2">&quot;image_width&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span>
+        <span class="s2">&quot;image_height&quot;</span> <span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;My Amazing LookML&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Options, are, as you might suspect, optional.</p>
+</div>
+<div class="section" id="limitations">
+<h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h2>
+<p>While this tool might create a network diagram for any valid <code class="docutils literal notranslate"><span class="pre">lkml</span></code> input repo, it is not guaranteed to be understandable or useful. YMMV. As the network gets large, overplotting of nodes can occur and makes them unreadable. Or, if your LookML is a mess and bunch of views and no models there won’t be any structure to see.</p>
+<p>You may be able to fix some of these visualiztion issues by narrowing the file globs or you many need to modify the font size or image size. That is, the <code class="docutils literal notranslate"><span class="pre">node_size</span></code> and <code class="docutils literal notranslate"><span class="pre">label_font_size</span></code> are absolute, not relative, sizes. Thus, if you increase the <code class="docutils literal notranslate"><span class="pre">image_width</span></code> and/or <code class="docutils literal notranslate"><span class="pre">image_height</span></code>, you create a larger canvas and more space for the nodes.</p>
+<p>For instance, you can change this overplotted image:
+<img alt="_images/graph_small.png" src="_images/graph_small.png" /></p>
+<p>to this more spaced out one:</p>
+<p><img alt="_images/graph_wide.png" src="_images/graph_wide.png" /></p>
+<p>just by increasing <code class="docutils literal notranslate"><span class="pre">image_width</span></code>.</p>
+</div>
+<div class="section" id="animation">
+<h2>Animation<a class="headerlink" href="#animation" title="Permalink to this headline">¶</a></h2>
+<p>I thought that it could be fun to see a repository over time. Thus, <code class="docutils literal notranslate"><span class="pre">lookml-tools</span></code> includes the ability to create an animated gif.</p>
+<p><img alt="_images/movie.gif" src="_images/movie.gif" /></p>
+<p>To do this, you will need a normal grapher config file, such as</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;infile_globs&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;../somerepo/*.lkml&quot;</span>
+    <span class="p">],</span>
+
+    <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;node_size&quot;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+        <span class="s2">&quot;label_font_size&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span>
+        <span class="s2">&quot;text_angle&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+        <span class="s2">&quot;image_width&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span>
         <span class="s2">&quot;image_height&quot;</span> <span class="p">:</span> <span class="mi">16</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>(The <code class="docutils literal notranslate"><span class="pre">output</span></code> field is not required here.)</p>
+<p>Then, you run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">python</span> <span class="n">run_graph_animator</span><span class="o">.</span><span class="n">py</span> 
+        <span class="o">--</span><span class="n">config</span> <span class="n">config</span><span class="o">.</span><span class="n">json</span> 
+        <span class="o">--</span><span class="n">path_to_repo</span>  <span class="o">../</span><span class="n">somerepo</span> 
+        <span class="o">--</span><span class="n">image_directory</span> <span class="n">myimages</span> 
+        <span class="o">--</span><span class="n">gif_filename</span> <span class="n">movie</span><span class="o">.</span><span class="n">gif</span>
+</pre></div>
 </div>
-<div class="section" id="limitations">
-<h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h2>
-<p>While this tool might create a network diagram for any valid <code class="docutils literal notranslate"><span class="pre">lkml</span></code> input repo, it is not guaranteed to be understandable or useful. YMMV. As the network gets large, overplotting of nodes can occur and makes them unreadable. Or, if your LookML is a mess and bunch of views and no models there won;t be any structure to see.</p>
-<p>You may be able to fix some of these visualiztion issues by narrowing the file globs or you many need to modify the font size or image size (currently hard coded in <code class="docutils literal notranslate"><span class="pre">lkmltools.grapher.lookml_grapher</span></code> class and not exposed in the config file. We could make this more configurable if useful.)</p>
+<p>It will create a set of images, one per commmit, in the <code class="docutils literal notranslate"><span class="pre">image_directory</span></code> (creating this directory if it does not exist) and output a GIF to <code class="docutils literal notranslate"><span class="pre">gif_filename</span></code>.</p>
+<p>Note, if your <code class="docutils literal notranslate"><span class="pre">image_width</span></code> and <code class="docutils literal notranslate"><span class="pre">image_height</span></code> are large, creating the GIF will take some time (many minutes) and the file can be large (GBs rather than MBs).</p>
 </div>
 </div>
 

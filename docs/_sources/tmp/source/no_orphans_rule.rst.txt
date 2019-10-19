@@ -1,7 +1,0 @@
-no\_orphans\_rule module
-========================
-
-.. automodule:: no_orphans_rule
-   :members:
-   :undoc-members:
-   :show-inheritance:

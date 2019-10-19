@@ -1,7 +1,0 @@
-csv\_definitions\_provider module
-=================================
-
-.. automodule:: csv_definitions_provider
-   :members:
-   :undoc-members:
-   :show-inheritance:
