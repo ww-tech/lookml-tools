@@ -2,6 +2,9 @@ language: python
 python:
   - "3.6"
 
+git:
+  depth: false
+
 install:
 # os dependencies and set up matplotlib backend
 # travis does not support python on osx - install via miniconda
