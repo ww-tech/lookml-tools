@@ -1,3 +1,11 @@
+# Overview
+[![Build Status](https://travis-ci.org/ww-tech/lookml-tools.svg?branch=master)](https://travis-ci.org/ww-tech/lookml-tools)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/lookml-tools.svg)](https://pypi.python.org/pypi/lookml-tools/)
+[![PyPI version](https://badge.fury.io/py/lookml-tools.svg)](https://badge.fury.io/py/lookml-tools)
+[![PyPI license](https://img.shields.io/pypi/l/lookml-tools.svg)](https://pypi.python.org/pypi/lookml-tools/)
+[![Docs status](https://img.shields.io/website/https/ww-tech.github.io/lookml-tools?down_color=red&down_message=docs&label=docs&up_color=success&up_message=up)](https://ww-tech.github.io/lookml-tools/)
+
+
 ![](img/lookmltools.png)
 
 # LookML Tools
@@ -77,6 +85,10 @@ You can reach me directly at carl.anderson@weightwatchers.com as well as [@leapi
 
 ## Release notes
 
+### 2019-10-30: 2.0.5
+
+added Travis CI config
+
 ### 2019-10-19: 2.0.4
 
 pandas version change to support Python 3.7 (see https://github.com/ww-tech/lookml-tools/pull/5)
@@ -86,19 +98,19 @@ Grapher: title now exposed as an option
 
 Grapher can now create animated GIFs
 
-### 2019-09-28: 2.0.3
+#### 2019-09-28: 2.0.3
 
 setup.py now uses find_packages()
 
-### 2019-09-28: 2.0.2
+#### 2019-09-28: 2.0.2
 
 Added missing __init__.py so that packages are recognized
 
-### 2019-07-17: 2.0.1
+#### 2019-07-17: 2.0.1
 
 Adding missing `lkml` to `requirements.txt`
 
-### 2019-07-17: 2.0.0
+#### 2019-07-17: 2.0.0
 
 Given the impact of the following two changes, this is a major release:
 
@@ -111,7 +123,7 @@ Other changes:
  - Can now parameterize any rule in the configuration by adding additional keys to the dictionary for that rule.
   For instance, if the config defines `{"name": "MyAwesomeRule", "run": true, "debug": true, "strict_mode":true, length: 6}` then this whole dictionary is passed into the constructor during rule instantiation.
 
-### 2019-06-10: 1.0.0
+#### 2019-06-10: 1.0.0
  - initial release
 
 ## License
