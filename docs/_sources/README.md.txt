@@ -85,6 +85,10 @@ You can reach me directly at carl.anderson@weightwatchers.com as well as [@leapi
 
 ## Release notes
 
+### 2019-10-30: 2.0.5
+
+added Travis CI config
+
 ### 2019-10-19: 2.0.4
 
 pandas version change to support Python 3.7 (see https://github.com/ww-tech/lookml-tools/pull/5)
