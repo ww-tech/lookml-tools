@@ -1,6 +1,6 @@
 {
     "infile_globs": [
-        "../somerepo/*.lkml"
+        "*/*.*.lkml"
     ],
 
     "output": "graph.png",
@@ -11,5 +11,7 @@
         "text_angle": 30,
         "image_width": 24,
         "image_height" : 16
-    }
+    },
+
+    "roots": ["*"]
 }

@@ -9,6 +9,7 @@ import subprocess
 import os
 import json
 import shlex
+import re
 
 import lkml
 class LookML():
@@ -27,17 +28,23 @@ class LookML():
             raise IOError("Filename does not exist: %s" % infilepath)
 
         self.infilepath = infilepath
-        if infilepath.endswith(".model.lkml"):
+        self.base_filename = os.path.basename(infilepath)
+
+        if self.base_filename.endswith(".model.lkml"):
             self.filetype = 'model'
-        elif infilepath.endswith(".view.lkml"):
-            self.filetype = 'view'
-        elif infilepath.endswith(".explore.lkml"):
+        elif self.base_filename.endswith(".explore.lkml"):
             self.filetype = 'explore'
+        elif self.base_filename.startswith("explore_") and self.base_filename.endswith(".lkml"):
+            self.filetype = 'explore'
+        elif self.base_filename.endswith(".view.lkml"):
+            self.filetype = 'view'
+        elif self.base_filename.endswith(".lkml"):
+            # consider everything else as a view
+            self.filetype = 'view'
         else:
             raise Exception("Unsupported filename " + infilepath)
-        self.base_filename = os.path.basename(infilepath)
-        self.base_name = self.base_filename.replace(".model.lkml", "").replace(".explore.lkml", "").replace(".view.lkml", "")        
-
+        
+        self.base_name = re.sub(r'\.\w+\.lkml$', '', self.base_filename)
         with open(infilepath, 'r') as file:
             self.json_data = lkml.load(file)
 
