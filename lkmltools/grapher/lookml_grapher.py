@@ -1,9 +1,7 @@
 '''
     grapher: creates an image showing the relationship among the models, explores and views
-
     Authors:
             Carl Anderson (carl.anderson@weightwatchers.com)
-
 '''
 import glob
 import os
@@ -30,10 +28,8 @@ class LookMlGrapher():
 
     def __init__(self, config):
         '''instantiate this grapher
-
         Args:
             config (JSON): JSON configuration
-
         '''
         self.config = config
 
@@ -48,7 +44,6 @@ class LookMlGrapher():
 
     def plot_graph(self, g, filename, title, node_size=500, label_font_size=12, text_angle=0, image_width=16, image_height=12):
         '''plot the graph and write to file
-
         Args:
             g (networkx): networkx graph object
             filename (str): path to write image to
@@ -58,10 +53,8 @@ class LookMlGrapher():
             text_angle (int): angle to rotate. This is angle in degrees counter clockwise from east 
             image_width (int): width of image in inches 
             image_height (int): heightof image in inches
-
         Returns:
             nothing but does write image to file
-
         '''
         # map nodes to a color for their node type
         # https://stackoverflow.com/questions/27030473/how-to-set-colors-for-nodes-in-networkx-python
@@ -106,10 +99,8 @@ class LookMlGrapher():
 
     def tag_orphans(self):
         '''find any orphaned views and tag them as orphan node type
-
         Returns:
             nothing but side effect is that any orphans are tagged in the node map
-
         '''
         referenced_views = set([v[0] for v in self.views_to_explores])
         view_names = set([k for k in self.node_map if self.node_map[k] == NodeType.VIEW])
@@ -125,22 +116,17 @@ class LookMlGrapher():
 
     def orphans(self):
         '''retrieve the set or orphaned views (if any) from the set of files
-
         Prerequisites:
             tag_orphans() has been called
-
         Returns:
             set of view names (if any)
-
         '''
         return set([k for k in self.node_map if self.node_map[k] == NodeType.ORPHAN])
 
     def create_graph(self):
         '''add nodes and edges to a graph
-
         Returns:
             instance of networkx graph
-
         '''
         g = nx.DiGraph()
         [g.add_node(node_name) for node_name in self.node_map]
@@ -163,14 +149,11 @@ class LookMlGrapher():
     def process_explores(self, m, e):
         '''extract the views referenced by these explores and
         add them to node map and add explore-->view or model-->explores
-
         Args:
             m (str): model
             e (str): explore
-
         Returns:
             nothing. Side effect is to add to maps
-
         '''
         explore_name = e['name']+'.explore'
         self.node_map[explore_name] = NodeType.EXPLORE
@@ -179,14 +162,18 @@ class LookMlGrapher():
         if 'extends' in e:
             # add relationships to the explores that are being extended (inherited)
             for parent in e['extends']:
+                self.node_map[parent+'.explore'] = NodeType.EXPLORE
                 self.explores_to_explores.append((parent+'.explore', explore_name))
         # this is the first view mentioned
         if 'from' in e:
-                self.views_to_explores.append((e['from']+'.view', explore_name))
+            self.node_map[e['from']+'.view'] = NodeType.VIEW
+            self.views_to_explores.append((e['from']+'.view', explore_name))
         elif 'view_name' in e:
+            self.node_map[e['view_name']+'.view'] = NodeType.VIEW
             self.views_to_explores.append((e['view_name']+'.view', explore_name))
         elif 'extends' not in e:
             # if there is no from/view_name parameter and no inheritance defined, explore name will be taken as a view name
+            self.node_map[e['name']+'.view'] = NodeType.VIEW
             self.views_to_explores.append((e['name']+'.view', explore_name))
         # but there could be more mentioned in the list (if any) of joins
         if 'joins' in e:
@@ -194,37 +181,33 @@ class LookMlGrapher():
                 key = 'from'
                 if key not in k:
                     key = 'name'
+                self.node_map[k[key] +'.view'] = NodeType.VIEW
                 self.views_to_explores.append(( k[key] +'.view', explore_name))
 
     def process_views(self, v):
         '''extract the views referenced by these views and
         add them to node map and add view-->view
-
         Args:
             v (str): view
-
         Returns:
             nothing. Side effect is to add to maps
-
         '''
         view_name =v['name']+'.view'
         self.node_map[view_name] = NodeType.VIEW
         if 'extends' in v:
             # add relationships to the views that are being extended (inherited)
             for parent in v['extends']:
-                self.views_to_views.append((parent +'.view', view_name)) 
+                self.node_map[parent +'.view'] = NodeType.VIEW
+                self.views_to_views.append((parent +'.view', view_name))
 
     def process_lookml(self, lookml): 
         '''given a filepath to a LookML file, extract the views, models, explores as the nodes
         as well as any model-->explore and explore-->view edges
-
         Args:
             filepath (str): path to LookML file
             json_data (JSON): chunk of JSONified LookML code
-
         Returns:
             nothing but stores node names and their types as well as edges
-
         '''
         if lookml.has_views():
             for v in lookml.views():
@@ -245,10 +228,8 @@ class LookMlGrapher():
 
     def extract_graph_info(self, globstrings):
         '''given a list of fileglobs, process them to extract list of nodes and edges, and orphaned views
-
             Args:
                 globstrings (list): list of globstrings
-
             Returns:
                 nothing but side effect is that nodes are strored in self.node_map and self.models_to_explores 
                 and self.views_to_explores are completed
@@ -266,7 +247,6 @@ class LookMlGrapher():
 
     def run(self):
         '''process the set of files and create an image of the graph
-
             Returns:
                 nothing. Saves an image file, specified in the config
         '''
@@ -301,4 +281,3 @@ class LookMlGrapher():
                     changed = True
             if not changed:
                 return nodes
-
