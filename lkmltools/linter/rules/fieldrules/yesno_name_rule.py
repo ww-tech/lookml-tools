@@ -26,6 +26,6 @@ class YesNoNameRule(FieldRule):
                 passed (bool): did the rule pass?
 
         '''
-        if lookml_field.is_dimension() and lookml_field.type == 'yesno':
+        if lookml_field.is_dimension() and lookml_field.value_for_key('type') == 'yesno':
             return True,lookml_field.name.startswith("is_")
         return False, None

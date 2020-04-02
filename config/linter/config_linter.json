@@ -1,27 +1,27 @@
 {
 
     "git": {
-        "url": "https://github.com/exampleorg/examplerepo.git",
+        "url": "https://github.com/WW-Digital/core-analytics-looker.git",
         "folder": "gitrepo"
     },
 
     "infile_globs": [
-        "gitrepo/*.*.lkml"
+        "gitrepo/*.lkml"
     ],
 
     "rules": {
         "file_level_rules" : [
-            {"name": "DataSourceRule", "run": true},
-            {"name": "OneViewPerFileRule", "run": true},
-            {"name": "FilenameViewnameMatchRule", "run": true}
+            {"name": "DataSourceRule", "run": false},
+            {"name": "OneViewPerFileRule", "run": false},
+            {"name": "FilenameViewnameMatchRule", "run": false}
         ],
         "field_level_rules": [
-            {"name": "DescriptionRule", "run": true},
-            {"name": "DrillDownRule", "run": true},
-            {"name": "YesNoNameRule", "run": true},
-            {"name": "CountNameRule", "run": true},
-            {"name": "AllCapsRule", "run": true},
-            {"name": "LexiconRule", "run": true, "phrases": ["Subscriber",  "Subscription", "studio"]}
+            {"name": "DescriptionRule", "run": false},
+            {"name": "DrillDownRule", "run": false},
+            {"name": "YesNoNameRule", "run": false},
+            {"name": "CountNameRule", "run": false},
+            {"name": "AllCapsRule", "run": false},
+            {"name": "LexiconRule", "run": false, "phrases": ["Subscriber",  "Subscription", "studio"]}
         ],
         "other_rules": [
             {"name": "NoOrphansRule", "run": true}
@@ -32,14 +32,6 @@
         "csv": {
             "file_output": "linter_file_report.csv",
             "field_output": "linter_field_report.csv"
-        },
-        "bigquery": {
-            "target_bucket_name": "your_bucket",
-            "bucket_folder": "your_folder",
-            "project_id": "your-project",
-            "dataset": "your-dataset",
-            "file_destination_table": "lookml_linter_file_report",
-            "field_destination_table": "lookml_linter_field_report"
         }
     }
 }

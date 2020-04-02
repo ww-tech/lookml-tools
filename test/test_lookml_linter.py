@@ -198,4 +198,4 @@ def test_run_orphans():
 
     assert len(file_out) == 1
     assert len(field_out) == 0
-    assert file_out[0] == {'file': 'test/test_orphans_repo/orphan.view.lkml','passed': 0,'rule': 'NoOrphansRule'}
+    assert file_out[0] == {'file': 'test/test_orphans_repo/orphan.view.lkml','glob': 'test/test_orphans_repo/*.*.lkml','passed': 0,'rule': 'NoOrphansRule'}

@@ -13,13 +13,13 @@ google-resumable-media==0.3.1
 googleapis-common-protos==1.5.3
 graphviz==0.10.1
 imageio==2.2.0
-lkml==0.1.1
+lkml==0.2.2
 matplotlib==2.1.2
 mysql-connector-python==8.0.16
 mysql-connector==2.2.9
 networkx==2.1
 pandas-gbq==0.10.0
-pandas==0.25.1
+pandas==1.0.0
 psycopg2-binary==2.8.2
 pybase64==0.5.0
 pydata-google-auth==0.1.3

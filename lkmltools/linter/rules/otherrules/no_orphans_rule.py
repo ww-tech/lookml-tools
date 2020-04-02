@@ -21,7 +21,7 @@ class NoOrphansRule(Rule):
         '''
         self.config = config
         self.grapher = LookMlGrapher(config)
-        self.view_dict = {}
+        # self.view_dict = {}
 
     def run(self, json_data):
         '''run the rule
@@ -51,12 +51,15 @@ class NoOrphansRule(Rule):
 
         '''
         self.grapher.process_lookml(lookml)
-        # we'll need the view_namme->filename mapping to output later
-        if lookml.has_views():
-            v = lookml.views()[0]
-            view_name = lookml.base_name
-            filepath = lookml.infilepath
-            self.view_dict[view_name] = filepath
+        # # we'll need the view_namme->filename mapping to output later
+        # if lookml.has_views():
+        #     for v in lookml.views():
+        #     #v = lookml.views()[0]
+        #     #logging.error(v['name'])
+        #     #view_name = lookml.base_name
+        #         view_name = v['name']
+        #         filepath = lookml.infilepath
+        #         self.view_dict[view_name] = filepath
 
     def finish_up(self, file_out):
         '''find the orphans, if any, and add results to file_out
@@ -68,11 +71,18 @@ class NoOrphansRule(Rule):
             file_out (list)
 
         '''
-        self.grapher.tag_orphans()
-        orphans = self.grapher.orphans()
-        for orphan in orphans:
-            simple_filepath = self.view_dict[orphan]
-            logging.info("Found orphan %s in %s", orphan, simple_filepath)
-            out = {"file": simple_filepath, "rule": self.name(), "passed": 0}
-            file_out.append(out)
+        try:
+            self.grapher.tag_orphans()
+            orphans = sorted(self.grapher.orphans())
+            for orphan in orphans:
+#                simple_filepath = self.view_dict[orphan]
+                simple_filepath = self.grapher.node_to_filename_map[orphan]
+                logging.info("Found orphan %s in %s", orphan, simple_filepath)
+                out = {"file": simple_filepath, "rule": self.name(), "passed": 0}
+                file_out.append(out)
+        except Exception as e:
+            logging.error("Issue with finish_up")
+            #for k in sorted(self.view_dict):
+            #    print(k, "\t", self.view_dict[k])
+            raise e
         return (file_out)

@@ -47,3 +47,8 @@ class LookMLField():
 
         """
         return k in self.json_data
+
+    def value_for_key(self, k):
+        if not self.has_key(k):
+            return None
+        return self.json_data[k]

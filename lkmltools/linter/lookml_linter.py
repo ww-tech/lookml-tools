@@ -116,7 +116,7 @@ class LookMlLinter():
             nothing. Writes data to CSV
 
         '''
-        df.to_csv(self.config['output']['csv']['file_output'], index=False, columns=["time", "file", "rule", "passed","repo", "glob"])
+        df[["time", "file", "rule", "passed","repo", "glob"]].to_csv(self.config['output']['csv']['file_output'], index=False)
         logging.info("File output written to %s", self.config['output']['csv']['file_output'])
 
     def write_field_csv(self, df):
@@ -185,11 +185,19 @@ class LookMlLinter():
                     no_orphans_rule.process_lookml(lookml)
 
             #add some metadata for each of the records we created above
-            [f.update({'glob': globstring}) for f in field_out + file_out if not 'glob' in f]
+            [f.update({'glob': globstring}) for f in field_out + file_out if not 'glob' in f]   
 
         # for this rule, we can only assess who failed after all files are processed
         if no_orphans_rule:
             file_out = no_orphans_rule.finish_up(file_out)
+
+            d = {}
+            for globstring in globstrings:
+                filepaths = glob.glob(globstring)
+                for filepath in filepaths:
+                    d[filepath] = globstring
+
+            [f.update({'glob': d[f['file']]}) for f in file_out if not 'glob' in f]
 
         if 'simple_biquery' in self.config['output']:
             simple_bq_writer = SimpleBqWriter()

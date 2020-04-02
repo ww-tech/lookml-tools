@@ -26,6 +26,6 @@ class CountNameRule(FieldRule):
                 passed (bool): did the rule pass?
 
         '''
-        if lookml_field.is_measure() and lookml_field.type == 'count':
+        if lookml_field.is_measure() and lookml_field.value_for_key('type') == 'count':
             return True, lookml_field.name.endswith("_count")
         return False, None

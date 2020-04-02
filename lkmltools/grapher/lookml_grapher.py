@@ -22,7 +22,7 @@ class NodeType(Enum):
     EXPLORE = 'explore'
     VIEW = 'view'
     ORPHAN = 'orphan'
-
+    OTHER = 'other' #such as datgroup file, empty file
 class LookMlGrapher():
     '''A LookML Grapher that parses a set of LookML files specified in some config
         and creates an image showing the relationship among the models, explores and views
@@ -40,9 +40,11 @@ class LookMlGrapher():
         # list of edge pair names
         self.models_to_explores = []
         self.explores_to_views = []
+        self.views_to_views = []
 
         # dict of node names with their type
         self.node_map = {}
+        self.node_to_filename_map = {}
 
     def plot_graph(self, g, filename, title, node_size=500, label_font_size=12, text_angle=0, image_width=16, image_height=12):
         '''plot the graph and write to file
@@ -89,7 +91,8 @@ class LookMlGrapher():
         #pos = nx.kamada_kawai_layout(g)
         #pos = nx.shell_layout(g)
         #pos = nx.spectral_layout(g)
-        pos = graphviz_layout(g, prog='dot', seed=42)
+#        pos = graphviz_layout(g, prog='dot', seed=42)
+        pos = graphviz_layout(g, prog='dot')
         nx.draw(g, pos, node_size=node_size, node_color = color_map, edge_color='#939393', font_size=9, font_weight='bold')
 
         text = nx.draw_networkx_labels(g, pos, with_labels=False, font_size=label_font_size)
@@ -110,6 +113,7 @@ class LookMlGrapher():
 
         '''
         referenced_views = set([v[1] for v in self.explores_to_views])
+        referenced_views.update(set([v[1] for v in self.views_to_views]))
         view_names = set([k for k in self.node_map if self.node_map[k] == NodeType.VIEW])
         orphans = view_names - referenced_views
         for orphan in orphans:
@@ -135,12 +139,17 @@ class LookMlGrapher():
 
         '''
         g = nx.DiGraph()
+        #logging.info(self.node_map)
+        #logging.info(self.models_to_explores)
+        #logging.info(self.explores_to_views)
+        #logging.info(self.views_to_views)
         [g.add_node(node_name) for node_name in self.node_map]
         [g.add_edge(p[0], p[1]) for p in self.models_to_explores]
         [g.add_edge(p[0], p[1]) for p in self.explores_to_views]
+        [g.add_edge(p[0], p[1]) for p in self.views_to_views]
         return g
 
-    def process_explores(self, m, e):
+    def process_explores(self, m, e, filename):
         '''extract the views referenced by these explores and
         add them to node map and add explore-->view or model-->explores
 
@@ -154,6 +163,7 @@ class LookMlGrapher():
         '''
         explore_name = e['name'] #['_explore']
         self.node_map[explore_name] = NodeType.EXPLORE
+        self.node_to_filename_map[explore_name] = filename
         if m:
             self.models_to_explores.append((m, explore_name))
         if 'from' in e:
@@ -163,7 +173,13 @@ class LookMlGrapher():
             # but there could be more mentioned in the list (if any) of joins
             if 'joins' in e:
                 for k in e['joins']:
-                    self.explores_to_views.append((explore_name, k['from']))
+                    if 'from' in k: 
+                        self.explores_to_views.append((explore_name, k['from']))
+                    else:
+                        self.explores_to_views.append((explore_name, k['name']))
+        else:
+            #e.g. to handle cases such as explore: chat_data {} where explore name is same as view name:
+            self.explores_to_views.append((explore_name, explore_name))
 
     def process_lookml(self, lookml):
         '''given a filepath to a LookML file, extract the views, models, explores as the nodes
@@ -177,19 +193,66 @@ class LookMlGrapher():
             nothing but stores node names and their types as well as edges
 
         '''
+        if "includes" in lookml.json_data:
+            m = lookml.base_name
+            #includes are outside the individual views in the file so the best we can do is take the name of this file as a node
+            if not m in self.node_map:
+                if lookml.filetype == 'model':
+                    self.node_map[m] = NodeType.MODEL
+                if lookml.filetype == 'explore':
+                    self.node_map[m] = NodeType.EXPLORE
+                if lookml.filetype == 'view':
+                    self.node_map[m] = NodeType.VIEW
+                self.node_to_filename_map[m] = lookml.infilepath
+
+            for v in lookml.json_data["includes"]:
+                # if "*" in v:
+                for name in glob.glob(os.path.dirname(lookml.infilepath) + os.sep + v + ".lkml"):
+                    logging.info("From include: \"%s\" including %s" % (v, name))
+                    if name.endswith(".view.lkml"):
+                        name = os.path.basename(name).split(".view.lkml")[0]
+                    #FIXME this only works if the name of the file is the same as the view  but it may not be
+                    # for that, you would have to get the list of views within a view file
+                    self.views_to_views.append((lookml.base_name, name))
+                    if not name in self.node_map:
+                        self.node_map[name] = NodeType.VIEW
+                        self.node_to_filename_map[name] = lookml.infilepath
+                # else:
+                #     if v.endswith(".view"):
+                #         v = v.split(".view")[0]
+                #     self.views_to_views.append((lookml.base_name, v))
+                #     if not v in self.node_map:
+                #         self.node_map[v] = NodeType.VIEW
+                #         self.node_to_filename_map[v] = lookml.infilepath
         if lookml.has_views():
             for v in lookml.views():
                 self.node_map[v['name']] = NodeType.VIEW
+                self.node_to_filename_map[v['name']] = lookml.infilepath
         elif lookml.filetype == 'model':
             m = lookml.base_name
             self.node_map[m] = NodeType.MODEL
+            self.node_to_filename_map[m] = lookml.infilepath
             if lookml.explores():
-                [self.process_explores(m, e) for e in lookml.explores()]
+                [self.process_explores(m, e, lookml.infilepath) for e in lookml.explores()]
+#                 for e in lookml.explores():
+# #                    try:
+#                     self.process_explores(m, e)
+#                     # #[self.process_explores(m, e) for e in lookml.explores()]
+#                     # except Exception as exc:
+#                     #     print(">>>>>>>>>>>>>>>>>>>>>>",m)
+#                     #     print(">>>>>>>>>>>>>>>>>>>>>>",e)
+#                     #     logging.error(exc)
+#                     #     #FIXME swallow for now to try and get through all the files
+#                     #     raise exc
         elif lookml.filetype == 'explore':
             for e in lookml.explores():
-                self.process_explores(None, e)
+                self.process_explores(None, e, lookml.infilepath)
         else:
-            raise Exception("No models, views, or explores? " + lookml.infilepath)
+            #logging.error("issues with %s for no models, view or explores" % lookml.infilepath)
+            #raise Exception("No models, views, or explores? " + lookml.infilepath)
+            logging.error("No models, views, or explores in file: %s" % lookml.infilepath)
+            self.node_map[lookml.infilepath] = NodeType.OTHER
+            self.node_to_filename_map[lookml.infilepath] = lookml.infilepath
 
     def extract_graph_info(self, globstrings):
         '''given a list of fileglobs, process them to extract list of nodes and edges, and orphaned views
