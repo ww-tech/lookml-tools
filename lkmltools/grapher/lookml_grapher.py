@@ -147,6 +147,11 @@ class LookMlGrapher():
         [g.add_edge(p[0], p[1]) for p in self.models_to_explores]
         [g.add_edge(p[0], p[1]) for p in self.explores_to_views]
         [g.add_edge(p[0], p[1]) for p in self.views_to_views]
+
+        #[print(p[0], p[1]) for p in self.models_to_explores]
+        #[print(p[0], p[1]) for p in self.explores_to_views]
+        #[print(p[0], p[1]) for p in self.views_to_views]
+
         return g
 
     def process_explores(self, m, e, filename):
@@ -244,7 +249,7 @@ class LookMlGrapher():
 #                     #     logging.error(exc)
 #                     #     #FIXME swallow for now to try and get through all the files
 #                     #     raise exc
-        elif lookml.filetype == 'explore':
+        elif lookml.has_explores():
             for e in lookml.explores():
                 self.process_explores(None, e, lookml.infilepath)
         else:
