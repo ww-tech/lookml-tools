@@ -5,10 +5,6 @@
             Carl Anderson (carl.anderson@weightwatchers.com)
 '''
 from lkmltools.updater.csv_definitions_provider import CsvDefinitionsProvider
-from lkmltools.updater.sqlite_reader import SQLiteReader
-from lkmltools.updater.bq_definitions_provider import BqDefinitionsProvider
-from lkmltools.updater.mysql_reader import MySQLReader
-from lkmltools.updater.postgres_reader import PostgreSQLReader
 
 class DefinitionsProviderFactory():
     '''
@@ -27,10 +23,10 @@ class DefinitionsProviderFactory():
 
         '''
         dictionary = {
-            "CsvDefinitionsProvider": CsvDefinitionsProvider,
-            "BqDefinitionsProvider": BqDefinitionsProvider,
-            "SQLiteReader": SQLiteReader,
-            "MySQLReader": MySQLReader,
-            "PostgreSQLReader": PostgreSQLReader
+            "CsvDefinitionsProvider": CsvDefinitionsProvider
+            # "BqDefinitionsProvider": BqDefinitionsProvider,
+            # "SQLiteReader": SQLiteReader,
+            # "MySQLReader": MySQLReader,
+            # "PostgreSQLReader": PostgreSQLReader
         }
         return dictionary[class_name](config)

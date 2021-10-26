@@ -31,7 +31,7 @@ class LookMlModifier():
         definitions_provider = DefinitionsProviderFactory.instantiate(config["definitions"]['type'], config)
         self.definitions = definitions_provider.get_definitions()
 
-    def find_description(self, lookml, header_type, header_name):
+    def find_parameter(self, lookml, header_type, header_name, parameter_name):
         '''get the description, if any, from this measure or dimension
 
         Args:
@@ -69,8 +69,8 @@ class LookMlModifier():
         if not found:
             raise IOError("Did not find %s %s" % (header_type, header_name))
 
-        if FieldCategory.DESCRIPTION.value in d:
-            return d[FieldCategory.DESCRIPTION.value], True
+        if parameter_name in d:
+            return d[parameter_name], True
         else:
             return "", False
 
@@ -95,6 +95,7 @@ class LookMlModifier():
 
         lookml = LookML(infilepath)
 
+
         # get definitions for this file. In some cases, we might not
         # easily know the full path (such as full_auto_updater.sh which
         # uses timestamp in the git clone). Thus, just match on basename
@@ -104,27 +105,31 @@ class LookMlModifier():
         else:
             defs = self.definitions[self.definitions.file == infilepath]
 
+        parameters_to_update = [x for x in defs.to_dict().keys() if x not in ['file', 'type', 'name']]
+
         for definition in defs.T.to_dict().values():
-            logging.info("Processing %s: %s", definition['type'], definition['name'])
+            print(definition)
+            for parameter_name in parameters_to_update:
+                logging.info("Processing %s: %s", definition['type'], definition['name'])
 
-            description, has_key = self.find_description(lookml, definition['type'], definition['name'])
+                parameter, has_key = self.find_parameter(lookml, definition['type'], definition['name'], parameter_name)
 
-            num_lines = len(description.split("\n"))
+                num_lines = len(parameter.split("\n"))
 
-            if has_key:
-                logging.info("Existing description for %s.%s: '%s'", definition['type'], definition['name'], description)
-            else:
-                logging.info("No description for %s.%s", definition['type'], definition['name'])
-
-            exepected_description = definition['definition']
-
-            if description != exepected_description:
                 if has_key:
-                    logging.info("Update needed: %s.%s -> '%s'", definition['type'], definition['name'], exepected_description)
-                    logging.info("This is %d line existing description", num_lines)
+                    logging.info("Existing %s for %s.%s: '%s'", parameter_name, definition['type'], definition['name'])
                 else:
-                    logging.info("Injection needed: %s.%s -> '%s'", definition['type'], definition['name'], exepected_description)
+                    logging.info("No %s for %s.%s", parameter_name, definition['type'], definition['name'])
 
-                modifier.modify(num_lines, definition['type'], definition['name'], exepected_description, has_key)
+                exepected_parameter_value = definition[parameter_name]
+
+                if parameter != exepected_parameter_value:
+                    if has_key:
+                        logging.info("Update needed: %s.%s -> '%s'", definition['type'], definition['name'], exepected_parameter_value)
+                        logging.info("This is %d line existing description", num_lines)
+                    else:
+                        logging.info("Injection needed: %s.%s -> '%s'", definition['type'], definition['name'], exepected_parameter_value)
+
+                    modifier.modify(num_lines, definition['type'], definition['name'], parameter_name, exepected_parameter_value, has_key)
 
         modifier.write(outfilepath)

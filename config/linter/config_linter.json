@@ -6,7 +6,7 @@
     },
 
     "infile_globs": [
-        "gitrepo/*.*.lkml"
+        "/Users/andrew.byrne/Dev/looker-dw-pg/access_code.view.lkml"
     ],
 
     "rules": {
@@ -17,11 +17,7 @@
         ],
         "field_level_rules": [
             {"name": "DescriptionRule", "run": true},
-            {"name": "DrillDownRule", "run": true},
-            {"name": "YesNoNameRule", "run": true},
-            {"name": "CountNameRule", "run": true},
-            {"name": "AllCapsRule", "run": true},
-            {"name": "LexiconRule", "run": true, "phrases": ["Subscriber",  "Subscription", "studio"]}
+            {"name": "GroupLabelRule", "run": true}
         ],
         "other_rules": [
             {"name": "NoOrphansRule", "run": true}
@@ -32,14 +28,6 @@
         "csv": {
             "file_output": "linter_file_report.csv",
             "field_output": "linter_field_report.csv"
-        },
-        "bigquery": {
-            "target_bucket_name": "your_bucket",
-            "bucket_folder": "your_folder",
-            "project_id": "your-project",
-            "dataset": "your-dataset",
-            "file_destination_table": "lookml_linter_file_report",
-            "field_destination_table": "lookml_linter_field_report"
         }
     }
 }

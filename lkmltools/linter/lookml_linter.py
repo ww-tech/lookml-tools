@@ -9,6 +9,7 @@ import datetime
 import glob
 import os
 import pandas as pd
+from lkmltools.usage.lookml_field_usage_provider import LookmlFieldUsageProvider
 from lkmltools.linter.rule_factory import RuleFactory
 from lkmltools.lookml import LookML
 from lkmltools.lookml_field import LookMLField
@@ -101,7 +102,13 @@ class LookMlLinter():
             for rule in self.field_rules:
                 relevant, passed = rule.run(f)
                 if relevant:
-                    d = {"file": simple_filepath, "rule": rule.name(), "passed": int(passed), "type": single_key, "fieldname": json_d['name']} #['_' + single_key]}
+                    d = {
+                        "file": simple_filepath,
+                        "rule": rule.name(),
+                        "passed": int(passed),
+                        "type": single_key,
+                        "fieldname": json_d['name']
+                    }
                     field_out.append(d)
                     logging.debug(d)
         return field_out
@@ -116,7 +123,10 @@ class LookMlLinter():
             nothing. Writes data to CSV
 
         '''
-        df.to_csv(self.config['output']['csv']['file_output'], index=False, columns=["time", "file", "rule", "passed","repo", "glob"])
+
+        df = pd.pivot_table(df, index=['time', 'file', 'repo', 'glob'], values=['passed'], columns=['rule'])
+        df.columns = df.columns.droplevel()
+        df.to_csv(self.config['output']['csv']['file_output'])
         logging.info("File output written to %s", self.config['output']['csv']['file_output'])
 
     def write_field_csv(self, df):
@@ -128,7 +138,12 @@ class LookMlLinter():
             Returns:
                 nothing. Writes data to CSV
         '''
-        df.to_csv(self.config['output']['csv']['field_output'], index=False, columns=["time", "file", "rule", "type", "fieldname", "passed","repo", "glob"])
+        df_rules = pd.pivot_table(df, index=['full_fieldname'], values=['passed'], columns=['rule'])
+        df_rules.columns = df_rules.columns.droplevel()
+        df = df[['time', 'file', 'fieldname', 'full_fieldname', 'type', 'repo', 'glob']].drop_duplicates()
+        df = df.join(df_rules, on='full_fieldname')
+        df = LookmlFieldUsageProvider().get_field_usage(df)
+        df.to_csv(self.config['output']['csv']['field_output'])
         logging.info("Field output written to %s", self.config['output']['csv']['field_output'])
 
     def other_rules_to_run(self):
@@ -212,8 +227,10 @@ class LookMlLinter():
 
         if len(field_out) > 0:
             df = pd.DataFrame(field_out)
+            df['full_fieldname'] = df['file'].str.replace('view.lkml', '') + df['fieldname']
             df['time'] = timestr
             df['repo'] = self.config['git']['url']
+            df.set_index('full_fieldname')
 
             if 'csv' in self.config['output']:
                 self.write_field_csv(df)

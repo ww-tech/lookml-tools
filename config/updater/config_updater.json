@@ -1,4 +1,5 @@
 {
+    "use_basename": "true",
     "definitions": {
         "type": "CsvDefinitionsProvider",
         "filename": "definitions.csv"

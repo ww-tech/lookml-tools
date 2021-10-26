@@ -1,8 +1,12 @@
-file,type,name,definition
-test/basic.view.lkml,dimension,country,"This
-is
-the
-correct
-description"
-test/basic.view.lkml,dimension,tier,this is a new description
-someotherfile,dimension,xxx,yyy
+file,type,name,description,group_label,hidden
+access_code.view.lkml,dimension,access_code_group_id,foo,IDs,yes
+access_code.view.lkml,dimension,code,this is a new description,IDs,no
+access_code.view.lkml,dimension,created_at,yyy,IDs,no
+access_code.view.lkml,dimension,expires_at,bar,IDs,no
+access_code.view.lkml,dimension,is_deleted,deleted,IDs,no
+access_code.view.lkml,dimension,pk,stuff,IDs,no
+access_code.view.lkml,dimension,sku,sku,IDs,no
+access_code.view.lkml,dimension,updated_at,date,Counts,no
+access_code.view.lkml,dimension,usage_count,,Counts,no
+access_code.view.lkml,dimension,usage_limit,other stuff,Counts,no
+access_code.view.lkml,measure,count,count,Counts,no

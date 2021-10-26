@@ -4,6 +4,17 @@
 
     Authors:
             Carl Anderson (carl.anderson@weightwatchers.com)
+
+        git add config/linter/config_linter.json
+        git add config/updater/config_updater.json
+        git add definitions.csv
+        git add lkmltools/linter/lookml_linter.py
+        git add lkmltools/linter/rule_factory.py
+        git add lkmltools/updater/bq_definitions_provider.py
+        git add lkmltools/updater/definitions_provider_factory.py
+        git add lkmltools/updater/file_modifier.py
+        git add lkmltools/updater/lookml_modifier.py
+
 '''
 import os
 import logging
@@ -14,7 +25,7 @@ class FileModifier():
         with making as few other changes as possible (no formatting, whitespace, encoding etc)
     '''
 
-    COMMENT = "# programmatically added by LookML modifier"
+    COMMENT = ""
 
     def __init__(self, filename):
         '''initialize the FileModifier
@@ -43,18 +54,17 @@ class FileModifier():
 
         '''
         start = header_type + ":"
-        #FIXME this assumes brace is on same line. Valid LookML means that it doesn't have to be
         if line.strip().startswith(start) and line.split(start)[1].split("{")[0].strip() == header_name:
             return True
         return False
 
-    def handle_description_addition(self, definition_type, name, description):
-        '''add in a new description
+    def handle_parameter_addition(self, definition_type, name, parameter_name, parameter_value):
+        '''add in a new parameter
 
         Args:
             definition_type (str): 'measure' or 'dimension'
             name (str): name of measure or dimension
-            description (str): description to add
+            parameter (str): parameter to add
 
         Returns:
             nothing. Side effect is to add lines to self.lines
@@ -63,7 +73,7 @@ class FileModifier():
         new_lines = []
         for line in self.lines:
             if self.is_header(line, definition_type, name):
-                line_to_add = "    description: \"%s\"\t%s\n" % (description, FileModifier.COMMENT)
+                line_to_add = "    %s: \"%s\"\t%s\n" % (parameter_name, parameter_value, FileModifier.COMMENT)
                 logging.info("Adding in line: %s" % line_to_add)
                 new_lines.append(line) # header
                 new_lines.append(line_to_add)
@@ -71,15 +81,15 @@ class FileModifier():
                 new_lines.append(line)
         self.lines = new_lines
 
-    def handle_desription_substitution(self, num_lines, definition_type, name, description):
-        '''as description exists, we need to find the header, then look for description after it,
-            consume all the lines of the current description, and add the new description
+    def handle_parameter_substitution(self, num_lines, definition_type, name, parameter_name, parameter_value):
+        '''as parameter exists, we need to find the header, then look for parameter after it,
+            consume all the lines of the current parameter, and add the new parameter
 
         Args:
-            num_lines (int): number of lines in the existing description
+            num_lines (int): number of lines in the existing parameter
             definition_type (str): 'measure' or 'dimension'
             name (str): name of measure or dimension
-            description (str): description to add
+            parameter (str): parameter to add
 
         Returns:
             Nothing. Side effect to save to self.lines
@@ -96,15 +106,15 @@ class FileModifier():
                     while True:
                         line = next(iterator)
                         ct += 1
-                        if line.strip().startswith("description"):
-                            logging.info("found description %d lines after header", ct)
+                        if line.strip().startswith(parameter_name):
+                            logging.info("found %s %d lines after header", parameter_name, ct)
 
-                            # consume the other lines for this existing description
+                            # consume the other lines for this existing parameter
                             for i in range(num_lines):
                                 line = next(iterator)
 
-                            # inject our new description
-                            line_to_add = "    description: \"%s\"\t%s\n" % (description, FileModifier.COMMENT)
+                            # inject our new parameter
+                            line_to_add = "    %s: \"%s\"\t%s\n" % (parameter_name, parameter_value, FileModifier.COMMENT)
                             logging.info("Adding in line: %s", line_to_add)
                             new_lines.append(line_to_add)
                             break
@@ -116,25 +126,28 @@ class FileModifier():
                 break
         self.lines = new_lines
 
-    def modify(self, num_lines, definition_type, name, description, has_key):
+    def modify(self, num_lines, definition_type, name, parameter_name, parameter_value, has_key):
         '''
 
         modify an entry
 
         Args:
             num_lines (int): number of lines to substitute
-            has_key (bool): do we have a description key for the definition_type, 
+            has_key (bool): do we have a parameter key for the definition_type,
             name (str): name of dimension, dimension_group, or measure
-            description (str): correct description
+            parameter (str): correct parameter
 
         Returns:
             nothing. Side effect is to update self.lines with correct info
 
         '''
         if not has_key:
-            self.handle_description_addition(definition_type, name, description)
+            self.handle_parameter_addition(definition_type, name, parameter_name, parameter_value)
         else:
-            self.handle_desription_substitution(num_lines, definition_type, name, description)
+            self.handle_parameter_substitution(num_lines, definition_type, name, parameter_name, parameter_value)
+
+    def organize(self):
+
 
     def write(self, filename):
         '''write modified LookML to filename
