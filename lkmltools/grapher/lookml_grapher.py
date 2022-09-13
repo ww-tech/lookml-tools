@@ -89,10 +89,10 @@ class LookMlGrapher():
         #pos = nx.kamada_kawai_layout(g)
         #pos = nx.shell_layout(g)
         #pos = nx.spectral_layout(g)
-        pos = graphviz_layout(g, prog='dot', seed=42)
+        pos = graphviz_layout(g, prog='dot')
         nx.draw(g, pos, node_size=node_size, node_color = color_map, edge_color='#939393', font_size=9, font_weight='bold')
 
-        text = nx.draw_networkx_labels(g, pos, with_labels=False, font_size=label_font_size)
+        text = nx.draw_networkx_labels(g, pos, font_size=label_font_size)
         for _, t in text.items():
             t.set_rotation(text_angle)
 
