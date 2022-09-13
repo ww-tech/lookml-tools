@@ -1,6 +1,6 @@
 {
     "infile_globs": [
-        "../somerepo/*.lkml"
+        "../lookml_tools_poc/*.lkml"
     ],
 
     "output": "graph.png",
