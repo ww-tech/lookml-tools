@@ -163,7 +163,11 @@ class LookMlGrapher():
             # but there could be more mentioned in the list (if any) of joins
             if 'joins' in e:
                 for k in e['joins']:
-                    self.explores_to_views.append((explore_name, k['from']))
+                    #add logic to use the view name where there is not a 'from' used
+                    if 'from' in k:
+                        self.explores_to_views.append((explore_name, k['from']))
+                    else:
+                        self.explores_to_views.append((explore_name, k['name']))
 
     def process_lookml(self, lookml):
         '''given a filepath to a LookML file, extract the views, models, explores as the nodes
