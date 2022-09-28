@@ -15,6 +15,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from lkmltools.lookml import LookML
+import pandas as pd
 
 class NodeType(Enum):
     '''types of node'''
@@ -22,6 +23,7 @@ class NodeType(Enum):
     EXPLORE = 'explore'
     VIEW = 'view'
     ORPHAN = 'orphan'
+    EMPTY = 'empty'
 
 class LookMlGrapher():
     '''A LookML Grapher that parses a set of LookML files specified in some config
@@ -134,8 +136,50 @@ class LookMlGrapher():
             instance of networkx graph
 
         '''
+
         g = nx.DiGraph()
         [g.add_node(node_name) for node_name in self.node_map]
+        [g.add_edge(p[0], p[1]) for p in self.models_to_explores]
+        [g.add_edge(p[0], p[1]) for p in self.explores_to_views]
+        return g
+
+    def create_csv(self):
+        '''use objects so far to create csv of file relationships
+
+        Returns:
+            csv with columns for model, explore, and view
+
+        '''
+
+        #turn our objects into dataframes and join them 
+        m_e = pd.DataFrame(self.models_to_explores, columns = ['model', 'explore'])
+        #m_e.to_csv('models_to_explores.csv', encoding='utf-8',  index=False)
+        e_v = pd.DataFrame(self.explores_to_views, columns = ['explore', 'view'])
+        #e_v.to_csv('explores_to_views.csv', encoding='utf-8',  index=False)
+        relationships = (pd.merge(m_e, e_v, how='inner', on='explore'))
+
+        #get orphans and join them to the file
+        orphans = pd.DataFrame([k[0] for k in self.node_map.items() if k[1] in (NodeType.ORPHAN, NodeType.EMPTY)], columns = ['view'])
+        all_files = pd.merge(relationships, orphans, how='outer', on='view')
+
+        #write out a csv
+        all_files = all_files.sort_values( by=['model', 'explore']).drop_duplicates()
+        all_files.to_csv(self.config['csv_output'], encoding='utf-8', index=False)
+        print(f"csv written to {self.config['csv_output']}")
+
+
+    def create_graph_no_orphans(self):
+        '''add nodes and edges to a graph without orphans
+
+        Returns:
+            instance of networkx graph
+
+        '''
+
+        orphanless_node_map = {k:v for k,v in self.node_map.items() if self.node_map[k] != NodeType.ORPHAN}
+
+        g = nx.DiGraph()
+        [g.add_node(node_name) for node_name in orphanless_node_map]
         [g.add_edge(p[0], p[1]) for p in self.models_to_explores]
         [g.add_edge(p[0], p[1]) for p in self.explores_to_views]
         return g
@@ -152,13 +196,22 @@ class LookMlGrapher():
             nothing. Side effect is to add to maps
 
         '''
-        explore_name = e['name'] #['_explore']
+        if 'from' in e:
+            if 'name' in e['from']:
+                explore_name = e['from']['name']
+                self.explores_to_views.append((explore_name, e['from']['name']))
+            else:
+                explore_name = e['from']
+                self.explores_to_views.append((explore_name, e['from']))
+        else:
+            explore_name = e['name']
+            self.explores_to_views.append((explore_name, e['name']))
         self.node_map[explore_name] = NodeType.EXPLORE
         if m:
             self.models_to_explores.append((m, explore_name))
-        if 'from' in e:
-            # this is the first view mentioned
-            self.explores_to_views.append((explore_name, e['from']))
+        # if 'from' in e:
+        #     # this is the first view mentioned
+        #     self.explores_to_views.append((explore_name, e['from']))
 
         # but there could be more mentioned in the list (if any) of joins (even if there isn't a from in the explore)
         if 'joins' in e:
@@ -192,6 +245,8 @@ class LookMlGrapher():
         elif lookml.filetype == 'explore':
             for e in lookml.explores():
                 self.process_explores(None, e)
+        elif lookml.filetype == 'view':
+            self.node_map[lookml.base_name] = NodeType.EMPTY
         else:
             raise Exception("No models, views, or explores? " + lookml.infilepath)
 
@@ -226,19 +281,33 @@ class LookMlGrapher():
         globstrings = self.config['infile_globs']
         self.extract_graph_info(globstrings)
         g = self.create_graph()
+        h = self.create_graph_no_orphans()
 
         args = {}
         args['g'] = g
         args['filename'] = self.config['output']
+
+        args_no_orphans = {}
+        args_no_orphans['g'] = h
+        args_no_orphans['filename'] = "no_orphans" + self.config['output']
 
         if 'title' in self.config:
             args['title'] = self.config['title']
         else:
             args['title'] = " ".join(globstrings) + " as of " + timestr
 
+        if 'title' in self.config:
+            args_no_orphans['title'] = self.config['title']
+        else:
+            args_no_orphans['title'] = " ".join(globstrings) + " as of " + timestr
+
         if 'options' in self.config:
             args.update(self.config['options'])
+            args_no_orphans.update(self.config['options'])
 
         logging.info("Setting the following options: %s" % args)
+        logging.info("Setting the following options: %s" % args_no_orphans)
 
         self.plot_graph(**args)
+        self.plot_graph(**args_no_orphans)
+        self.create_csv()
