@@ -1,15 +1,46 @@
 {
     "infile_globs": [
-        "*.lkml"
-    ],
+        "../lookml-square-prod/*.lkml",
+"../lookml-square-prod/Cost_Plus/*.lkml",
+"../lookml-square-prod/APP_FDP/*.lkml",
+"../lookml-square-prod/AP_Metadata/*.lkml",
+"../lookml-square-prod/Biztech_Engg/Bank_Recon_Reports/*.lkml",
+"../lookml-square-prod/Biztech_Engg/Cash_Card_Reimbursement_Analytics/*.lkml",
+"../lookml-square-prod/Biztech_Engg/Cash_Headcount_Analytics/*.lkml",
+"../lookml-square-prod/Biztech_Engg/Customer_Funds_Analytics/*.lkml",
+"../lookml-square-prod/Biztech_Engg/Global_Complaints_Analytics/*.lkml",
+"../lookml-square-prod/Biztech_Engg/Headcount_and_Capacity_Mgt_Analytics/*.lkml",
+"../lookml-square-prod/Biztech_Engg/Jira_Analytics/*.lkml",
+"../lookml-square-prod/Biztech_Engg/Newhire_Analytics/*.lkml",
+"../lookml-square-prod/Biztech_Engg/RA_Analytics/*.lkml",
+"../lookml-square-prod/Biztech_Engg/Spend_Analytics/*.lkml",
+"../lookml-square-prod/Biztech_Engg/Tax_Recon_Analytics/*.lkml",
+"../lookml-square-prod/Biztech_Engg/Ver_Analytics/*.lkml",
+"../lookml-square-prod/Devtools/*.lkml",
+"../lookml-square-prod/Getfeedback/*.lkml",
+"../lookml-square-prod/Infrastructure_Services/*.lkml",
+"../lookml-square-prod/Measurement_Analytics/*.lkml",
+"../lookml-square-prod/Registry/*.lkml",
+"../lookml-square-prod/Regulator/*.lkml",
+"../lookml-square-prod/Snowflake_Spend/*.lkml",
+"../lookml-square-prod/Square_Metrics/*.lkml",
+"../lookml-square-prod/Squarewave/*.lkml",
+"../lookml-square-prod/Tax/*.lkml", 
+"../lookml-square-prod/Weekly_Seller_Tracker/*.lkml",
+"../lookml-square-prod/views/*.lkml", 
+"../lookml-square-prod/views/EON_Metrics/*.lkml"
+   ],
 
     "output": "graph.png",
+    
+    "csv_output": "lookml_relationships.csv",
 
     "options": {
         "node_size": 500,
         "label_font_size": 18,
         "text_angle": 30,
         "image_width": 24,
-        "image_height" : 16
+        "image_height" : 16,
+        "title": "Square_Project"
     }
 }
