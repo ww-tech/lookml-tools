@@ -96,6 +96,7 @@ class LookMlGrapher():
 
         text = nx.draw_networkx_labels(g, pos, font_size=label_font_size)
         for _, t in text.items():
+            logging.info(f"Text item to be included: {t}")
             t.set_rotation(text_angle)
 
         plt.axis('off')
@@ -237,16 +238,21 @@ class LookMlGrapher():
         if lookml.has_views():
             for v in lookml.views():
                 self.node_map[v['name']] = NodeType.VIEW
+                viewname = self.node_map[v['name']]
+                # logging.info(f"Found view {viewname}.")
         elif lookml.filetype == 'model':
             m = lookml.base_name
+            logging.info(f"Found model {m}.")
             self.node_map[m] = NodeType.MODEL
             if lookml.explores():
                 [self.process_explores(m, e) for e in lookml.explores()]
         elif lookml.filetype == 'explore':
             for e in lookml.explores():
                 self.process_explores(None, e)
+                # logging.info(f"Found model {e['name']}.")
         elif lookml.filetype == 'view':
             self.node_map[lookml.base_name] = NodeType.EMPTY
+            # logging.info(f"Found empty node {lookml.base_name}.")
         else:
             raise Exception("No models, views, or explores? " + lookml.infilepath)
 
@@ -269,6 +275,9 @@ class LookMlGrapher():
                 logging.info("Processing " + filepath)
                 lookml = LookML(filepath)
                 self.process_lookml(lookml)
+                logging.info(f"{filepath} processing complete.")
+                logging.info(f"{filepath} LookLM type is {type(lookml)}")
+                logging.info(f"{filepath} file type is {lookml.filetype}")
         self.tag_orphans()
 
     def run(self):
@@ -281,6 +290,9 @@ class LookMlGrapher():
         globstrings = self.config['infile_globs']
         self.extract_graph_info(globstrings)
         g = self.create_graph()
+        '''
+        Added by Neven (DAS42) for creating graph without orphan views.
+        '''
         h = self.create_graph_no_orphans()
 
         args = {}

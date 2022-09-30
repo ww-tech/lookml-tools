@@ -14,7 +14,7 @@ googleapis-common-protos==1.5.3
 graphviz==0.20.1
 imageio==2.2.0
 lkml==1.2.0
-matplotlib==2.1.2
+matplotlib==3.6.0
 mysql-connector-python==8.0.16
 mysql-connector==2.2.9
 networkx==2.8.6
